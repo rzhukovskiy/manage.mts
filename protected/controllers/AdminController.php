@@ -21,13 +21,9 @@ class AdminController extends Controller
 
         $EmployeeGroup = EmployeeGroup::model()->findAll(array("order" => "id"));
 
-        /** @var EmployeeGroupArchiveRequestType $EmployeeGroupArchiveRequestType */
-        $EmployeeGroupArchiveRequestType = $this->Employee->EmployeeGroup->EmployeeGroupArchiveRequestType;
-
         $this->requestGeneralParams = array_merge(
             array("Employee" => $this->Employee),
-            array("EmployeeGroup" => $EmployeeGroup),
-            array("EmployeeGroupArchiveRequestType" => $EmployeeGroupArchiveRequestType)
+            array("EmployeeGroup" => $EmployeeGroup)
         );
     }
 
@@ -42,10 +38,12 @@ class AdminController extends Controller
 
     public function getRequestsByEmployee($employee_id)
     {
+        $Employee = Employee::model()->findByPk($employee_id);
+        $RequestLib = new RequestActiveLib($Employee);
+        $CDbCriteria = $RequestLib->getRequestsCriteria();
+
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';
-
-        $CDbCriteria = RequestActiveLib::getRequestsByEmployee($employee_id);
 
         $DataProvider = new CActiveDataProvider(Request::model(), array(
             'criteria' => $CDbCriteria,

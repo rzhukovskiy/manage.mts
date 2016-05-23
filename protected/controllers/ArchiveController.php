@@ -21,8 +21,11 @@ class ArchiveController extends Controller
 
         $EmployeeGroup = EmployeeGroup::model()->findAll(array("order" => "id"));
 
-        /** @var EmployeeGroupArchiveRequestType $EmployeeGroupArchiveRequestType */
-        $EmployeeGroupArchiveRequestType = $this->Employee->EmployeeGroup->EmployeeGroupArchiveRequestType;
+        $EmployeeGroupArchiveRequestType = [];
+        if (isset($this->Employee->EmployeeGroup)) {
+            /** @var EmployeeGroupArchiveRequestType $EmployeeGroupArchiveRequestType */
+            $EmployeeGroupArchiveRequestType = $this->Employee->EmployeeGroup->EmployeeGroupArchiveRequestType;
+        }
 
         $this->requestGeneralParams = array_merge(
             array("Employee" => $this->Employee),
@@ -33,8 +36,15 @@ class ArchiveController extends Controller
 
     public function actionList()
     {
-        $EmployeeGroupLib = new EmployeeGroupLib($this->Employee);
-        $group = $EmployeeGroupLib->getFirstArchiveRequestType();
+        try {
+            $EmployeeGroupLib = new EmployeeGroupLib($this->Employee);
+            $group = $EmployeeGroupLib->getFirstArchiveRequestType();
+        } catch(\Exception $e) {
+            Yii::app()->user->setFlash('error', $e->getMessage());
+
+            $this->redirect(Yii::app()->request->urlReferrer);
+        }
+
         if (isset($_GET['group'])) {
             $group = Yii::app()->request->getQuery('group');
         }

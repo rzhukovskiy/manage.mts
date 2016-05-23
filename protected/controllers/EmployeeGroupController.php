@@ -126,8 +126,6 @@ class EmployeeGroupController extends Controller
 		$EmployeeGroupLib = new EmployeeGroupLib($this->Employee);
 		$EmployeeGroupLib->delete($id);
 
-		EmployeeGroupsOrderNumber::reCalcOrderNumbers();
-
 		$this->redirect(array('index'));
 	}
 }

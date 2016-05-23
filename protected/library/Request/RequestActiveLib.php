@@ -50,18 +50,17 @@ class RequestActiveLib extends RequestLib
     {
         /** @var $RequestProcess RequestProcess */
         $RequestProcess = RequestProcess::model()->find(
-            "request_id = :requestId AND (employee_group_id = :employee_group_id OR employee_group_id = 0)",
+            "request_id = :requestId",
             array(
-                "employee_group_id" => $this->EmployeeGroup->id,
+                //"employee_group_id" => $this->EmployeeGroup->id,
                 "requestId" => $requestId
             )
         );
-
-        $updated = $RequestProcess->updated;
-
         if ($RequestProcess == null) {
             throw new Exception("request not found");
         }
+
+        $updated = $RequestProcess->updated;
 
         $RequestProcess->employee_group_id = $employeeGroupId;
         $RequestProcess->save();
@@ -90,13 +89,12 @@ class RequestActiveLib extends RequestLib
     {
         /** @var $RequestProcess RequestProcess */
         $RequestProcess = RequestProcess::model()->find(
-            "request_id = :requestId AND employee_group_id = :employee_group_id",
+            "request_id = :requestId",
             array(
-                "employee_group_id" => $this->EmployeeGroup->id,
+                //"employee_group_id" => $this->EmployeeGroup->id,
                 "requestId" => $requestId
             )
         );
-
         if ($RequestProcess == null) {
             throw new Exception("request not found");
         }
@@ -120,6 +118,10 @@ class RequestActiveLib extends RequestLib
      */
     public function getTypes($CDbCriteria)
     {
+        if (!isset($this->EmployeeGroup)) {
+            return false;
+        }
+
         /** @var EmployeeGroupRequestType $EmployeeGroupRequestType */
         $EmployeeGroupRequestType = $this->EmployeeGroup->EmployeeGroupRequestType;
         if ($EmployeeGroupRequestType === null) {

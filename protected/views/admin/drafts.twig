@@ -9,7 +9,12 @@
             {% if this.getRequestsCountByEmployee(CurrentEmployee.id) %}
                 <div style="margin-bottom: 30px;">
                     <div class="form-tabs-title">
-                        {{ CurrentEmployee.username }} ({{ CurrentEmployee.EmployeeGroup.name }})
+
+                        {% if CurrentEmployee.EmployeeGroup.name is not defined %}
+                            {{ CurrentEmployee.username }} (<span style="color: red;">Отдел сотрудников не задан</span>)
+                        {% else %}
+                            {{ CurrentEmployee.username }} ({{ CurrentEmployee.EmployeeGroup.name }})
+                        {% endif %}
                     </div>
 
                     {{ this.getRequestsByEmployee(CurrentEmployee.id)|raw }}
