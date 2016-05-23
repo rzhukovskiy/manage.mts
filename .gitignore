@@ -1,0 +1,12 @@
+.idea/
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+protected/config/database.php
+protected/config/database-test.php
+docs/assets/*
+!docs/assets/.gitignore
+docs/themes/classic/views/
+docs/form/_bootstrap.php
+upload/*
+var/

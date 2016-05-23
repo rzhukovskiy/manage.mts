@@ -1,0 +1,152 @@
+{% extends "views/request/tabs.twig" %}
+
+{% block form %}
+    <form method="post" action="{{ this.createUrl('request/updateDetails?id=' ~ Request.id) }}">
+        {% if Request.getInstance().getType() == "service" %}
+            {% include "views/request/tabs/types/service.twig" %}
+        {% endif %}
+
+        {% if Request.getInstance().getType() == "tires" %}
+            {% include "views/request/tabs/types/tires.twig" %}
+        {% endif %}
+
+        {% if Request.getInstance().getType() == "wash" %}
+            {% include "views/request/tabs/types/wash.twig" %}
+        {% endif %}
+
+        {% if Request.getInstance().getType() == "company" %}
+            {% include "views/request/tabs/types/company.twig" %}
+        {% endif %}
+
+        <div class="row" style="padding-top: 30px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="modal fade-in" id="ts_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">x</span></button>
+                    <h4 class="modal-title">Выберите вид транспортного средства</h4>
+                </div>
+                <div class="modal-body">
+
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/one.png">
+                        <h6>Одиночка</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/one_pr.png">
+                        <h6>Тандем (одиночка + прицеп)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura.png">
+                        <h6>Фура (европеец + полуприцеп)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura_am.png">
+                        <h6>Фура (американец + полуприцеп)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/one_bo.png">
+                        <h6>Одиночка бортовая</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/tandem.png">
+                        <h6>Тандем бортовой (одиночка + прицеп)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura_bo.png">
+                        <h6>Фура (американец + полуприцеп бортовой)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura_eu.png">
+                        <h6>Фура (европеец + полуприцеп бортовой)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/one_boch.png">
+                        <h6>Одиночка бочка</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura_boch.png">
+                        <h6>Фура (европец + полуприцеп бочка)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/fura_am_boch.png">
+                        <h6>Фура (американец + полуприцеп бочка)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/skot.png">
+                        <h6>Фура (европеец + полуприцеп скотовозка)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/skotovoz_american.jpg">
+                        <h6>Фура (американец + полуприцеп скотовозка)</h6>
+                    </button>
+
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/sam.png">
+                        <h6>Самосвал одиночка</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/mix.png">
+                        <h6>Миксер одиночка</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/cem.png">
+                        <h6>Фура (европеец + полуприцеп цементовоз)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/ton.png">
+                        <h6>Тонар (европеец + полуприцеп самосвал)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/ton_am.png">
+                        <h6>Тонар (американец + полуприцеп самосвал)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/kr.png">
+                        <h6>Кран</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/kr_b.png">
+                        <h6>Кран большои</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/buch.png">
+                        <h6>Бычок (подобные по размеру)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/ga.png">
+                        <h6>Газель (подобные по размеру)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/pi.png">
+                        <h6>Пирожок (подобные по размеру)</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/sedan.jpg">
+                        <h6>Легковая</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/offroad.jpg">
+                        <h6>Внедорожник</h6>
+                    </button>
+                    <button class="btn text-center btn-ts-select">
+                        <img src="/form/img/miniwan.jpg">
+                        <h6>Микроавтобус</h6>
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+{% endblock %}

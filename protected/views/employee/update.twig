@@ -1,0 +1,45 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% include "views/employeeGroup/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">Правка: {{ model.username }}</a></li>
+    </ul>
+    <div class="form-tabs">
+        <form id="employee-form" class="form-horizontal" method="post" action="{{ "/employee/update?id=" ~ model.id }}">
+            <div class="form-group">
+                <label for="Employee_username" class="required col-sm-2 control-label">Имя пользователя</label>
+                <div class="col-sm-10">
+                    <input name="Employee[username]" id="Employee_username" class="form-control" type="text" maxlength="32" value="{{ model.username }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Employee_password" class="required col-sm-2 control-label">Пароль</label>
+                <div class="col-sm-10">
+                    <input size="60" maxlength="64" name="Employee[password]" class="form-control" id="Employee_password" type="password" value="{{ model.password }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Employee_employee_group_id" class="col-sm-2 control-label">Отдел</label>
+                <div class="col-sm-10">
+                    <select name="Employee[employee_group_id]" class="form-control" id="Employee_employee_group_id">
+                        {% for CurrentEmployeeGroup in EmployeeGroup %}
+                            <option
+                                    {% if CurrentEmployeeGroup.id == model.employee_group_id %}selected="selected"{% endif %}
+                                    value="{{ CurrentEmployeeGroup.id }}">{{ CurrentEmployeeGroup.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <input type="hidden" name="urlReferrer" id="urlReferrer" value="{{ urlReferrer }}" />
+                    <input type="submit" class="btn btn-primary" name="yt0" value="Сохранить" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

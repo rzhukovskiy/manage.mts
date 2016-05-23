@@ -1,0 +1,5 @@
+{% extends "views/request/tabs.twig" %}
+
+{% block form %}
+    {{ this.renderPartial('tabs/_info', {'model': Request}, true)|raw }}
+{% endblock %}

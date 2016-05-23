@@ -1,0 +1,68 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% include "views/employeeGroup/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">{{ model.name }}</a></li>
+    </ul>
+    <div class="form-tabs">
+        <form id="employee-form" class="form-horizontal" method="post" action="{{ "/employeeGroup/update?id=" ~ model.id }}">
+            <div class="form-group">
+                <label for="EmployeeGroup_name" class="required col-sm-2 control-label">Название отдела</label>
+                <div class="col-sm-10">
+                    <input name="EmployeeGroup[name]" id="EmployeeGroup_name" class="form-control" type="text" maxlength="32" value="{{ model.name }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="EmployeeGroup_manage" class="col-sm-2 control-label">Управление заявками</label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <input name="EmployeeGroup[manage]" id="EmployeeGroup_manage" type="checkbox" {% if model.manage %}checked{% endif %} value="1" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Типы заявок</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupType" name="EmployeeGroupType[service]" type="checkbox" {% if model.EmployeeGroupRequestType.service %}checked{% endif %} value="1" /> Сервис
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupType" name="EmployeeGroupType[wash]" type="checkbox" {% if model.EmployeeGroupRequestType.wash %}checked{% endif %} value="1" /> Мойки
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupType" name="EmployeeGroupType[tires]" type="checkbox" {% if model.EmployeeGroupRequestType.tires %}checked{% endif %} value="1" /> Шиномонтаж
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupType" name="EmployeeGroupType[company]" type="checkbox" {% if model.EmployeeGroupRequestType.company %}checked{% endif %} value="1" /> Компании
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Архив</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupArchive" name="EmployeeGroupArchive[service]" type="checkbox" {% if model.EmployeeGroupArchiveRequestType.service %}checked{% endif %} value="1" /> Сервис
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupArchive" name="EmployeeGroupArchive[wash]" type="checkbox" {% if model.EmployeeGroupArchiveRequestType.wash %}checked{% endif %} value="1" /> Мойки
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupArchive" name="EmployeeGroupArchive[tires]" type="checkbox" {% if model.EmployeeGroupArchiveRequestType.tires %}checked{% endif %} value="1" /> Шиномонтаж
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="EmployeeGroupArchive" name="EmployeeGroupArchive[company]" type="checkbox" {% if model.EmployeeGroupArchiveRequestType.company %}checked{% endif %} value="1" /> Компании
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <input type="submit" class="btn btn-primary" name="yt0" value="Сохранить" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

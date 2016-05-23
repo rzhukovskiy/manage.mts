@@ -1,0 +1,27 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="/report/requests">Отчёты по заявкам</a></li>
+    </ol>
+{% endblock %}
+
+{% block leftmenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ '/report/dates' }}">
+                По дате
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">Отчёты по заявкам</a></li>
+    </ul>
+    <div class="form-tabs">
+        {{ grid|raw }}
+    </div>
+{% endblock %}

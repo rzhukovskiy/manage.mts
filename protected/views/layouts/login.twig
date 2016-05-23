@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ App.language }}">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <title>{{ App.name }}</title>
+    <link href="/styles/styles.css" rel="stylesheet">
+</head>
+<body style="text-align: center;">
+<div class="wrapper">
+    <div class="content">
+        {{ content|raw }}
+    </div>
+    <div class="footer">
+        <footer style="text-align: center;">
+            <div class="mts-logo">
+                <a href="http://mtransservice.ru">mtransservice.ru &copy;</a>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

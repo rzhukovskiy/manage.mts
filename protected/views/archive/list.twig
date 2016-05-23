@@ -1,0 +1,56 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% include "views/archive/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active">
+            <a href="#">Заявки {{ translateGroup }}</a>
+        </li>
+    </ul>
+    <div class="form-tabs">
+        {% if group == "company" %}
+            <a class="btn btn-default btn-primary" href="/archive/addCompany">Добавить</a>
+        {% endif %}
+
+        {% if group == "wash" %}
+            <a class="btn btn-default btn-primary" href="/archive/addWash">Добавить</a>
+        {% endif %}
+
+        {% if group == "tires" %}
+            <a class="btn btn-default btn-primary" href="/archive/addTires">Добавить</a>
+        {% endif %}
+
+        {% if group == "service" %}
+            <a class="btn btn-default btn-primary" href="/archive/addService">Добавить</a>
+        {% endif %}
+
+        <hr />
+
+        {% if Cities is empty %}
+            <p style="text-align: center;">
+                <i>Пусто</i>
+            </p>
+        {% endif %}
+
+        {% for CurrentCity in Cities %}
+            <div style="margin-bottom: 30px;">
+                <div class="form-tabs-title">
+                    {% if CurrentCity.isAddressCity() %}
+                        {{ CurrentCity.address_city }}
+                    {% else %}
+                        Город не указан
+                    {% endif %}
+                </div>
+
+                {% if CurrentCity.isAddressCity() %}
+                    {{ this.getRequestsByCity(group, CurrentCity.address_city)|raw }}
+                {% else %}
+                    {{ this.getRequestsByCity(group, "")|raw }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

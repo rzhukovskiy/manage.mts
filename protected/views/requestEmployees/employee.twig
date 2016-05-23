@@ -1,0 +1,63 @@
+<div class="request-employee-block" style="margin-top: 20px;">
+
+    <table id="request-general-params" class='table table-bordered table-hover'>
+        <tr>
+            <th>ФИО</th>
+            <td>
+                {{ this.widget('booster.widgets.TbEditableField', {
+                    'type': 'text',
+                    'model': CurrentRequestEmployee,
+                    'attribute': 'name',
+                    'url': this.createUrl('requestEmployees/updateEmployee'),
+                    'htmlOptions': {
+                        'class': 'employee-name'
+                    }
+                }, true)|raw }}
+            </td>
+        </tr>
+        <tr>
+            <th>Должность</th>
+            <td>
+                {{ this.widget('booster.widgets.TbEditableField', {
+                    'type': 'text',
+                    'model': CurrentRequestEmployee,
+                    'attribute': 'position',
+                    'url': this.createUrl('requestEmployees/updateEmployee')
+                }, true)|raw }}
+            </td>
+        </tr>
+        <tr>
+            <th>Телефон</th>
+            <td>
+                {{ this.widget('booster.widgets.TbEditableField', {
+                    'type': 'text',
+                    'model': CurrentRequestEmployee,
+                    'attribute': 'phone',
+                    'url': this.createUrl('requestEmployees/updateEmployee')
+                }, true)|raw }}
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                {{ this.widget('booster.widgets.TbEditableField', {
+                    'type': 'text',
+                    'model': CurrentRequestEmployee,
+                    'attribute': 'email',
+                    'url': this.createUrl('requestEmployees/updateEmployee'),
+                    'htmlOptions': {
+                        'class': 'employee-email'
+                    }
+                }, true)|raw }}
+
+                <span style="padding-left: 10px; font-size: 14px;">
+                    <a href="#" class="request-employee-mail" title="Написать письмо">
+                        <i class="fa fa-inbox"></i>
+                    </a>
+                </span>
+            </td>
+        </tr>
+    </table>
+
+    <a href="#" class="btn btn-primary request-employee-remove" data-employee-id="{{ CurrentRequestEmployee.id }}" style="margin-top: 5px;">Удалить</a>
+</div>

@@ -1,0 +1,226 @@
+html, body {
+  height: 100%;
+}
+body {
+  background-color: #DEDEDC;
+  color: @text-color;
+
+  .wrapper {
+    position: relative;
+    min-height: 100%;
+
+    .content {
+      padding-bottom: 320px;
+    }
+
+    .footer {
+      height: 310px;
+      padding-top: 10px;
+      bottom: 0;
+      margin: 0 auto;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+
+      .mts-logo {
+        background-image: url("../images/logo.png");
+        background-repeat: no-repeat;
+        background-position: 20px center;
+        height: 100px;
+        width: 164px;
+        bottom: 20px;
+        margin: 100px auto;
+        padding-top: 110px;
+        a {
+          font-size: 16px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  #header {
+    z-index: 100;
+    //position: fixed;
+    left: 0;
+    right: 0;
+
+    .navbar-default .navbar-nav > li > a:hover {
+      color: black;
+    }
+
+    .navbar.project-menu-bg {
+      background-color: @brand-dark;
+    }
+
+    .navbar {
+      background-color: @header-navbar-default-bg;
+      border-radius: @radius;
+      height: @header-navbar-height;
+      min-height: @header-navbar-height;
+      margin-bottom: 0;
+
+      div > ul > li.active {
+        border-top: 2px solid @brand-warning;
+      }
+
+      li > a {
+        cursor: pointer;
+      }
+
+      div > ul > li > a {
+        padding-top: 11px;
+        padding-bottom: 10px;
+        color: white;
+      }
+
+      div > ul > li.active > a {
+        padding-top: 9px;
+        color: @gray-dark;
+      }
+
+      div > ul > li.open > a {
+        color: @gray-dark;
+      }
+
+      .navbar-brand {
+        padding: 10px 10px 10px;
+      }
+
+      .avatar {
+        max-height: @header-navbar-height;
+        overflow: hidden;
+        .header-avatar {
+          float: left;
+          padding-right: 10px;
+          max-width: 98px;
+          margin-top: -10px;
+          max-height: 36px;
+        }
+        .header-text {
+          float: right;
+        }
+      }
+
+      .status-online {
+        color: @brand-success;
+      }
+      .status-away {
+        color: @brand-warning;
+      }
+      .status-offline {
+        color: @brand-danger;
+      }
+    }
+  }
+
+  #content {
+    z-index: 0;
+    margin: 0 auto;
+    padding: 0;
+
+    .push {
+      height: 240px;
+    }
+
+    .navbar {
+      border-width: 0;
+      border-bottom: 1px solid @gray-light;
+    }
+
+    #section-header {
+      //position: fixed;
+      position: absolute;
+      left: 0;
+      right: 0;
+      //background: linear-gradient(to top, @gray-light, @gray-lighter);
+      border-bottom: 1px solid #dedede;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02);
+      z-index: 5;
+
+      li > a {
+        cursor: pointer;
+      }
+
+      > li > a {
+        padding-top: 11px;
+        padding-bottom: 11px;
+      }
+    }
+
+    #submenu {
+      background-color: #FFFFFF;
+      border: 1px solid #DEDEDE;
+      border-radius: 5px;
+      left: 10px;
+      position: fixed;
+      top: 50px;
+      width: 200px;
+
+      ul {
+        margin: 4px;
+      }
+
+      ul > li {
+        border-top: 1px solid #DEDEDE;
+        border-left: 1px solid #DEDEDE;
+        border-right: 1px solid #DEDEDE;
+        margin: 0;
+
+        a {
+          font-weight: bold;
+          padding: 8px 12px;
+        }
+      }
+
+      ul > li:last-child {
+        border-bottom: 1px solid #DEDEDE;
+      }
+
+      ul > li.active > a {
+        background-color: @brand-primary;
+        color: #FFFFFF;
+      }
+    }
+
+    #center-content-right {
+      margin-left: 217px;
+      margin-right: 10px;
+    }
+
+    #flash-errors {
+      //margin-top: 10px;
+    }
+
+    #center-content {
+      padding-top: 11px;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .pagination {
+      margin: 7px 0 0;
+      li > a {
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+    }
+
+    hr {
+      border-color: #e1e1e1;
+    }
+    hr.blue {
+      border-color: @brand-primary;
+      border-width: 2px;
+    }
+
+    .subscribe {
+      color: #999999;
+    }
+    h3 {
+      margin-top: 8px;
+    }
+  }
+}

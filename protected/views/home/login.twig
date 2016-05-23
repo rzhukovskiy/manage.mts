@@ -1,0 +1,13 @@
+<div class="login-form">
+    <form id="login" action="{{ App.createUrl('home/login') }}" method="post">
+        <p>
+            <input id="LoginForm_username" name="LoginForm[username]" type="text" class="form-control" placeholder="Имя" />
+        </p>
+        <p>
+            <input id="LoginForm_password" name="LoginForm[password]" type="password" class="form-control" placeholder="Пароль"  />
+        </p>
+        <p>
+            <button id="formBtn" type="submit" class="btn btn-primary">Войти</button>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,87 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% if RequestLib.getType() == 'active' %}
+    {% include "views/request/_left.twig" %}
+    {% endif %}
+
+    {% if RequestLib.getType() == 'archive' %}
+        {% include "views/archive/left.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div style="margin-bottom: 10px;">
+        {% if RequestLib.getType() == 'active' %}
+            <button type="button" class="btn btn-primary request-index-next" data-id="{{ Request.id }}">Передать в другой отдел</button>
+            {% if this.Employee.EmployeeGroup.manage %}
+                <button type="button" class="btn btn-primary request-index-finish" data-id="{{ Request.id }}">Переместить в архив</button>
+            {% endif %}
+        {% endif %}
+        {% if App.user.role == "admin" %}
+            <button type="button" class="btn btn-danger request-index-delete" data-id="{{ Request.id }}">Удалить</button>
+        {% endif %}
+    </div>
+
+    <ul class="nav nav-tabs nav-tabs-request">
+        <li {% if App.controller.action.id == "details" %}class="active"{% endif %}>
+            <a href="/request/details?id={{ Request.id }}">
+                {% if Request.getName() != '' %}
+                    {{ Request.getName() }}
+                {% else %}
+                    Без названия
+                {% endif %}
+            </a>
+        </li>
+        <li {% if App.controller.action.id == "info" %}class="active"{% endif %}>
+            <a href="/request/info?id={{ Request.id }}">Инфо</a>
+        </li>
+        <li {% if App.controller.action.id == "employees" %}class="active"{% endif %}>
+            <a href="/request/employees?id={{ Request.id }}">Сотрудники</a>
+        </li>
+        <li {% if App.controller.action.id == "comments" %}class="active"{% endif %}>
+            <a href="/request/comments?id={{ Request.id }}">Комментарии</a>
+        </li>
+        <li {% if App.controller.action.id == "requestDetails" %}class="active"{% endif %}>
+            <a href="/request/requestDetails?id={{ Request.id }}">Данные заявки</a>
+        </li>
+
+        {% if Request.getRequestType() == "company" %}
+            <li {% if App.controller.action.id == "companyDrivers" %}class="active"{% endif %}>
+                <a href="/request/companyDrivers?id={{ Request.id }}">Водители</a>
+            </li>
+        {% endif %}
+
+        {% if Request.getRequestType() == "wash" %}
+            <li {% if App.controller.action.id == "washPrices" %}class="active"{% endif %}>
+                <a href="/request/washPrices?id={{ Request.id }}">Цены</a>
+            </li>
+        {% endif %}
+
+    </ul>
+
+    <div class="form-tabs">
+        {% block form %}{% endblock %}
+    </div>
+
+    <div class="modal" id="requestWork">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label class="control-label">Отдел, куда перенаправляем заявку</label>
+                    <select id="nextWork-employee-group" class="form-control">
+                        {% for currentEmployeeGroup in EmployeeGroup %}
+                        <option value="{{ currentEmployeeGroup.id }}">{{ currentEmployeeGroup.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="nextWork-requestId" value="" />
+                    <button type="button" class="btn btn-primary request-index-next-confirm">Завершить</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<h3>Директор</h3>
+
+<table id="request-director-params" class='table table-bordered table-hover'>
+    <tr>
+        <th>ФИО</th>
+        <td>
+            {{ this.widget('booster.widgets.TbEditableField', {
+                'type': 'text',
+                'model': Request,
+                'attribute': 'director_name',
+                'url': this.createUrl('request/updateDetails'),
+                'htmlOptions': {
+                    'class': 'employee-name'
+                }
+            }, true)|raw }}
+        </td>
+    </tr>
+    <tr>
+        <th>Телефон</th>
+        <td>
+            {{ this.widget('booster.widgets.TbEditableField', {
+                'type': 'text',
+                'model': Request,
+                'attribute': 'director_phone',
+                'url': this.createUrl('request/updateDetails')
+            }, true)|raw }}
+        </td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>
+            {{ this.widget('booster.widgets.TbEditableField', {
+                'type': 'text',
+                'model': Request,
+                'attribute': 'director_email',
+                'url': this.createUrl('request/updateDetails'),
+                'htmlOptions': {
+                    'class': 'employee-email'
+                }
+            }, true)|raw }}
+
+            <span style="padding-left: 10px; font-size: 14px;">
+                    <a href="#" class="request-employee-mail" title="Написать письмо">
+                        <i class="fa fa-inbox"></i>
+                    </a>
+                </span>
+        </td>
+    </tr>
+</table>

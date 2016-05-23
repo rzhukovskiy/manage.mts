@@ -1,0 +1,62 @@
+<h3>Обслуживаемые марки:</h3>
+<p>
+    <strong>Официально: </strong>
+
+    {{ this.widget('booster.widgets.TbEditableField', {
+        'type': 'textarea',
+        'model': Request.RequestService,
+        'attribute': 'official_dealer',
+        'url': this.createUrl('requestDetails/updateServiceDealer')
+    }, true)|raw }}
+</p>
+<p>
+    <strong>Неофициально:</strong>
+    {{ this.widget('booster.widgets.TbEditableField', {
+        'type': 'textarea',
+        'model': Request.RequestService,
+        'attribute': 'nonofficial_dealer',
+        'url': this.createUrl('requestDetails/updateServiceDealer')
+    }, true)|raw }}
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="items">
+            <div class="form-group">
+                <h3>Нормо-час на основные виды работ:</h3>
+            </div>
+
+            <div class="advancedDetailBlock">
+                {% for Work in Request.RequestService.RequestServiceWorkRate %}
+                    {% include "views/requestDetails/serviceWorkRate.twig" %}
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <button type="button" class="btn btn-primary btn-addServiceWorkRate" title="Добавить организацию">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="items">
+            <div class="form-group">
+                <h3>Организации, транспорт которых обслуживается компанией:</h3>
+            </div>
+
+            <div class="advancedDetailBlock">
+                {% for Organisation in Request.RequestService.RequestServiceServeOrganisation %}
+                    {% include "views/requestDetails/serviceServeOrganisation.twig" %}
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <button type="button" class="btn btn-primary btn-addServiceServeOrganisation" title="Добавить организацию">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

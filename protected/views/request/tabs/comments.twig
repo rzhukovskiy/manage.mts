@@ -1,0 +1,36 @@
+{% extends "views/request/tabs.twig" %}
+
+{% block form %}
+    <div id="request-cooments">
+        {% for CurrentRequestComment in RequestComments %}
+            {% include "views/requestComments/comment.twig" %}
+        {% endfor %}
+    </div>
+
+    <p>
+        <a href="#" data-toggle="modal" data-target="#requestCommentNew" class="btn btn-primary request-comment-add">
+            <i class="fa fa-comment"></i> Добавить комментарий
+        </a>
+    </p>
+
+    <div class="modal" id="requestCommentNew">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Комментарий</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" id="comment-text"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="request-id" value="{{ Request.id }}" />
+                    <button type="button" id="request-comment-add-confirm" class="btn btn-primary">Завершить</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

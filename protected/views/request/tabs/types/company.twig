@@ -1,0 +1,60 @@
+<h3>Дополнительно:</h3>
+
+{{ this.widget('booster.widgets.TbEditableDetailView', {
+    'id': 'request-contact-params',
+    'data': Request.RequestCompany,
+    'url': this.createUrl('requestDetails/updateCompanyContact'),
+    'attributes': [
+    'contact_name',
+    'phone',
+    'email',
+    'city'
+    ]
+}, true)|raw }}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="items">
+            <div class="form-group">
+                <h3>Автопарк компании:</h3>
+            </div>
+
+            <div class="advancedDetailBlock">
+                {% for Auto in Request.RequestCompany.RequestCompanyAutopark %}
+                    {% include "views/requestDetails/company.twig" %}
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary btn-addCompanyAdvancedDetail" title="Добавить автомобиль">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="items">
+            <div class="form-group">
+                <h3>Список ТС:</h3>
+            </div>
+
+            <div class="advancedDetailBlock">
+                {% for Auto in Request.RequestCompany.RequestCompanyListAuto %}
+                    {% include "views/requestDetails/companyListAuto.twig" %}
+                {% endfor %}
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary btn-addCompanyListAuto" title="Добавить автомобиль">+</button>
+                    <span class="browse-button">
+                        <input class="btn btn-primary" type="button" value="Загрузить из excel файла" />
+                        <input type="file" data-id="{{ Request.id }}" id="btn-addCompanyListAuto-FromFile" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

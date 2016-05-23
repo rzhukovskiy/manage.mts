@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="items">
+            <div class="form-group">
+                <h3>Организации, транспорт которых обслуживается компанией:</h3>
+            </div>
+
+            <div class="advancedDetailBlock">
+                {% for Organisation in Request.RequestWash.RequestWashServeOrganisation %}
+                    {% include "views/requestDetails/wash.twig" %}
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary btn-addWashAdvancedDetail" title="Добавить организацию">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="form-group multiple-form-group row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Марка ТС</label>
+            <input type="text" class="form-control input-one" name="RequestCompanyDriver[model][]"
+                   value="{% if Driver is defined %}{{ Driver.model }}{% endif %}"/>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Вид ТС</label>
+
+            <div class="">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="RequestCompanyDriver[type][]"
+                           value="{% if Driver is defined %}{{ Driver.type }}{% endif %}"/>
+                    <span class="input-group-btn">
+                        <button
+                                class="btn btn-default form-control btn-ts-modal btn-edit" data-toggle="modal"
+                                data-target="#ts_modal"><span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>ФИО</label>
+
+            <div class="">
+                <input type="text" class="form-control input-one"
+                       name="RequestCompanyDriver[fio][]" value="{% if Driver is defined %}{{ Driver.fio }}{% endif %}"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Телефон</label>
+
+            <div class="">
+                <input type="text" class="form-control input-one"
+                       name="RequestCompanyDriver[phone][]" value="{% if Driver is defined %}{{ Driver.phone }}{% endif %}"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <label>Удалить</label>
+        <div class="">
+            <button type="button" class="btn btn-primary btn-removeAdvancedDetail">-</button>
+        </div>
+    </div>
+</div>

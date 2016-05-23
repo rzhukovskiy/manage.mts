@@ -1,0 +1,39 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="/request">Заявки {{ translateGroup }}</a></li>
+    </ol>
+{% endblock %}
+
+{% block leftmenu %}
+    {% include "views/request/_left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">{{ translateGroup }}</a></li>
+    </ul>
+    <div class="form-tabs">
+        {% if group == "company" %}
+            <a class="btn btn-default btn-primary" href="/request/addCompany">Добавить</a>
+        {% endif %}
+
+        {% if group == "wash" %}
+            <a class="btn btn-default btn-primary" href="/request/addWash">Добавить</a>
+        {% endif %}
+
+        {% if group == "tires" %}
+            <a class="btn btn-default btn-primary" href="/request/addTires">Добавить</a>
+        {% endif %}
+
+        {% if group == "service" %}
+            <a class="btn btn-default btn-primary" href="/request/addService">Добавить</a>
+        {% endif %}
+
+        <hr />
+
+        {{ this.renderPartial('_grid', {'DataProvider': DataProvider}, true)|raw }}
+    </div>
+{% endblock %}

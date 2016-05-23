@@ -1,0 +1,20 @@
+<div class="form-group multiple-form-group row example">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label>Вид работ</label>
+            <input type="text" class="form-control input-one" name="RequestServiceWorkRate[type][]" value="{{ Work.work_name }}" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Нормо-час</label>
+            <input type="text" class="form-control input-one" name="RequestServiceWorkRate[norm][]" value="{{ Work.rate }}" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        <label>Удалить</label>
+        <div class="">
+            <button type="button" class="btn btn-primary btn-removeAdvancedDetail">-</button>
+        </div>
+    </div>
+</div>

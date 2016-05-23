@@ -1,0 +1,150 @@
+// Form
+.grid-view {
+  padding-top: 0px;
+}
+.form-pills {
+  margin: -5px -10px 0 -10px;
+  background-color: @nav-pills-disabled-link-hover-bg;
+  margin-bottom: 10px;
+
+  li a {
+    color: @nav-pills-disabled-link-hover-color;
+    padding: 8px 12px;
+  }
+  li.active a {
+    color: #000000;
+    outline-style: none;
+    border-top: 2px solid @brand-warning;
+  }
+  li > a:hover {
+    background-color: @brand-info;
+  }
+  a:hover {
+    color: #ffffff;
+  }
+  li.active a:hover {
+    background-color: #ffffff;
+  }
+}
+.form-content {
+  float: left;
+  margin: 0;
+  overflow: visible;
+  padding: 5px 10px;
+  //margin: 0 10px 20px 0;
+  //padding: 0;
+  margin: 0;
+  position: relative;
+  border: 5px solid @brand-primary;
+  //border: 1px solid #D3D3D3;
+  border-radius: @radius;
+  background-color: #ffffff;
+
+  .form-content-header {
+    padding: 7px 10px;
+    background-color: @brand-primary;
+    margin: -7px -10px 10px;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .form-content-footer {
+    //margin: -5px -10px;
+    margin: 0;
+    padding: 10px;
+    border-top: 1px solid @gray-light;
+    background-color: @gray-lighter;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.07) inset;
+    overflow: hidden;
+  }
+}
+
+.form-tabs {
+  background-color: @content-bg-color;
+  border: 1px solid #DDD;
+  border-top: 0 none;
+  padding: 20px 15px 10px;
+
+  .form-tabs-title {
+    background-color: @brand-primary;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 6px 10px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px #222;
+  }
+
+  label {
+    color: #069;
+  }
+
+  .label > i {
+    position: relative;
+    top: 1px;
+  }
+
+  .table > thead > tr > th {
+    background: #eeeeee url("../images/titlebg.png") repeat-x scroll left top;
+    border-bottom: 0;
+    color: #069;
+  }
+}
+
+.request__new {
+  color: limegreen;
+}
+
+#request-general-params,
+#request-director-params,
+#request-doc-params,
+#request-contact-params,
+#request-newemployee-params,
+#request-wash-params,
+.request-doc-params-actions {
+  th {
+    width: 240px;
+  }
+}
+
+a.editable {
+  color: black;
+}
+
+.editable-click, a.editable-click, a.editable-click:hover {
+  border-bottom: none;
+  font-style: normal;
+}
+
+a.editable.editable-empty, .editable-empty:hover, .editable-empty:focus {
+  color: red;
+}
+
+.nav-tabs-request > li > a {
+  outline: none;
+}
+
+/**
+* File upload
+*/
+.browse-button {
+  cursor: pointer;
+  //float: left;
+  overflow: hidden;
+  position: relative;
+}
+.browse-button input[type="button"] {
+  cursor: pointer;
+}
+.browse-button input[type="file"] {
+  width: 150px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+  opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+#request-agreement-file-block {
+  padding-top: 4px;
+}

@@ -1,0 +1,57 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="/report/requests">Отчёты по заявкам</a></li>
+        <li><a href="/report/view?id={{ RequestProcess.id }}">Отчёт: {{ RequestProcess.Request.name }}</a></li>
+    </ol>
+{% endblock %}
+
+{% block leftmenu %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ '/report/dates' }}">
+                По дате
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">Отчёт: {{ RequestProcess.Request.name }}</a></li>
+    </ul>
+    <div class="form-tabs">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Отдел</th>
+                <th>Сотрудник</th>
+                <th>Время начала обработки заявки</th>
+                <th>Время окончания обработки заявки</th>
+                <th>Комментарий</th>
+            </tr>
+        {% for CurrentRequestProcessEmployee in RequestProcess.RequestProcessEmployee %}
+            <tr>
+                <td>{{ CurrentRequestProcessEmployee.Employee.EmployeeGroup.name }}</td>
+                <td>{{ CurrentRequestProcessEmployee.Employee.username }}</td>
+                <td>{{ CurrentRequestProcessEmployee.created }}</td>
+                <td>
+                    {% if CurrentRequestProcessEmployee.isFinished() %}
+                        {{ CurrentRequestProcessEmployee.finished }}
+                    {% else %}
+                        ---
+                    {% endif %}
+                </td>
+                <td>
+                    {% if CurrentRequestProcessEmployee.existComment() %}
+                        {{ CurrentRequestProcessEmployee.comment }}
+                    {% else %}
+                        пусто
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

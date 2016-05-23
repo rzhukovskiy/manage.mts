@@ -1,0 +1,26 @@
+<phpunit bootstrap="./bootstrap.php"
+		 backupGlobals="false"
+		 backupStaticAttributes="false"
+		 verbose="true"
+		 colors="true"
+		 convertErrorsToExceptions="false"
+		 convertNoticesToExceptions="true"
+		 convertWarningsToExceptions="true"
+		 processIsolation="false"
+		 stopOnFailure="false"
+		 syntaxCheck="true">
+	<testsuite name="manage.mts unittests">
+		<directory>./</directory>
+	</testsuite>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../protected/</directory>
+			<exclude>
+				<directory suffix=".php">../protected/config/</directory>
+				<directory suffix=".php">../protected/runtime/</directory>
+				<directory suffix=".php">../protected/vendor/</directory>
+				<file>../protected/yiic.php</file>
+			</exclude>
+		</whitelist>
+	</filter>
+</phpunit>

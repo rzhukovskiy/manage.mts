@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="{{ App.language }}">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<title>{{ App.name }}</title>
+	<link href="/styles/styles.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="content">
+			{{ content|raw }}
+		</div>
+		<div class="footer">
+			<footer style="text-align: center;">
+				<div class="mts-logo">
+					<a href="http://mtransservice.ru">mtransservice.ru &copy;</a>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="/js/moment-with-locales.min.js" type="text/javascript"></script>
+	<script src="/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+	<script src="/js/FileSaver.min.js" type="text/javascript"></script>
+	<script src="/js/main.js" type="text/javascript"></script>
+	<script src="/js/request-details.js" type="text/javascript"></script>
+	<script src="/js/request-employees.js" type="text/javascript"></script>
+	<script src="/js/request-comments.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+@import "../less/bootstrap/bootstrap.less";
+@import "variables.less";
+
+@import "../less/fontawesome/font-awesome.less";
+@import "../less/_bootstrap-datetimepicker.less";
+
+@import "main.less";
+@import "login.less";
+@import "admin.less";
+@import "forms.less";
+
+
+//this is here so the compiler doesn't complain about a missing bootstrap mixin
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

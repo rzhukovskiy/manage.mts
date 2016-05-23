@@ -1,0 +1,20 @@
+<div class="form-group multiple-form-group row example">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label>Название</label>
+            <input type="text" class="form-control input-one" name="RequestWashServeOrganisation[name][]" value="{% if Organisation is defined %}{{ Organisation.name }}{% endif %}" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Телефон</label>
+            <input type="text" class="form-control input-one" name="RequestWashServeOrganisation[phone][]" value="{% if Organisation is defined %}{{ Organisation.phone }}{% endif %}" />
+        </div>
+    </div>
+    <div class="col-md-1">
+        <label>Удалить</label>
+        <div class="">
+            <button type="button" class="btn btn-primary btn-removeAdvancedDetail">-</button>
+        </div>
+    </div>
+</div>
