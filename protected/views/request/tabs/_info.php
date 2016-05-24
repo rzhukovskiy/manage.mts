@@ -84,7 +84,7 @@
             ?>
         </td>
     </tr>
-    <tr>
+    <!--<tr>
         <th>Скан договора</th>
         <td>
             <input type="file" data-id="<?php echo $model->id; ?>" id="agreement_file" />
@@ -95,5 +95,5 @@
                 <?php } ?>
             </div>
         </td>
-    </tr>
+    </tr>-->
 </table>

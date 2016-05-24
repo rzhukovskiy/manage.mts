@@ -276,4 +276,36 @@ class Request extends CActiveRecord
 
 		return $Model::REQUEST_TYPE;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function afterSave()
+	{
+		if ($this->isNewRecord) {
+			if (isset($this->director_name) || isset($this->director_phone) || isset($this->director_email)) {
+				$RequestEmployee = new RequestEmployee();
+				$RequestEmployee->request_id = $this->id;
+				$RequestEmployee->position 	 = 'Директор';
+				$RequestEmployee->name  	 = $this->director_name;
+				$RequestEmployee->phone 	 = $this->director_phone;
+				$RequestEmployee->email 	 = $this->director_email;
+
+				$RequestEmployee->save();
+			}
+
+			if (isset($this->doc_name) || isset($this->doc_phone) || isset($this->doc_email)) {
+				$RequestEmployee = new RequestEmployee();
+				$RequestEmployee->request_id = $this->id;
+				$RequestEmployee->position 	 = 'Ответственный за договорную работу';
+				$RequestEmployee->name  	 = $this->doc_name;
+				$RequestEmployee->phone 	 = $this->doc_phone;
+				$RequestEmployee->email 	 = $this->doc_email;
+
+				$RequestEmployee->save();
+			}
+		}
+
+		return true;
+	}
 }

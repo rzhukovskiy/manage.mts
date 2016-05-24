@@ -39,14 +39,45 @@ $res->execute($param);
 $requestId = $db->lastInsertId();
 
 $sql = "INSERT INTO mts_request_process
-(`request_id`, `employee_group_id`, `processing`, `done`) VALUES (:request_id, :employee_group_id, :processing, :done)";
+(`request_id`, `employee_group_id`, `done`) VALUES (:request_id, :employee_group_id, :done)";
 $res = $db->prepare($sql);
 
 $param = array(
     ":request_id" => $requestId,
     ":employee_group_id" => 0,
-    ":processing" => 0,
     ":done" => 0
 );
 
 $res->execute($param);
+
+if (htmlspecialchars($info['director-name']) || htmlspecialchars($info['director-email']) || htmlspecialchars($info['director-phone'])) {
+    $sql = "INSERT INTO mts_request_employee (`request_id`, `position`, `name`, `phone`, `email`)
+VALUES (:request_id, :position, :name, :phone, :email)";
+    $res = $db->prepare($sql);
+
+    $param = array(
+        ":request_id" => $requestId,
+        ":position" => htmlspecialchars($info['director-position']),
+        ":name" => htmlspecialchars($info['director-name']),
+        ":phone" => htmlspecialchars($info['director-email']),
+        ":email" => htmlspecialchars($info['director-phone'])
+    );
+
+    $res->execute($param);
+}
+
+if (htmlspecialchars($info['doc-name']) || htmlspecialchars($info['doc-email']) || htmlspecialchars($info['doc-phone'])) {
+    $sql = "INSERT INTO mts_request_employee (`request_id`, `position`, `name`, `phone`, `email`)
+VALUES (:request_id, :position, :name, :phone, :email)";
+    $res = $db->prepare($sql);
+
+    $param = array(
+        ":request_id" => $requestId,
+        ":position" => htmlspecialchars($info['doc-position']),
+        ":name" => htmlspecialchars($info['doc-name']),
+        ":phone" => htmlspecialchars($info['doc-email']),
+        ":email" => htmlspecialchars($info['doc-phone'])
+    );
+
+    $res->execute($param);
+}

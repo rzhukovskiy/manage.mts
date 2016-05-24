@@ -92,6 +92,7 @@
             <div class="form-group">
                 <label>ФИО</label><span class="error">Заполните поле ФИО  директора</span>
                 <input class="form-control" name="director-name">
+                <input type="hidden" name="director-position" value="Директор" />
             </div>
             <div class="form-group">
                 <label>Телефон</label><span class="error">Заполните поле Телефон директора</span>
@@ -110,6 +111,7 @@
             <div class="form-group">
                 <label>ФИО</label><span class="error">Заполните поле ФИО</span>
                 <input class="form-control" name="doc-name">
+                <input type="hidden" name="doc-position" value="Ответственный за договор" />
             </div>
             <div class="form-group">
                 <label>Телефон</label><span class="error">Заполните поле Телефон</span>

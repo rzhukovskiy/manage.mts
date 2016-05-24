@@ -5,9 +5,9 @@
  * Date: 02.04.2016
  * Time: 16:19
  */
-$config['db']['connectionString'] = 'mysql:host=localhost;dbname=mtransserv_docs';
-$config['db']['username'] = 'mtransserv_mysql';
-$config['db']['password']  = 'cqdqzumu';
+$config['db']['connectionString'] = 'mysql:host=localhost;dbname=mts';
+$config['db']['username'] = 'root';
+$config['db']['password']  = '';
 
 $db = setDbAdapter($config);
 

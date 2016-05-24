@@ -1,10 +1,6 @@
 {% extends "views/request/tabs.twig" %}
 
 {% block form %}
-    {% include "views/request/tabs/employees/director.twig" %}
-
-    {% include "views/request/tabs/employees/doc-manager.twig" %}
-
     <div id="request-employees">
         {% for CurrentRequestEmployee in Request.RequestEmployee %}
             {% include "views/requestEmployees/employee.twig" %}

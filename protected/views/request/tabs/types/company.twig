@@ -1,17 +1,3 @@
-<h3>Дополнительно:</h3>
-
-{{ this.widget('booster.widgets.TbEditableDetailView', {
-    'id': 'request-contact-params',
-    'data': Request.RequestCompany,
-    'url': this.createUrl('requestDetails/updateCompanyContact'),
-    'attributes': [
-    'contact_name',
-    'phone',
-    'email',
-    'city'
-    ]
-}, true)|raw }}
-
 <div class="row">
     <div class="col-md-12">
         <div class="items">
