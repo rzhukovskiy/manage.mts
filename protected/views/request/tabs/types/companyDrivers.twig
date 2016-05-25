@@ -7,10 +7,11 @@
                 <h3>Водители:</h3>
             </div>
 
+            {{ this.renderPartial('/requestDetails/_gridDrivers', {'DataProvider': DataProvider}, true)|raw }}
+
+            <br />
+
             <div class="advancedDetailBlock">
-                {% for Driver in Request.RequestCompany.RequestCompanyDriver %}
-                    {% include "views/requestDetails/companyDriver.twig" %}
-                {% endfor %}
             </div>
 
             <div class="row">

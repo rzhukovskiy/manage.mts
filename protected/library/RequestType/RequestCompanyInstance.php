@@ -65,19 +65,15 @@ class RequestCompanyInstance extends Instance
      */
     public function updateCompanyDrivers($post)
     {
-
-        RequestCompanyDriver::model()->deleteAll(array(
-            "condition" => 'request_ptr_id = :request_ptr_id',
-            'params' => [':request_ptr_id' => $this->Model->request_ptr_id]
-        ));
         if (isset($post['RequestCompanyDriver'])) {
-            for ($i = 0; $i < count($post['RequestCompanyDriver']['model']); $i++) {
+            for ($i = 0; $i < count($post['RequestCompanyDriver']['fio']); $i++) {
                 $RequestCompanyDriver = new RequestCompanyDriver();
                 $RequestCompanyDriver->request_ptr_id = $this->Model->request_ptr_id;
                 $RequestCompanyDriver->model = $post['RequestCompanyDriver']['model'][$i];
                 $RequestCompanyDriver->type = $post['RequestCompanyDriver']['type'][$i];
                 $RequestCompanyDriver->fio = $post['RequestCompanyDriver']['fio'][$i];
                 $RequestCompanyDriver->phone = $post['RequestCompanyDriver']['phone'][$i];
+
                 if (!$RequestCompanyDriver->save()) {
                     throw new \Exception(CHtml::errorSummary($RequestCompanyDriver));
                 }

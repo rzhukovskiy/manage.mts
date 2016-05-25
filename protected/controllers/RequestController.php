@@ -47,8 +47,6 @@ class RequestController extends Controller
         }
         $translateGroup = Request::getTranslate($group);
 
-
-
         $sort = new CSort();
         $sort->defaultOrder = 'new DESC, next_communication_date';
 
@@ -306,10 +304,15 @@ class RequestController extends Controller
             $this->redirect(Yii::app()->request->urlReferrer);
         }
 
+        $Drivers = new RequestCompanyDriver();
+        $Drivers->request_ptr_id = $requestId;
+        $DataProvider = $Drivers->search();
+
         $this->render('tabs/types/companyDrivers', array(
                 'Request' => $Request,
                 'RequestComments' => $RequestComments,
-                'RequestLib' => $RequestLib
+                'RequestLib' => $RequestLib,
+                'DataProvider' => $DataProvider
             ) + $this->requestGeneralParams);
     }
 

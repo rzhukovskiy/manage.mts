@@ -35,6 +35,16 @@ class RequestDetailsController extends Controller
         }
     }
 
+    public function actionDeleteCompanyDriver($id = 0)
+    {
+        $Driver = RequestCompanyDriver::model()->findByPk($id);
+        if ($Driver) {
+            $Driver->delete();
+        }
+
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
+
 
     //------------
 
