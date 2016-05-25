@@ -7,27 +7,30 @@
                 <h3>Водители:</h3>
             </div>
 
-            {{ this.renderPartial('/requestDetails/_gridDrivers', {'DataProvider': DataProvider}, true)|raw }}
+            {% if DataProvider.getData() %}
+                {{ this.renderPartial('/requestDetails/_gridDrivers', {'DataProvider': DataProvider}, true)|raw }}
+            {% endif %}
 
-            <br />
+            <br/>
 
             <div class="advancedDetailBlock">
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-addCompanyDriver" title="Добавить водителя">+</button>
+                    <button type="button" class="btn btn-primary btn-addCompanyDriver" title="Добавить водителя">+
+                    </button>
                     <span class="browse-button">
-                        <input class="btn btn-primary" type="button" value="Загрузить из excel файла" />
-                        <input type="file" data-id="{{ Request.id }}" id="btn-addCompanyDriver-FromFile" />
+                        <input class="btn btn-primary" type="button" value="Загрузить из excel файла"/>
+                        <input type="file" data-id="{{ Request.id }}" id="btn-addCompanyDriver-FromFile"/>
                     </span>
                 </div>
             </div>
         </div>
-    <div class="row" style="padding-top: 30px;">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+        <div class="row" style="padding-top: 30px;">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 {% endblock %}
