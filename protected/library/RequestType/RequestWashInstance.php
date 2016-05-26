@@ -19,10 +19,6 @@ class RequestWashInstance extends Instance
      */
     public function update($post)
     {
-        RequestWashServeOrganisation::model()->deleteAll(array(
-            "condition" => 'request_ptr_id = :request_ptr_id',
-            'params' => [':request_ptr_id' => $this->Model->request_ptr_id]
-        ));
         if (isset($post['RequestWashServeOrganisation'])) {
             for ($i = 0; $i < count($post['RequestWashServeOrganisation']['name']); $i++) {
                 $RequestWashServeOrganisation = new RequestWashServeOrganisation();

@@ -45,6 +45,16 @@ class RequestDetailsController extends Controller
         $this->redirect(Yii::app()->request->urlReferrer);
     }
 
+    public function actionDeletePrice($id = 0)
+    {
+        $Autopark = RequestCompanyAutopark::model()->findByPk($id);
+        if ($Autopark) {
+            $Autopark->delete();
+        }
+
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
+
 
     //------------
 

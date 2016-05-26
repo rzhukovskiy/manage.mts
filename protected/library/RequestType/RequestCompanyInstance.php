@@ -19,10 +19,6 @@ class RequestCompanyInstance extends Instance
      */
     public function update($post)
     {
-        RequestCompanyAutopark::model()->deleteAll(array(
-            "condition" => 'request_ptr_id = :request_ptr_id',
-            'params' => [':request_ptr_id' => $this->Model->request_ptr_id]
-        ));
         if (isset($post['RequestCompanyAutopark'])) {
             for ($i = 0; $i < count($post['RequestCompanyAutopark']['model']); $i++) {
                 $RequestCompanyAutopark = new RequestCompanyAutopark();
@@ -38,10 +34,6 @@ class RequestCompanyInstance extends Instance
             }
         }
 
-        RequestCompanyListAuto::model()->deleteAll(array(
-            "condition" => 'request_ptr_id = :request_ptr_id',
-            'params' => [':request_ptr_id' => $this->Model->request_ptr_id]
-        ));
         if (isset($post['RequestCompanyListAuto'])) {
             for ($i = 0; $i < count($post['RequestCompanyListAuto']['model']); $i++) {
                 $RequestCompanyListAuto = new RequestCompanyListAuto();

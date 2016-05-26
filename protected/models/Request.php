@@ -278,6 +278,39 @@ class Request extends CActiveRecord
 	}
 
 	/**
+	 * @return CActiveDataProvider
+	 */
+	public function getCompanyPrices()
+	{
+		$Autopark = new RequestCompanyAutopark();
+		$Autopark->request_ptr_id = $this->id;
+
+		return $Autopark->search();
+	}
+
+	/**
+	 * @return CActiveDataProvider
+	 */
+	public function getWashPrices()
+	{
+		$Autopark = new RequestWashService();
+		$Autopark->request_ptr_id = $this->id;
+
+		return $Autopark->search();
+	}
+
+	/**
+	 * @return CActiveDataProvider
+	 */
+	public function getCompanyCars()
+	{
+		$Autopark = new RequestCompanyListAuto();
+		$Autopark->request_ptr_id = $this->id;
+
+		return $Autopark->search();
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function afterSave()

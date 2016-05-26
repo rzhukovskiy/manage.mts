@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="items">
-            <div class="form-group">
-                <h3>Автопарк компании:</h3>
+            <div class="form-tabs-title">
+                Редактировать прайс
             </div>
 
+            {{ this.renderPartial('/requestDetails/_gridPrices', {'DataProvider': Request.getCompanyPrices()}, true)|raw }}
+            <br/>
+
             <div class="advancedDetailBlock">
-                {% for Auto in Request.RequestCompany.RequestCompanyAutopark %}
-                    {% include "views/requestDetails/company.twig" %}
-                {% endfor %}
             </div>
 
             <div class="row">
@@ -21,14 +21,14 @@
 
     <div class="col-md-12">
         <div class="items">
-            <div class="form-group">
-                <h3>Список ТС:</h3>
+            <div class="form-tabs-title">
+                Добавить машину
             </div>
 
+            {{ this.renderPartial('/requestDetails/_gridCars', {'DataProvider': Request.getCompanyCars()}, true)|raw }}
+            <br/>
+
             <div class="advancedDetailBlock">
-                {% for Auto in Request.RequestCompany.RequestCompanyListAuto %}
-                    {% include "views/requestDetails/companyListAuto.twig" %}
-                {% endfor %}
             </div>
 
 

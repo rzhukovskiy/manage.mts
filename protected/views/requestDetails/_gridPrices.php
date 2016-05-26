@@ -12,12 +12,24 @@ $this->widget('booster.widgets.TbGridView', array(
             ]
         ),
         array(
-            'header' => 'ФИО',
-            'value' => '$data->fio'
+            'header' => 'Марка ТС',
+            'value' => '$data->model'
         ),
         array(
-            'header' => 'Телефон',
-            'value' => '$data->phone'
+            'header' => 'Тип ТС',
+            'value' => '$data->type'
+        ),
+        array(
+            'header' => 'Количество',
+            'value' => '$data->amount'
+        ),
+        array(
+            'header' => 'Снаружи',
+            'value' => '$data->price_outside'
+        ),
+        array(
+            'header' => 'Внутри',
+            'value' => '$data->price_inside'
         ),
         array(
             'class' => 'CButtonColumn',
@@ -26,7 +38,7 @@ $this->widget('booster.widgets.TbGridView', array(
                 'delete' => array(
                     'label' => '',
                     'imageUrl' => false,
-                    'url' => 'Yii::app()->createUrl("requestDetails/deleteCompanyDriver", array("id" => $data->id))',
+                    'url' => 'Yii::app()->createUrl("requestDetails/deletePrice", array("id" => $data->id))',
                     'options' => array('class' => 'fa fa-trash')
                 ),
             )
