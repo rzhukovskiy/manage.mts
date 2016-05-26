@@ -161,20 +161,22 @@ class RequestController extends Controller
     }
 
 
-
-
     public function actionDetails()
     {
         $requestId = Yii::app()->request->getQuery('id');
 
-        try {
-            $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
-        } catch(\Exception $e) {
-            Yii::app()->user->setFlash('error', $e->getMessage());
+        if ($this->Employee->role != 'admin') {
+            try {
+                $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
+            } catch(\Exception $e) {
+                Yii::app()->user->setFlash('error', $e->getMessage());
+                $this->redirect(Yii::app()->request->urlReferrer);
+            }
 
-            $this->redirect(Yii::app()->request->urlReferrer);
+            $Request = $RequestLib->getRequest();
+        } else {
+            $Request = Request::model()->findByPk($requestId);
         }
-        $Request = $RequestLib->getRequest();
 
         if ($Request === false) {
             $this->redirect(Yii::app()->request->urlReferrer);
@@ -383,7 +385,6 @@ class RequestController extends Controller
             } catch(\Exception $e) {
                 $this->outJson(['result' => false, 'comment' => $e->getMessage()]);
             }
-
 
             $this->outJson(['result' => true]);
         }

@@ -34,7 +34,7 @@ class RequestCompanyDriver extends CActiveRecord
 			array('model', 'length', 'max'=>64),
 			array('type', 'length', 'max'=>128),
 			array('fio', 'length', 'max'=>256),
-			array('phone', 'length', 'max'=>16),
+			array('phone', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, request_ptr_id, model, type, fio, phone', 'safe', 'on'=>'search'),
@@ -94,6 +94,7 @@ class RequestCompanyDriver extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => false,
 		));
 	}
 

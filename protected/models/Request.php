@@ -63,7 +63,7 @@ class Request extends CActiveRecord
 			array('name, address_street', 'length', 'max'=>128),
 			array('address_index', 'length', 'max'=>32),
 			array('address_city, director_email, doc_email', 'length', 'max'=>32),
-			array('address_house, address_phone, director_phone, doc_phone', 'length', 'max'=>16),
+			array('address_house, address_phone, director_phone, doc_phone', 'length', 'max'=>255),
 			array('address_mail', 'length', 'max'=>1024),
 			array('director_name, doc_name', 'length', 'max'=>256),
 			array('address_timezone', 'length', 'max'=>32),
@@ -71,7 +71,7 @@ class Request extends CActiveRecord
 			array('next_communication_date', 'length', 'max'=>10),
 			array('payment_day', 'length', 'max'=>'64'),
 			array('email', 'length', 'max'=>128),
-			array('agreement_number', 'length', 'max'=>16),
+			array('agreement_number', 'length', 'max'=>255),
 			array('agreement_date,', 'length', 'max'=>10),
 			array('agreement_file,', 'length', 'max'=>256),
 			array('status', 'safe'),
@@ -274,7 +274,11 @@ class Request extends CActiveRecord
 	{
 		$Model = Instance::detectType($this->id);
 
-		return $Model::REQUEST_TYPE;
+		if ($Model) {
+			return $Model::REQUEST_TYPE;
+		} else {
+			return 'company';
+		}
 	}
 
 	/**

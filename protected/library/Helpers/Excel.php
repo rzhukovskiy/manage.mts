@@ -46,20 +46,20 @@ class Excel
             $highestRow = $worksheet->getHighestRow();
 
             for($row = 1; $row <= $highestRow; ++$row) {
-                $model = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-                $type = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-                $fio = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                $phone = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                //$model = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                //$type = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+                $fio = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                $phone = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
 
                 if (
-                    PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($model) == PHPExcel_Cell_DataType::TYPE_STRING
-                    && PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($type) == PHPExcel_Cell_DataType::TYPE_STRING
-                    && PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($fio) == PHPExcel_Cell_DataType::TYPE_STRING
+                    //PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($model) == PHPExcel_Cell_DataType::TYPE_STRING
+                    //&& PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($type) == PHPExcel_Cell_DataType::TYPE_STRING
+                    /*&&*/ PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($fio) == PHPExcel_Cell_DataType::TYPE_STRING
                 ) {
                     $RequestCompanyDriver = new RequestCompanyDriver();
-                    $RequestCompanyDriver->model = $model;
+                    //$RequestCompanyDriver->model = $model;
                     $RequestCompanyDriver->request_ptr_id = $requestId;
-                    $RequestCompanyDriver->type = $type;
+                    //$RequestCompanyDriver->type = $type;
                     $RequestCompanyDriver->fio = $fio;
                     $RequestCompanyDriver->phone = $phone;
 
