@@ -81,6 +81,24 @@ class ArchiveController extends Controller
         return $grid;
     }
 
+    public function getRequestsCount($group)
+    {
+        $RequestArchiveLib = new RequestArchiveLib($this->Employee);
+        $sum = 0;
+
+        foreach ($RequestArchiveLib->getAllCities($group) as $city) {
+            $CDbCriteria = $RequestArchiveLib->getRequestsByCity($group, $city->address_city);
+
+            $DataProvider = new CActiveDataProvider(Request::model(), array(
+                'criteria' => $CDbCriteria
+            ));
+
+            $sum += count($DataProvider->getData());
+        }
+
+        return $sum;
+    }
+
 
     public function actionAddCompany()
     {

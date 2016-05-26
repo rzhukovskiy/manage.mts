@@ -38,14 +38,3 @@ $this->widget('booster.widgets.TbGridView', array(
         ),
     )
 ));
-?>
-<p>
-    Итого:
-    <strong>
-        <?php
-        /** @var CActiveDataProvider $t */
-        $t = $DataProvider;
-        echo count($t->getData());
-        ?>
-    заявок</strong>
-</p>

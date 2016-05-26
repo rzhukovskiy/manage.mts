@@ -52,5 +52,11 @@
                 {% endif %}
             </div>
         {% endfor %}
+        <p>
+            Итого:
+            <strong>
+                {{ this.getRequestsCount(group) }}
+                заявок</strong>
+        </p>
     </div>
 {% endblock %}
