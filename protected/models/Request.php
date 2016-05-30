@@ -28,6 +28,7 @@
  * @property string agreement_number
  * @property string agreement_date
  * @property string agreement_file
+ * @property string mail_number
  * @property string status
  *
  * The followings are the available model relations:
@@ -63,7 +64,7 @@ class Request extends CActiveRecord
 			array('name, address_street', 'length', 'max'=>128),
 			array('address_index', 'length', 'max'=>32),
 			array('address_city, director_email, doc_email', 'length', 'max'=>32),
-			array('address_house, address_phone, director_phone, doc_phone', 'length', 'max'=>255),
+			array('mail_number, address_house, address_phone, director_phone, doc_phone', 'length', 'max'=>255),
 			array('address_mail', 'length', 'max'=>1024),
 			array('director_name, doc_name', 'length', 'max'=>256),
 			array('address_timezone', 'length', 'max'=>32),
@@ -131,7 +132,8 @@ class Request extends CActiveRecord
 			'agreement_number' => 'Номер договора',
 			'agreement_date' => 'Дата заключения договора',
 			'agreement_file' => 'Скан договора',
-			'status' => 'Статус клиента'
+			'status' => 'Статус клиента',
+			'mail_number' => 'Номер отправления'
 		);
 	}
 

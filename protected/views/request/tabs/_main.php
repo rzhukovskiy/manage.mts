@@ -163,6 +163,23 @@
             </td>
         </tr>
         <tr>
+            <th>Номер почтового отправления</th>
+            <td>
+                <?php
+                $this->widget(
+                    'booster.widgets.TbEditableField',
+                    array(
+                        'type' => 'text',
+                        'model' => $model,
+                        'attribute' => 'mail_number',
+                        'url' => $this->createUrl('request/updateDetails'),
+                        'emptytext' => "Номер отправления"
+                    )
+                );
+                ?>
+            </td>
+        </tr>
+        <tr>
             <th>Дата следующей связи</th>
             <td>
                 <?php
