@@ -25,13 +25,23 @@ $this->widget('booster.widgets.TbGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{delete}',
+            'template' => '{delete}{update}',
             'buttons' => array(
                 'delete' => array(
                     'label' => '',
                     'imageUrl' => false,
                     'url' => 'Yii::app()->createUrl("requestDetails/deleteCar", array("id" => $data->id))',
-                    'options' => array('class' => 'fa fa-trash')
+                    'options' => array(
+                        'class' => 'fa fa-remove admin-grid-remove'
+                    )
+                ),
+                'update' => array(
+                    'label' => '',
+                    'imageUrl' => false,
+                    'url' => 'Yii::app()->createUrl("requestDetails/updateCar", array("id" => $data->id))',
+                    'options' => array(
+                        'class' => 'fa fa-edit admin-grid-edit'
+                    )
                 ),
             )
         ),

@@ -7,20 +7,6 @@
  */
 class RequestDetailsController extends Controller
 {
-    public function actionUpdateWashPrices($id = 0)
-    {
-        if (Yii::app()->request->isPostRequest) {
-            try {
-                $Instance = Instance::init($id);
-                $Instance->updateWashPrices($_POST);
-            } catch(\Exception $e) {
-                Yii::app()->user->setFlash('error', $e->getMessage());
-            }
-
-            $this->redirect(Yii::app()->request->urlReferrer);
-        }
-    }
-
     public function actionUpdateCompanyDrivers($id = 0)
     {
         if (Yii::app()->request->isPostRequest) {
@@ -45,11 +31,47 @@ class RequestDetailsController extends Controller
         $this->redirect(Yii::app()->request->urlReferrer);
     }
 
+    public function actionAddPrice($id = 0)
+    {
+        if (Yii::app()->request->isPostRequest) {
+            if (isset($_POST['RequestPrice'])) {
+                $RequestPrice = new RequestPrice();
+                $RequestPrice->request_ptr_id = $id;
+                $RequestPrice->type = $_POST['RequestPrice']['type'];
+                $RequestPrice->price_outside = $_POST['RequestPrice']['price_outside'];
+                $RequestPrice->price_inside = $_POST['RequestPrice']['price_inside'];
+                if (!$RequestPrice->save()) {
+                    throw new \Exception(CHtml::errorSummary($RequestPrice));
+                }
+            }
+
+            $this->redirect(Yii::app()->request->urlReferrer);
+        }
+    }
+
+    public function actionAddCar($id = 0)
+    {
+        if (Yii::app()->request->isPostRequest) {
+            if (isset($_POST['RequestCompanyListAuto'])) {
+                $RequestCompanyListAuto = new RequestCompanyListAuto();
+                $RequestCompanyListAuto->request_ptr_id = $id;
+                $RequestCompanyListAuto->model = $_POST['RequestCompanyListAuto']['model'];
+                $RequestCompanyListAuto->type = $_POST['RequestCompanyListAuto']['type'];
+                $RequestCompanyListAuto->state_number = $_POST['RequestCompanyListAuto']['state_number'];
+                if (!$RequestCompanyListAuto->save()) {
+                    throw new \Exception(CHtml::errorSummary($RequestCompanyListAuto));
+                }
+            }
+
+            $this->redirect(Yii::app()->request->urlReferrer);
+        }
+    }
+
     public function actionDeletePrice($id = 0)
     {
-        $Autopark = RequestCompanyAutopark::model()->findByPk($id);
-        if ($Autopark) {
-            $Autopark->delete();
+        $Price = RequestPrice::model()->findByPk($id);
+        if ($Price) {
+            $Price->delete();
         }
 
         $this->redirect(Yii::app()->request->urlReferrer);
@@ -62,15 +84,6 @@ class RequestDetailsController extends Controller
     {
         if (Yii::app()->request->isAjaxRequest) {
             $advancedDetails = $this->renderPartial('company', array(), true);
-
-            $this->outJson(["result" => true, "html" => $advancedDetails]);
-        }
-    }
-
-    public function actionAddCompanyListAuto()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            $advancedDetails = $this->renderPartial('companyListAuto', array(), true);
 
             $this->outJson(["result" => true, "html" => $advancedDetails]);
         }

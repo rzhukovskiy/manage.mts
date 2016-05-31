@@ -10,14 +10,14 @@
  * @property string $price_outside
  * @property string $price_inside
  */
-class RequestWashService extends CActiveRecord
+class RequestPrice extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{request_wash_service}}';
+		return '{{request_price}}';
 	}
 
 	/**
@@ -96,7 +96,7 @@ class RequestWashService extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return RequestWashService the static model class
+	 * @return RequestPrice the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

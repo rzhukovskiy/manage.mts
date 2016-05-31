@@ -34,33 +34,6 @@ class RequestWashInstance extends Instance
         return true;
     }
 
-    /**
-     * @param $post
-     * @return bool
-     * @throws Exception
-     */
-    public function updateWashPrices($post)
-    {
-        RequestWashService::model()->deleteAll(array(
-            "condition" => 'request_ptr_id = :request_ptr_id',
-            'params' => [':request_ptr_id' => $this->Model->request_ptr_id]
-        ));
-        if (isset($post['RequestWashService'])) {
-            for ($i = 0; $i < count($post['RequestWashService']['type']); $i++) {
-                $RequestWashService = new RequestWashService();
-                $RequestWashService->request_ptr_id = $this->Model->request_ptr_id;
-                $RequestWashService->type = $post['RequestWashService']['type'][$i];
-                $RequestWashService->price_outside = $post['RequestWashService']['price_outside'][$i];
-                $RequestWashService->price_inside = $post['RequestWashService']['price_inside'][$i];
-                if (!$RequestWashService->save()) {
-                    throw new \Exception(CHtml::errorSummary($RequestWashService));
-                }
-            }
-        }
-
-        return true;
-    }
-
     public function deleteFromArchive()
     {
         $RequestWashServeOrganisation = RequestWashServeOrganisation::model()->find(
@@ -71,7 +44,7 @@ class RequestWashInstance extends Instance
             $RequestWashServeOrganisation->delete();
         }
 
-        $RequestWashService = RequestWashService::model()->find(
+        $RequestWashService = RequestPrice::model()->find(
             "request_ptr_id = :request_ptr_id",
             array("request_ptr_id" => $this->Model->request_ptr_id)
         );

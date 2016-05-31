@@ -5,7 +5,7 @@
                 Редактировать прайс
             </div>
 
-            {{ this.renderPartial('/requestDetails/_gridPrices', {'DataProvider': Request.getCompanyPrices()}, true)|raw }}
+            {{ this.renderPartial('/requestDetails/_gridPrices', {'DataProvider': Request.getPrices()}, true)|raw }}
             <br/>
 
             <div class="advancedDetailBlock">
@@ -19,28 +19,29 @@
         </div>
     </div>
 
-    <div class="col-md-12">
-        <div class="items">
-            <div class="form-tabs-title">
-                Добавить машину
-            </div>
+    {% if Request.getRequestType() == "company" %}
+        <div class="col-md-12">
+            <div class="items">
+                <div class="form-tabs-title">
+                    Добавить машину
+                </div>
 
-            {{ this.renderPartial('/requestDetails/_gridCars', {'DataProvider': Request.getCompanyCars()}, true)|raw }}
-            <br/>
+                {{ this.renderPartial('/requestDetails/_gridCars', {'DataProvider': Request.getCompanyCars()}, true)|raw }}
+                <br/>
 
-            <div class="advancedDetailBlock">
-            </div>
+                <div class="advancedDetailBlock">
+                </div>
 
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-addCompanyListAuto" title="Добавить автомобиль">+</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary btn-addCompanyListAuto" title="Добавить автомобиль">+</button>
                     <span class="browse-button">
                         <input class="btn btn-primary" type="button" value="Загрузить из excel файла" />
                         <input type="file" data-id="{{ Request.id }}" id="btn-addCompanyListAuto-FromFile" />
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 </div>

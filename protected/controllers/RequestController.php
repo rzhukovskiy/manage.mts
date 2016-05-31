@@ -318,7 +318,7 @@ class RequestController extends Controller
             ) + $this->requestGeneralParams);
     }
 
-    public function actionWashPrices()
+    public function actionRequestPrices()
     {
         $requestId = Yii::app()->request->getQuery('id');
 
@@ -337,7 +337,7 @@ class RequestController extends Controller
             $this->redirect(Yii::app()->request->urlReferrer);
         }
 
-        $this->render('tabs/types/washPrices', array(
+        $this->render('tabs/types/requestPrices', array(
                 'Request' => $Request,
                 'RequestComments' => $RequestComments,
                 'RequestLib' => $RequestLib

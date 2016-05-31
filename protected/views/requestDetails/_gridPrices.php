@@ -12,16 +12,8 @@ $this->widget('booster.widgets.TbGridView', array(
             ]
         ),
         array(
-            'header' => 'Марка ТС',
-            'value' => '$data->model'
-        ),
-        array(
             'header' => 'Тип ТС',
             'value' => '$data->type'
-        ),
-        array(
-            'header' => 'Количество',
-            'value' => '$data->amount'
         ),
         array(
             'header' => 'Снаружи',
@@ -33,13 +25,23 @@ $this->widget('booster.widgets.TbGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{delete}',
+            'template' => '{delete}{update}',
             'buttons' => array(
                 'delete' => array(
                     'label' => '',
                     'imageUrl' => false,
                     'url' => 'Yii::app()->createUrl("requestDetails/deletePrice", array("id" => $data->id))',
-                    'options' => array('class' => 'fa fa-trash')
+                    'options' => array(
+                        'class' => 'fa fa-remove admin-grid-remove'
+                    )
+                ),
+                'update' => array(
+                    'label' => '',
+                    'imageUrl' => false,
+                    'url' => 'Yii::app()->createUrl("requestDetails/updatePrice", array("id" => $data->id))',
+                    'options' => array(
+                        'class' => 'fa fa-edit admin-grid-edit'
+                    )
                 ),
             )
         ),

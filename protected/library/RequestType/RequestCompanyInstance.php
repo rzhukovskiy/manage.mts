@@ -19,17 +19,15 @@ class RequestCompanyInstance extends Instance
      */
     public function update($post)
     {
-        if (isset($post['RequestCompanyAutopark'])) {
-            for ($i = 0; $i < count($post['RequestCompanyAutopark']['model']); $i++) {
-                $RequestCompanyAutopark = new RequestCompanyAutopark();
-                $RequestCompanyAutopark->request_ptr_id = $this->Model->request_ptr_id;
-                $RequestCompanyAutopark->model = $post['RequestCompanyAutopark']['model'][$i];
-                $RequestCompanyAutopark->type = $post['RequestCompanyAutopark']['type'][$i];
-                $RequestCompanyAutopark->amount = $post['RequestCompanyAutopark']['amount'][$i];
-                $RequestCompanyAutopark->price_outside = $post['RequestCompanyAutopark']['price_outside'][$i];
-                $RequestCompanyAutopark->price_inside = $post['RequestCompanyAutopark']['price_inside'][$i];
-                if (!$RequestCompanyAutopark->save()) {
-                    throw new \Exception(CHtml::errorSummary($RequestCompanyAutopark));
+        if (isset($post['RequestPrice'])) {
+            for ($i = 0; $i < count($post['RequestPrice']['model']); $i++) {
+                $RequestPrice = new RequestPrice();
+                $RequestPrice->request_ptr_id = $this->Model->request_ptr_id;
+                $RequestPrice->type = $post['RequestPrice']['type'][$i];
+                $RequestPrice->price_outside = $post['RequestPrice']['price_outside'][$i];
+                $RequestPrice->price_inside = $post['RequestPrice']['price_inside'][$i];
+                if (!$RequestPrice->save()) {
+                    throw new \Exception(CHtml::errorSummary($RequestPrice));
                 }
             }
         }

@@ -286,23 +286,12 @@ class Request extends CActiveRecord
 	/**
 	 * @return CActiveDataProvider
 	 */
-	public function getCompanyPrices()
+	public function getPrices()
 	{
-		$Autopark = new RequestCompanyAutopark();
-		$Autopark->request_ptr_id = $this->id;
+		$Prices = new RequestPrice();
+		$Prices->request_ptr_id = $this->id;
 
-		return $Autopark->search();
-	}
-
-	/**
-	 * @return CActiveDataProvider
-	 */
-	public function getWashPrices()
-	{
-		$Autopark = new RequestWashService();
-		$Autopark->request_ptr_id = $this->id;
-
-		return $Autopark->search();
+		return $Prices->search();
 	}
 
 	/**

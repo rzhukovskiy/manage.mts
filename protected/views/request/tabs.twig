@@ -39,20 +39,20 @@
         <li {% if App.controller.action.id == "employees" %}class="active"{% endif %}>
             <a href="/request/employees?id={{ Request.id }}">Сотрудники</a>
         </li>
-        <!--<li {% if App.controller.action.id == "comments" %}class="active"{% endif %}>
-            <a href="/request/comments?id={{ Request.id }}">Комментарии</a>
-        </li>-->
 
-        {% if Request.getRequestType() == "wash" %}
-            <li {% if App.controller.action.id == "washPrices" %}class="active"{% endif %}>
-                <a href="/request/washPrices?id={{ Request.id }}">Прайс и ТС</a>
+        {% if Request.getRequestType() != "company" %}
+            <li {% if App.controller.action.id == "requestDetails" %}class="active"{% endif %}>
+                <a href="/request/requestDetails?id={{ Request.id }}">Данные заявки</a>
+            </li>
+        {% endif %}
+
+        {% if Request.getRequestType() == "wash" or Request.getRequestType() == "company" %}
+            <li {% if App.controller.action.id == "requestPrices" %}class="active"{% endif %}>
+                <a href="/request/requestPrices?id={{ Request.id }}">Цены и ТС</a>
             </li>
         {% endif %}
 
         {% if Request.getRequestType() == "company" %}
-            <li {% if App.controller.action.id == "requestDetails" %}class="active"{% endif %}>
-                <a href="/request/requestDetails?id={{ Request.id }}">Прайс и ТС</a>
-            </li>
             <li {% if App.controller.action.id == "companyDrivers" %}class="active"{% endif %}>
                 <a href="/request/companyDrivers?id={{ Request.id }}">Водители</a>
             </li>
