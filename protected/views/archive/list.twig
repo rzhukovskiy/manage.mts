@@ -30,11 +30,16 @@
         <hr />
 
         {% if Cities is empty %}
-            <p style="text-align: center;">
-                <i>Пусто</i>
-            </p>
+            <div style="margin-bottom: 30px;">
+                <div class="form-tabs-title">
+                    Город не указан
+                </div>
+
+                {{ this.getRequestsByCity(group, "", 0)|raw }}
+            </div>
         {% endif %}
 
+        {% set count = 0 %}
         {% for CurrentCity in Cities %}
             <div style="margin-bottom: 30px;">
                 <div class="form-tabs-title">
@@ -46,17 +51,16 @@
                 </div>
 
                 {% if CurrentCity.isAddressCity() %}
-                    {{ this.getRequestsByCity(group, CurrentCity.address_city)|raw }}
+                    {{ this.getRequestsByCity(group, CurrentCity.address_city, count)|raw }}
                 {% else %}
-                    {{ this.getRequestsByCity(group, "")|raw }}
+                    {{ this.getRequestsByCity(group, "", count)|raw }}
                 {% endif %}
             </div>
+            {% set count = count + 1 %}
         {% endfor %}
         <p>
-            Итого:
-            <strong>
-                {{ this.getRequestsCount(group) }}
-                заявок</strong>
+            Итого заявок:
+            <strong>{{ this.getRequestsCount(group) }}</strong>
         </p>
     </div>
 {% endblock %}

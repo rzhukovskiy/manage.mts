@@ -32,8 +32,7 @@ class RequestEmployee extends CActiveRecord
 			array('request_id', 'required'),
 			array('request_id', 'length', 'max'=>10),
 			array('position, email', 'length', 'max'=>32),
-			array('name', 'length', 'max'=>256),
-			array('phone', 'length', 'max'=>16),
+			array('name, phone', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, request_id, position, name, email, phone', 'safe', 'on'=>'search'),

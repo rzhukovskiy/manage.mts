@@ -1,8 +1,10 @@
 <?php
+/** @var $DataProvider CActiveDataProvider */
 $this->widget('booster.widgets.TbGridView', array(
     'type' => 'bordered condensed',
     'dataProvider' => $DataProvider,
-    'summaryText' => '',
+    'template' => "{items}",
+    'filter' => $DataProvider->model,
     'rowCssClassExpression' => function($row, $data) {
         if ($data->new) {
             return 'request__new';
@@ -11,19 +13,19 @@ $this->widget('booster.widgets.TbGridView', array(
     'columns' => array(
         array(
             'header' => '',
-            'value' => '++$row'
+            'value' => '++$row',
         ),
         array(
             'header' => 'Город',
-            'value' => '$data->address_city'
+            'name' => 'address_city',
         ),
         array(
             'header' => 'Организация',
-            'value' => '$data->name'
+            'name' => 'name',
         ),
         array(
             'header' => 'Адрес',
-            'value' => '$data->getFullAddress()'
+            'value' => '$data->getFullAddress()',
         ),
         array(
             'header' => 'Пояс',

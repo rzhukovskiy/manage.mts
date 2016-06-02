@@ -53,7 +53,7 @@ class ArchiveController extends Controller
         $sort->defaultOrder = 't.id DESC';
 
         $RequestArchiveLib = new RequestArchiveLib($this->Employee);
-        $Cities = $RequestArchiveLib->getAllCities($group);
+        $Cities = $RequestArchiveLib->getAllCities($group, $_GET);
 
         $this->render('list', array(
                 "group" => $group,
@@ -61,7 +61,7 @@ class ArchiveController extends Controller
             ) + $this->requestGeneralParams);
     }
 
-    public function getRequestsByCity($group, $city)
+    public function getRequestsByCity($group, $city, $count = 1)
     {
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';
@@ -74,8 +74,17 @@ class ArchiveController extends Controller
             'sort' => $sort
         ));
 
+        if (isset($_GET['Request'])) {
+            foreach($_GET['Request'] as $key => $value) {
+                if ($value) {
+                    $CDbCriteria->compare($key, $value, true);
+                }
+            }
+        }
+
         $grid = $this->renderPartial('_gridArchive', array(
-            'DataProvider' => $DataProvider
+            'DataProvider' => $DataProvider,
+            'filter' => !$count,
         ), true);
 
         return $grid;

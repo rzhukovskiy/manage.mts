@@ -172,7 +172,7 @@ class RequestArchiveLib extends RequestLib
         return $RequestComments;
     }
 
-    public function getAllCities($group)
+    public function getAllCities($group, $get = [])
     {
         /** @var CDbCriteria $CDbCriteria */
         $CDbCriteria = new CDbCriteria;
@@ -184,6 +184,11 @@ class RequestArchiveLib extends RequestLib
 
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
         $CDbCriteria->addCondition('RequestDone.id IS NOT NULL');
+        if (isset($get['Request'])) {
+            foreach($get['Request'] as $key => $value) {
+                $CDbCriteria->compare($key, $value, true);
+            }
+        }
 
         $CDbCriteria->group = 'address_city';
 

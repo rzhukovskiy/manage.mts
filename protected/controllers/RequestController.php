@@ -53,6 +53,14 @@ class RequestController extends Controller
         $RequestLib = new RequestActiveLib($this->Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria($group);
 
+        if (isset($_GET['Request'])) {
+            foreach($_GET['Request'] as $key => $value) {
+                if ($value) {
+                    $CDbCriteria->compare($key, $value, true);
+                }
+            }
+        }
+
         $DataProvider = new CActiveDataProvider(Request::model(), array(
             'criteria' => $CDbCriteria,
             'sort' => $sort,

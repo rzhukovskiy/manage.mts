@@ -188,8 +188,15 @@
                     array(
                         'type' => 'date',
                         'model' => $model,
+                        'title' => false,
                         'attribute' => 'next_communication_date',
                         'url' => $this->createUrl('request/updateDetails'),
+                        'options' => array(
+                            'datepicker' => array(
+                                'language' => 'ru',
+                                'showClear' => false,
+                            )
+                        ),
                         'emptytext' => "Дата следующей связи"
                     )
                 );

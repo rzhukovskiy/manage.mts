@@ -18,7 +18,7 @@ class RequestActiveLib extends RequestLib
      * Get all requests
      *
      * @param string $group
-     * @return array|RequestProcess empty array or RequestProcess
+     * @return CDbCriteria
      */
     public function getRequestsCriteria($group = '')
     {

@@ -37,17 +37,6 @@ $(document).ready(function() {
         }
     });
 
-    var today = new Date();
-    $('#date-to').datetimepicker({
-        locale: 'ru',
-        format: 'YYYY-MM-DD',
-        defaultDate: today,
-        icons: {
-            previous: 'fa fa-angle-double-left',
-            next: 'fa fa-angle-double-right'
-        }
-    });
-
     $(".request-index-finish").click(function(){
         var requestId = $(this).data("id");
 
