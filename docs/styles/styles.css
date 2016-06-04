@@ -8258,8 +8258,11 @@ body #header {
   left: 0;
   right: 0;
 }
+body #header .navbar-default .navbar-nav {
+  text-transform: uppercase;
+}
 body #header .navbar-default .navbar-nav .active {
-  color: black;
+  color: #5cb85c;
   font-weight: bold;
 }
 body #header .navbar-default .navbar-nav > li > a:hover {

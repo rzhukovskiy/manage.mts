@@ -1,32 +1,32 @@
 <ul class="nav nav-pills nav-stacked">
-    {% if (EmployeeGroupArchiveRequestType.wash or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
+    {% if (EmployeeGroupArchiveRequestType.wash or App.user.role == "admin") %}
         <li {% if group == "wash" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=wash' }}">
-                Мойки  <span class="label label-default">{{ countWash }}</span>
+                Мойки  <span class="label label-success">{{ countWash }}</span>
             </a>
         </li>
     {% endif %}
 
-    {% if (EmployeeGroupArchiveRequestType.service or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
+    {% if (EmployeeGroupArchiveRequestType.service or App.user.role == "admin") %}
         <li {% if group == "service" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=service' }}">
-                Сервис  <span class="label label-default">{{ countService }}</span>
+                Сервис  <span class="label label-success">{{ countService }}</span>
             </a>
         </li>
     {% endif %}
 
-    {% if (EmployeeGroupArchiveRequestType.tires or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
+    {% if (EmployeeGroupArchiveRequestType.tires or App.user.role == "admin") %}
         <li {% if group == "tires" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=tires' }}">
-                Шиномонтаж  <span class="label label-default">{{ countTires }}</span>
+                Шиномонтаж  <span class="label label-success">{{ countTires }}</span>
             </a>
         </li>
     {% endif %}
 
-    {% if (EmployeeGroupArchiveRequestType.company or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
+    {% if (EmployeeGroupArchiveRequestType.company or App.user.role == "admin") %}
         <li {% if group == "company" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=company' }}">
-                Компании  <span class="label label-default">{{ countCompany }}</span>
+                Компании  <span class="label label-success">{{ countCompany }}</span>
             </a>
         </li>
     {% endif %}

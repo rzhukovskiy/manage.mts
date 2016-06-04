@@ -159,22 +159,6 @@ $(document).ready(function() {
         }
     });
 
-    isManage();
-
-    $("#EmployeeGroup_manage").click(function(){
-        isManage();
-    });
-
-    function isManage() {
-        if ($("#EmployeeGroup_manage").is(':checked')) {
-            $(".EmployeeGroupType").attr("disabled", true);
-            $(".EmployeeGroupArchive").attr("disabled", true);
-        } else {
-            $(".EmployeeGroupType").attr("disabled", false);
-            $(".EmployeeGroupArchive").attr("disabled", false);
-        }
-    };
-
     $("body").on("click", ".request-employee-mail", function(){
         var currentTable = $(this).closest(".table");
 

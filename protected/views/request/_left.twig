@@ -1,5 +1,5 @@
 <ul class="nav nav-pills nav-stacked">
-    {% if (EmployeeGroupRequestType.wash or Employee.EmployeeGroup.manage) %}
+    {% if (EmployeeGroupRequestType.wash) %}
     <li {% if group == "wash" %}class="active"{% endif %}>
         <a href="{{ '/request?group=wash' }}">
             Мойки  <span class="label {% if countWash > 0 %}label-success{% else %}label-default{% endif %}">{{ countWash }}</span>
@@ -7,7 +7,7 @@
     </li>
     {% endif %}
 
-    {% if (EmployeeGroupRequestType.service or Employee.EmployeeGroup.manage) %}
+    {% if (EmployeeGroupRequestType.service) %}
         <li {% if group == "service" %}class="active"{% endif %}>
             <a href="{{ '/request?group=service' }}">
                 Сервис <span class="label {% if countService > 0 %}label-success{% else %}label-default{% endif %}">{{ countService }}</span>
@@ -15,7 +15,7 @@
         </li>
     {% endif %}
 
-    {% if (EmployeeGroupRequestType.tires or Employee.EmployeeGroup.manage) %}
+    {% if (EmployeeGroupRequestType.tires) %}
     <li {% if group == "tires" %}class="active"{% endif %}>
         <a href="{{ '/request?group=tires' }}">
             Шиномонтаж  <span class="label {% if countTires > 0 %}label-success{% else %}label-default{% endif %}">{{ countTires }}</span>
@@ -23,7 +23,7 @@
     </li>
     {% endif %}
 
-    {% if (EmployeeGroupRequestType.company or Employee.EmployeeGroup.manage) %}
+    {% if (EmployeeGroupRequestType.company) %}
         <li {% if group == "company" %}class="active"{% endif %}>
             <a href="{{ '/request?group=company' }}">
                 Компании <span class="label {% if countCompany > 0 %}label-success{% else %}label-default{% endif %}">{{ countCompany }}</span>
