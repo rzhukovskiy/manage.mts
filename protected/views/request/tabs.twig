@@ -2,7 +2,7 @@
 
 {% block leftmenu %}
     {% if RequestLib.getType() == 'active' %}
-    {% include "views/request/_left.twig" %}
+        {% include "views/request/_left.twig" %}
     {% endif %}
 
     {% if RequestLib.getType() == 'archive' %}

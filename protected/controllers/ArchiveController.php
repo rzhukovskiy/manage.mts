@@ -13,6 +13,8 @@ class ArchiveController extends Controller
     /** @var array */
     private $requestGeneralParams;
 
+    public $part = 'archive';
+
     public function init()
     {
         $userId = Yii::app()->user->id;

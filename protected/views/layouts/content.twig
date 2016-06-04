@@ -26,12 +26,12 @@
                     </li>
                     {% else %}
                     <li>
-                        <a href="/request">
+                        <a href="/request" {% if this.part == "request" %}class="active"{% endif %}>
                             Заявки
                         </a>
                     </li>
                     <li>
-                        <a href="/archive/list">
+                        <a href="/archive/list" {% if this.part == "archive" %}class="active"{% endif %}>
                             Архив
                         </a>
                     </li>

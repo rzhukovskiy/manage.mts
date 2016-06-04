@@ -39,11 +39,20 @@ body {
     }
   }
 
+  .container-fluid {
+    padding-left: 0px;
+  }
+
   #header {
     z-index: 100;
     //position: fixed;
     left: 0;
     right: 0;
+
+    .navbar-default .navbar-nav .active {
+      color: black;
+      font-weight: bold;
+    }
 
     .navbar-default .navbar-nav > li > a:hover {
       color: black;

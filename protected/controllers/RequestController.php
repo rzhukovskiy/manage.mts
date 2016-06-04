@@ -13,6 +13,8 @@ class RequestController extends Controller
     /** @var array */
     private $requestGeneralParams;
 
+    public $part = 'request';
+
     public function init()
     {
         $userId = Yii::app()->user->id;
@@ -21,6 +23,15 @@ class RequestController extends Controller
 
         $EmployeeGroup = EmployeeGroup::model()->findAll(array("order" => "id"));
         $requestCount = RequestCount::init($this->Employee)->count();
+
+        $requestId = Yii::app()->request->getQuery('id', false);
+        if ($requestId) {
+            $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
+            if ($RequestLib->getType() == 'archive') {
+                $requestCount = RequestCount::init($this->Employee)->countArchive();
+                $this->part = 'archive';
+            }
+        }
 
         /** @var EmployeeGroupRequestType $EmployeeGroupRequestType */
         $EmployeeGroupRequestType = $this->Employee->EmployeeGroup->EmployeeGroupRequestType;
@@ -190,9 +201,12 @@ class RequestController extends Controller
             $this->redirect(Yii::app()->request->urlReferrer);
         }
 
+        $Model = Instance::detectType($Request->id);
+
         $this->render('tabs/main', array(
             'Request' => $Request,
-            'RequestLib' => $RequestLib
+            'RequestLib' => $RequestLib,
+            'group' => $Model::REQUEST_TYPE
             ) + $this->requestGeneralParams);
     }
 
