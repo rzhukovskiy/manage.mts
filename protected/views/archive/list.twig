@@ -11,23 +11,25 @@
         </li>
     </ul>
     <div class="form-tabs">
-        {% if group == "company" %}
-            <a class="btn btn-default btn-primary" href="/archive/addCompany">Добавить</a>
+        {% if App.user.role == "admin" %}
+            {% if group == "company" %}
+                <a class="btn btn-default btn-primary" href="/archive/addCompany">Добавить</a>
+            {% endif %}
+
+            {% if group == "wash" %}
+                <a class="btn btn-default btn-primary" href="/archive/addWash">Добавить</a>
+            {% endif %}
+
+            {% if group == "tires" %}
+                <a class="btn btn-default btn-primary" href="/archive/addTires">Добавить</a>
+            {% endif %}
+
+            {% if group == "service" %}
+                <a class="btn btn-default btn-primary" href="/archive/addService">Добавить</a>
+            {% endif %}
         {% endif %}
 
-        {% if group == "wash" %}
-            <a class="btn btn-default btn-primary" href="/archive/addWash">Добавить</a>
-        {% endif %}
-
-        {% if group == "tires" %}
-            <a class="btn btn-default btn-primary" href="/archive/addTires">Добавить</a>
-        {% endif %}
-
-        {% if group == "service" %}
-            <a class="btn btn-default btn-primary" href="/archive/addService">Добавить</a>
-        {% endif %}
-
-        <hr />
+        <hr/>
 
         {% if Cities is empty %}
             <div style="margin-bottom: 30px;">
@@ -41,7 +43,7 @@
 
         {% set count = 0 %}
         {% for CurrentCity in Cities %}
-            <div style="margin-bottom: 30px;">
+            <div>
                 <div class="form-tabs-title">
                     {% if CurrentCity.isAddressCity() %}
                         {{ CurrentCity.address_city }}
@@ -58,9 +60,5 @@
             </div>
             {% set count = count + 1 %}
         {% endfor %}
-        <p>
-            Итого заявок:
-            <strong>{{ this.getRequestsCount(group) }}</strong>
-        </p>
     </div>
 {% endblock %}

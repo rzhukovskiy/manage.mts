@@ -2,7 +2,7 @@
     {% if (EmployeeGroupArchiveRequestType.wash or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
         <li {% if group == "wash" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=wash' }}">
-                Мойки
+                Мойки  <span class="label label-default">{{ countWash }}</span>
             </a>
         </li>
     {% endif %}
@@ -10,7 +10,7 @@
     {% if (EmployeeGroupArchiveRequestType.service or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
         <li {% if group == "service" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=service' }}">
-                Сервис
+                Сервис  <span class="label label-default">{{ countService }}</span>
             </a>
         </li>
     {% endif %}
@@ -18,7 +18,7 @@
     {% if (EmployeeGroupArchiveRequestType.tires or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
         <li {% if group == "tires" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=tires' }}">
-                Шиномонтаж
+                Шиномонтаж  <span class="label label-default">{{ countTires }}</span>
             </a>
         </li>
     {% endif %}
@@ -26,7 +26,7 @@
     {% if (EmployeeGroupArchiveRequestType.company or Employee.EmployeeGroup.manage or App.user.role == "admin") %}
         <li {% if group == "company" %}class="active"{% endif %}>
             <a href="{{ '/archive/list?group=company' }}">
-                Компании
+                Компании  <span class="label label-default">{{ countCompany }}</span>
             </a>
         </li>
     {% endif %}

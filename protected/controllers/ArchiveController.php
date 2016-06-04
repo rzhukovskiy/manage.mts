@@ -55,10 +55,11 @@ class ArchiveController extends Controller
         $RequestArchiveLib = new RequestArchiveLib($this->Employee);
         $Cities = $RequestArchiveLib->getAllCities($group, $_GET);
 
+        $requestCount = RequestCount::init($this->Employee)->countArchive();
         $this->render('list', array(
                 "group" => $group,
                 'Cities' => $Cities
-            ) + $this->requestGeneralParams);
+            ) + $this->requestGeneralParams + $requestCount);
     }
 
     public function getRequestsByCity($group, $city, $count = 1)
@@ -89,25 +90,6 @@ class ArchiveController extends Controller
 
         return $grid;
     }
-
-    public function getRequestsCount($group)
-    {
-        $RequestArchiveLib = new RequestArchiveLib($this->Employee);
-        $sum = 0;
-
-        foreach ($RequestArchiveLib->getAllCities($group) as $city) {
-            $CDbCriteria = $RequestArchiveLib->getRequestsByCity($group, $city->address_city);
-
-            $DataProvider = new CActiveDataProvider(Request::model(), array(
-                'criteria' => $CDbCriteria
-            ));
-
-            $sum += count($DataProvider->getData());
-        }
-
-        return $sum;
-    }
-
 
     public function actionAddCompany()
     {

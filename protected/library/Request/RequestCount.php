@@ -49,6 +49,32 @@ class RequestCount
         ];
     }
 
+    public function countArchive()
+    {
+        $CDbCriteria = new CDbCriteria;
+
+        $RequestLib = new RequestActiveLib($this->Employee);
+        $CDbCriteria = $RequestLib->getTypes($CDbCriteria);
+        if (!$CDbCriteria) {
+            return false;
+        }
+
+        $arrayEmployeeGroups = array($this->EmployeeGroup->id);
+        if ($this->Employee->role == 'admin') {
+            $CDbCriteria->addCondition('RequestDone.id IS NOT NULL');
+        } else {
+            $CDbCriteria->addCondition('RequestDone.id IS NOT NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+        }
+
+        return [
+            "countAll" => $this->getAll($CDbCriteria),
+            "countCompany" => $this->getCompany($CDbCriteria),
+            "countWash" => $this->getWash($CDbCriteria),
+            "countTires" => $this->getTires($CDbCriteria),
+            "countService" => $this->getService($CDbCriteria)
+        ];
+    }
+
     private function getAll($CDbCriteria)
     {
         $countRequestProcess = Request::model()->count($CDbCriteria);

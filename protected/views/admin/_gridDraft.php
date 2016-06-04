@@ -28,11 +28,11 @@ $this->widget('booster.widgets.TbGridView', array(
             'header' => 'Адрес',
             'value' => '$data->getFullAddress()'
         ),
-        array(
-            'header' => 'Пояс',
-            'value' => '$data->address_timezone',
-            'htmlOptions' => array('style' => 'width: 130px;')
-        ),
+//        array(
+//            'header' => 'Пояс',
+//            'value' => '$data->address_timezone',
+//            'htmlOptions' => array('style' => 'width: 130px;')
+//        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{info}',

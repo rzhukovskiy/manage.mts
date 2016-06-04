@@ -72,13 +72,26 @@
         <td>
             <?php
             $this->widget(
-                'booster.widgets.TbEditableField',
+                'booster.widgets.TbDatePicker',
                 array(
-                    'type' => 'date',
                     'model' => $model,
                     'attribute' => 'agreement_date',
-                    'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Дата"
+                    'options' => array(
+                        'language' => 'ru',
+                        'showClear' => false,
+                        'autoclose' => true,
+                        'format' => 'dd.mm.yyyy',
+                        'todayHighlight' => true,
+                    ),
+                    'events' => [
+                        'changeDate' => 'js: function(event, reason) {
+                                    $.post("' . $this->createUrl('request/updateDetails') . '", {
+                                        name: "agreement_date",
+                                        value: $( "#Request_agreement_date" ).val(),
+                                        pk: ' . $model->id . ',
+                                        scenatio: "update" })
+                                }'
+                    ],
                 )
             );
             ?>

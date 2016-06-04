@@ -126,7 +126,7 @@
             ?>
         </td>
     </tr>
-    <tr>
+    <!--<tr>
         <th>Временная зона</th>
         <td>
             <?php
@@ -143,7 +143,7 @@
             );
             ?>
         </td>
-    </tr>
+    </tr>-->
     <?php if (!isset($model->RequestDone->id)) { ?>
         <tr>
             <th>Статус клиента</th>
@@ -184,20 +184,26 @@
             <td>
                 <?php
                 $this->widget(
-                    'booster.widgets.TbEditableField',
+                    'booster.widgets.TbDatePicker',
                     array(
-                        'type' => 'date',
                         'model' => $model,
-                        'title' => false,
                         'attribute' => 'next_communication_date',
-                        'url' => $this->createUrl('request/updateDetails'),
                         'options' => array(
-                            'datepicker' => array(
-                                'language' => 'ru',
-                                'showClear' => false,
-                            )
+                            'language' => 'ru',
+                            'showClear' => false,
+                            'autoclose' => true,
+                            'format' => 'dd.mm.yyyy',
+                            'todayHighlight' => true,
                         ),
-                        'emptytext' => "Дата следующей связи"
+                        'events' => [
+                            'changeDate' => 'js: function(event, reason) {
+                                    $.post("' . $this->createUrl('request/updateDetails') . '", {
+                                        name: "next_communication_date",
+                                        value: $( "#Request_next_communication_date" ).val(),
+                                        pk: ' . $model->id . ',
+                                        scenatio: "update" })
+                                }'
+                        ],
                     )
                 );
                 ?>
