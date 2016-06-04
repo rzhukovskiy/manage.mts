@@ -75,7 +75,8 @@
                 'booster.widgets.TbDatePicker',
                 array(
                     'model' => $model,
-                    'attribute' => 'agreement_date',
+                    'name' => 'agreement_date',
+                    'value' => date('d.m.Y', strtotime($model->agreement_date)),
                     'options' => array(
                         'language' => 'ru',
                         'showClear' => false,
@@ -85,9 +86,11 @@
                     ),
                     'events' => [
                         'changeDate' => 'js: function(event, reason) {
+                                    var dateAsObject = $(this).datepicker("getDate");
+                                    var formatted = dateAsObject.getFullYear() + "-" + (dateAsObject.getMonth() + 1) + "-" + dateAsObject.getDate();
                                     $.post("' . $this->createUrl('request/updateDetails') . '", {
                                         name: "agreement_date",
-                                        value: $( "#Request_agreement_date" ).val(),
+                                        value: formatted,
                                         pk: ' . $model->id . ',
                                         scenatio: "update" })
                                 }'

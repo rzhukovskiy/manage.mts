@@ -187,7 +187,8 @@
                     'booster.widgets.TbDatePicker',
                     array(
                         'model' => $model,
-                        'attribute' => 'next_communication_date',
+                        'name' => 'next_communication_date',
+                        'value' => date('d.m.Y', strtotime($model->next_communication_date)),
                         'options' => array(
                             'language' => 'ru',
                             'showClear' => false,
@@ -197,9 +198,11 @@
                         ),
                         'events' => [
                             'changeDate' => 'js: function(event, reason) {
+                                    var dateAsObject = $(this).datepicker("getDate");
+                                    var formatted = dateAsObject.getFullYear() + "-" + (dateAsObject.getMonth() + 1) + "-" + dateAsObject.getDate();
                                     $.post("' . $this->createUrl('request/updateDetails') . '", {
                                         name: "next_communication_date",
-                                        value: $( "#Request_next_communication_date" ).val(),
+                                        value: formatted,
                                         pk: ' . $model->id . ',
                                         scenatio: "update" })
                                 }'
