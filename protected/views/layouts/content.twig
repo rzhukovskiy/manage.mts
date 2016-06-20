@@ -4,34 +4,34 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     {% if App.user.role == "admin" %}
-                    <li>
+                    <li {% if this.part == "employee" %}class="active"{% endif %}>
                         <a href="/employeeGroup">
                             Отделы и сотрудники
                         </a>
                     </li>
-                    <li>
+                    <li {% if this.part == "drafts" %}class="active"{% endif %}>
                         <a href="/admin/drafts">
-                            Черновики
+                            Заявки
                         </a>
                     </li>
-                    <li>
+                    <li {% if this.part == "archive" %}class="active"{% endif %}>
                         <a href="/archive/list">
                             Архив
                         </a>
                     </li>
-                    <li>
+                    <li {% if this.part == "report" %}class="active"{% endif %}>
                         <a href="/report/dates">
                             Отчёты
                         </a>
                     </li>
                     {% else %}
-                    <li>
-                        <a href="/request" {% if this.part == "request" %}class="active"{% endif %}>
+                    <li {% if this.part == "request" %}class="active"{% endif %}>
+                        <a href="/request">
                             Заявки
                         </a>
                     </li>
-                    <li>
-                        <a href="/archive/list" {% if this.part == "archive" %}class="active"{% endif %}>
+                    <li {% if this.part == "archive" %}class="active"{% endif %}>
+                        <a href="/archive/list">
                             Архив
                         </a>
                     </li>

@@ -224,9 +224,6 @@ class Request extends CActiveRecord
 	{
 		$fullAddress = [];
 
-		if ($this->address_index !== '' and $this->address_index !== null)
-			$fullAddress[] = $this->address_index;
-
 		if ($this->address_city !== '' and $this->address_city !== null)
 			$fullAddress[] = $this->address_city;
 
@@ -235,6 +232,9 @@ class Request extends CActiveRecord
 
 		if ($this->address_house !== '' and $this->address_house !== null)
 			$fullAddress[] = $this->address_house;
+
+		if ($this->address_index !== '' and $this->address_index !== null)
+			$fullAddress[] = $this->address_index;
 
 		return implode(', ', $fullAddress);
 	}

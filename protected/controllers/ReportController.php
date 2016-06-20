@@ -7,6 +7,9 @@
  */
 class ReportController extends Controller
 {
+
+    public $part = 'report';
+
     public function actionRequests()
     {
         $RequestProcess=new RequestProcess('search');

@@ -5,6 +5,8 @@ class EmployeeController extends Controller
 	/** @var $Employee Employee */
 	private $Employee;
 
+	public $part = 'employee';
+
 	public function init()
 	{
 		$userId = Yii::app()->user->id;

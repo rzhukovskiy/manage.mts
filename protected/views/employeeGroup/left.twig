@@ -1,10 +1,10 @@
 <ul class="nav nav-pills nav-stacked">
-    <li>
+    <li {% if App.controller.id == "employeeGroup" %}class="active"{% endif %}>
         <a href="{{ '/employeeGroup' }}">
            Отделы
         </a>
     </li>
-    <li>
+    <li {% if App.controller.id == "employee" %}class="active"{% endif %}>
         <a href="{{ '/employee' }}">
             Сотрудники
         </a>

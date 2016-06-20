@@ -58,8 +58,10 @@ class ArchiveController extends Controller
         $Cities = $RequestArchiveLib->getAllCities($group, $_GET);
 
         $requestCount = RequestCount::init($this->Employee)->countArchive();
+        $translateGroup = Request::getTranslate($group);
         $this->render('list', array(
                 "group" => $group,
+                "translateGroup" => $translateGroup,
                 'Cities' => $Cities
             ) + $this->requestGeneralParams + $requestCount);
     }

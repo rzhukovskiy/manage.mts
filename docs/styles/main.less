@@ -10,7 +10,7 @@ body {
     min-height: 100%;
 
     .content {
-      padding-bottom: 320px;
+      padding-bottom: 160px;
     }
 
     .footer {
@@ -56,6 +56,9 @@ body {
     .navbar-default .navbar-nav .active {
       color: #5cb85c;
       font-weight: bold;
+      a {
+        background-color: #DEDEDC;
+      }
     }
 
     .navbar-default .navbar-nav > li > a:hover {
@@ -72,10 +75,6 @@ body {
       height: @header-navbar-height;
       min-height: @header-navbar-height;
       margin-bottom: 0;
-
-      div > ul > li.active {
-        border-top: 2px solid @brand-warning;
-      }
 
       li > a {
         cursor: pointer;

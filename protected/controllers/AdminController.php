@@ -10,6 +10,8 @@ class AdminController extends Controller
     /** @var $Employee Employee */
     private $Employee;
 
+    public $part = 'drafts';
+
     /** @var array */
     private $requestGeneralParams;
 
@@ -30,6 +32,7 @@ class AdminController extends Controller
     public function actionDrafts()
     {
         $Employee = Employee::model()->findAll();
+        $this->part = 'drafts';
 
         $this->render('drafts', array(
             "Employee" => $Employee

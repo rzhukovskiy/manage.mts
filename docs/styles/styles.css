@@ -8225,7 +8225,7 @@ body .wrapper {
   min-height: 100%;
 }
 body .wrapper .content {
-  padding-bottom: 320px;
+  padding-bottom: 160px;
 }
 body .wrapper .footer {
   height: 310px;
@@ -8265,6 +8265,9 @@ body #header .navbar-default .navbar-nav .active {
   color: #5cb85c;
   font-weight: bold;
 }
+body #header .navbar-default .navbar-nav .active a {
+  background-color: #DEDEDC;
+}
 body #header .navbar-default .navbar-nav > li > a:hover {
   color: black;
 }
@@ -8277,9 +8280,6 @@ body #header .navbar {
   height: 40px;
   min-height: 40px;
   margin-bottom: 0;
-}
-body #header .navbar div > ul > li.active {
-  border-top: 2px solid #f0ad4e;
 }
 body #header .navbar li > a {
   cursor: pointer;
@@ -8410,7 +8410,7 @@ body #content h3 {
 }
 .login-form {
   margin: 0 auto;
-  padding: 200px 10px 0;
+  padding: 100px 10px 50px 0;
   width: 400px;
 }
 .login-form input,
@@ -8453,6 +8453,9 @@ body #content h3 {
 }
 .grid-view {
   padding-top: 0px;
+}
+.grid-view table.items th:hover a.sort-link:after {
+  content: "";
 }
 .form-pills {
   margin: -5px -10px 0 -10px;

@@ -28,6 +28,11 @@ $this->widget('booster.widgets.TbGridView', array(
             'header' => 'Адрес',
             'value' => '$data->getFullAddress()'
         ),
+        array(
+            'header' => 'Связь',
+            'value' => '$data->getNextCommunicationDate()',
+            'type' => 'html',
+        ),
 //        array(
 //            'header' => 'Пояс',
 //            'value' => '$data->address_timezone',
