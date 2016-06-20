@@ -61,6 +61,8 @@ class RequestCount
 
         $arrayEmployeeGroups = array($this->EmployeeGroup->id);
         if ($this->Employee->role == 'admin') {
+            $CDbCriteria = new CDbCriteria();
+            $CDbCriteria->with = array('RequestProcess', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
             $CDbCriteria->addCondition('RequestDone.id IS NOT NULL');
         } else {
             $CDbCriteria->addCondition('RequestDone.id IS NOT NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
