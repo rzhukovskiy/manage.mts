@@ -106,6 +106,24 @@ class AdminController extends Controller
         return $DataProvider->getData();
     }
 
+    public function getRequestsCountByEmployeeAndGroup($employee_id, $group)
+    {
+        $Employee = Employee::model()->findByPk($employee_id);
+        $RequestLib = new RequestActiveLib($Employee);
+        $CDbCriteria = $RequestLib->getRequestsCriteria($group);
+
+        $sort = new CSort();
+        $sort->defaultOrder = 'next_communication_date';
+
+        $DataProvider = new CActiveDataProvider(Request::model(), array(
+            'criteria' => $CDbCriteria,
+            'sort' => $sort,
+            'pagination' => false,
+        ));
+
+        return $DataProvider->getData();
+    }
+
     public function actionDeleteFromArchive()
     {
         $requestId = Yii::app()->request->getQuery('id');

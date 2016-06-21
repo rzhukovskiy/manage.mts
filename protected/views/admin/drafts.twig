@@ -9,13 +9,15 @@
     </ul>
     <div class="form-tabs">
         {% for CurrentGroup in Groups %}
-            <div>
-                <div class="form-tabs-title">
-                    {{ getTranslate(CurrentGroup) }}
-                </div>
+            {% if this.getRequestsCountByEmployeeAndGroup(employeeId, CurrentGroup) %}
+                <div>
+                    <div class="form-tabs-title">
+                        {{ getTranslate(CurrentGroup) }}
+                    </div>
 
-                {{ this.getRequestsByEmployeeAndGroup(employeeId, CurrentGroup)|raw }}
-            </div>
+                    {{ this.getRequestsByEmployeeAndGroup(employeeId, CurrentGroup)|raw }}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
