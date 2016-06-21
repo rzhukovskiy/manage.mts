@@ -1,0 +1,33 @@
+<ul class="nav nav-pills nav-stacked">
+    {% if (EmployeeGroupArchiveRequestType.wash or App.user.role == "admin") %}
+        <li {% if group == "wash" %}class="active"{% endif %}>
+            <a href="{{ '/refused/list?group=wash' }}">
+                Мойки  <span class="label label-success">{{ countWash }}</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if (EmployeeGroupArchiveRequestType.service or App.user.role == "admin") %}
+        <li {% if group == "service" %}class="active"{% endif %}>
+            <a href="{{ '/refused/list?group=service' }}">
+                Сервис  <span class="label label-success">{{ countService }}</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if (EmployeeGroupArchiveRequestType.tires or App.user.role == "admin") %}
+        <li {% if group == "tires" %}class="active"{% endif %}>
+            <a href="{{ '/refused/list?group=tires' }}">
+                Шиномонтаж  <span class="label label-success">{{ countTires }}</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if (EmployeeGroupArchiveRequestType.company or App.user.role == "admin") %}
+        <li {% if group == "company" %}class="active"{% endif %}>
+            <a href="{{ '/refused/list?group=company' }}">
+                Компании  <span class="label label-success">{{ countCompany }}</span>
+            </a>
+        </li>
+    {% endif %}
+</ul>

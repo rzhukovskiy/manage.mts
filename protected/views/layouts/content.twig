@@ -4,43 +4,53 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     {% if App.user.role == "admin" %}
-                    <li {% if this.part == "employee" %}class="active"{% endif %}>
-                        <a href="/employeeGroup">
-                            Отделы и сотрудники
-                        </a>
-                    </li>
-                    <li {% if this.part == "drafts" %}class="active"{% endif %}>
-                        <a href="/admin/drafts">
-                            Заявки
-                        </a>
-                    </li>
-                    <li {% if this.part == "archive" %}class="active"{% endif %}>
-                        <a href="/archive/list">
-                            Архив
-                        </a>
-                    </li>
-                    <li {% if this.part == "report" %}class="active"{% endif %}>
-                        <a href="/report/dates">
-                            Отчёты
-                        </a>
-                    </li>
+                        <li {% if this.part == "employee" %}class="active"{% endif %}>
+                            <a href="/employeeGroup">
+                                Отделы и сотрудники
+                            </a>
+                        </li>
+                        <li {% if this.part == "drafts" %}class="active"{% endif %}>
+                            <a href="/admin/drafts">
+                                Заявки
+                            </a>
+                        </li>
+                        <li {% if this.part == "archive" %}class="active"{% endif %}>
+                            <a href="/archive/list">
+                                Архив
+                            </a>
+                        </li>
+                        <li {% if this.part == "refused" %}class="active"{% endif %}>
+                            <a href="/refused/list">
+                                Архив 2
+                            </a>
+                        </li>
+                        <li {% if this.part == "report" %}class="active"{% endif %}>
+                            <a href="/report/dates">
+                                Отчёты
+                            </a>
+                        </li>
                     {% else %}
-                    <li {% if this.part == "request" %}class="active"{% endif %}>
-                        <a href="/request">
-                            Заявки
-                        </a>
-                    </li>
-                    <li {% if this.part == "archive" %}class="active"{% endif %}>
-                        <a href="/archive/list">
-                            Архив
-                        </a>
-                    </li>
+                        <li {% if this.part == "request" %}class="active"{% endif %}>
+                            <a href="/request">
+                                Заявки
+                            </a>
+                        </li>
+                        <li {% if this.part == "archive" %}class="active"{% endif %}>
+                            <a href="/archive/list">
+                                Архив
+                            </a>
+                        </li>
+                        <li {% if this.part == "refused" %}class="active"{% endif %}>
+                            <a href="/refused/list">
+                                Архив 2
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        {%  if App.user.getState('isMaskedUser') %}
+                        {% if App.user.getState('isMaskedUser') %}
                             <a href="/home/unLogin">
                                 <span class="label label-danger">
                                     Стать админом
@@ -80,12 +90,12 @@
                 {% for currentFlashKey,currentFlashMessage in App.user.getFlashes() %}
                     {% if currentFlashKey == "success" %}
                         <div class="alert alert-success">
-                        {{ currentFlashMessage|raw }}
+                            {{ currentFlashMessage|raw }}
                         </div>
                     {% endif %}
                     {% if currentFlashKey == "error" %}
                         <div class="alert alert-danger">
-                        {{ currentFlashMessage|raw }}
+                            {{ currentFlashMessage|raw }}
                         </div>
                     {% endif %}
                 {% endfor %}

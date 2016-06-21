@@ -43,7 +43,39 @@ abstract class Instance
     }
 
     /**
-     * Create request to archive
+     * Create request to refused
+     * @return int ID of new request
+     * @throws Exception
+     */
+    public function createToRefused()
+    {
+        /** @var Request $Request */
+        $Request = new Request();
+        if (!$Request->save()) {
+            throw new \Exception(CHtml::errorSummary($Request));
+        }
+
+        $this->Model->request_ptr_id = $Request->id;
+        if (!$this->Model->save()) {
+            $Request->delete();
+
+            throw new \Exception(CHtml::errorSummary($this->Model));
+        }
+
+        $RequestRefused = new RequestRefused();
+        $RequestRefused->request_id = $Request->id;
+        if (!$RequestRefused->save()) {
+            $Request->delete();
+            $this->Model->delete();
+
+            throw new \Exception(CHtml::errorSummary($this->Model));
+        }
+
+        return $Request->id;
+    }
+
+    /**
+     * Create request to process
      * @param $Employee Employee
      * @return int ID of new request
      * @throws Exception

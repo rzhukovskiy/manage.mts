@@ -1,0 +1,64 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% include "views/refused/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active">
+            <a href="#">{{ translateGroup }}</a>
+        </li>
+    </ul>
+    <div class="form-tabs">
+        {% if App.user.role == "admin" %}
+            {% if group == "company" %}
+                <a class="btn btn-default btn-primary" href="/refused/addCompany">Добавить</a>
+            {% endif %}
+
+            {% if group == "wash" %}
+                <a class="btn btn-default btn-primary" href="/refused/addWash">Добавить</a>
+            {% endif %}
+
+            {% if group == "tires" %}
+                <a class="btn btn-default btn-primary" href="/refused/addTires">Добавить</a>
+            {% endif %}
+
+            {% if group == "service" %}
+                <a class="btn btn-default btn-primary" href="/refused/addService">Добавить</a>
+            {% endif %}
+        {% endif %}
+
+        <br /><br />
+
+        {% if Cities is empty %}
+            <div style="margin-bottom: 30px;">
+                <div class="form-tabs-title">
+                    Город не указан
+                </div>
+
+                {{ this.getRequestsByCity(group, "", 0)|raw }}
+            </div>
+        {% endif %}
+
+        {% set count = 0 %}
+        {% for CurrentCity in Cities %}
+            <div>
+                <div class="form-tabs-title">
+                    {% if CurrentCity.isAddressCity() %}
+                        {{ CurrentCity.address_city }}
+                    {% else %}
+                        Город не указан
+                    {% endif %}
+                </div>
+
+                {% if CurrentCity.isAddressCity() %}
+                    {{ this.getRequestsByCity(group, CurrentCity.address_city, count)|raw }}
+                {% else %}
+                    {{ this.getRequestsByCity(group, "", count)|raw }}
+                {% endif %}
+            </div>
+            {% set count = count + 1 %}
+        {% endfor %}
+    </div>
+{% endblock %}

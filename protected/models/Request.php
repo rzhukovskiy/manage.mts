@@ -100,6 +100,7 @@ class Request extends CActiveRecord
 
 			'RequestProcess' => array(self::HAS_ONE, 'RequestProcess', 'request_id'),
 			'RequestDone' => array(self::HAS_ONE, 'RequestDone', 'request_id'),
+			'RequestRefused' => array(self::HAS_ONE, 'RequestRefused', 'request_id'),
 		);
 	}
 

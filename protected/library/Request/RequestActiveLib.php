@@ -128,7 +128,7 @@ class RequestActiveLib extends RequestLib
             return false;
         }
 
-        $CDbCriteria->with = array('RequestProcess', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
+        $CDbCriteria->with = array('RequestProcess', 'RequestRefused', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
 
         if ($this->EmployeeGroup->manage) {
             return $CDbCriteria;
