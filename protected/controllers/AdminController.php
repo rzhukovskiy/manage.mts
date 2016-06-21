@@ -34,8 +34,15 @@ class AdminController extends Controller
         $Employee = Employee::model()->findAll();
         $this->part = 'drafts';
 
+        $employeeId = Yii::app()->request->getQuery('employee', Employee::model()->find()->id);
+
+        $RequestLib = new RequestLib($this->Employee);
+        $Groups = $RequestLib->getAllGroups();
+
         $this->render('drafts', array(
-            "Employee" => $Employee
+            "Employee" => $Employee,
+            "employeeId" => $employeeId,
+            "Groups" => $Groups,
         ));
     }
 
@@ -44,6 +51,28 @@ class AdminController extends Controller
         $Employee = Employee::model()->findByPk($employee_id);
         $RequestLib = new RequestActiveLib($Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria();
+
+        $sort = new CSort();
+        $sort->defaultOrder = 'next_communication_date';
+
+        $DataProvider = new CActiveDataProvider(Request::model(), array(
+            'criteria' => $CDbCriteria,
+            'sort' => $sort,
+            'pagination' => false,
+        ));
+
+        $grid = $this->renderPartial('_gridDraft', array(
+            'DataProvider' => $DataProvider
+        ), true);
+
+        return $grid;
+    }
+
+    public function getRequestsByEmployeeAndGroup($employee_id, $group)
+    {
+        $Employee = Employee::model()->findByPk($employee_id);
+        $RequestLib = new RequestActiveLib($Employee);
+        $CDbCriteria = $RequestLib->getRequestsCriteria($group);
 
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';

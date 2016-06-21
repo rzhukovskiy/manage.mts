@@ -1,38 +1,29 @@
 <?php
+
 $this->widget('booster.widgets.TbGridView', array(
     'type' => 'bordered condensed',
     'dataProvider' => $DataProvider,
+    'filter' => $DataProvider->model,
     'summaryText' => '',
+    'emptyText' => '',
+    'ajaxUpdate' => false,
     'columns' => array(
         array(
             'header' => '',
             'value' => '++$row',
-            'htmlOptions' => array('style' => 'width: 40px;')
-        ),
-        array(
-            'header' => 'Город',
-            'value' => '$data->address_city',
-            'htmlOptions' => array('style' => 'width: 240px;')
+            'filterHtmlOptions' => array('style' => 'width: 40px;'),
         ),
         array(
             'header' => 'Организация',
             'value' => '$data->name',
-            'htmlOptions' => array('style' => 'width: 240px;')
+            'name' => 'name',
+            'filterHtmlOptions' => array('style' => 'width: 300px;')
         ),
         array(
             'header' => 'Адрес',
-            'value' => '$data->getFullAddress()'
+            'value' => '$data->getFullAddress()',
+            'name' => 'address_city',
         ),
-        array(
-            'header' => 'Связь',
-            'value' => '$data->getNextCommunicationDate()',
-            'type' => 'html',
-        ),
-//        array(
-//            'header' => 'Пояс',
-//            'value' => '$data->address_timezone',
-//            'htmlOptions' => array('style' => 'width: 130px;')
-//        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{info}',

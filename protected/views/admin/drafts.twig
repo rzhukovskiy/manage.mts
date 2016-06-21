@@ -1,25 +1,21 @@
 {% extends "views/layouts/content.twig" %}
+{% block leftmenu %}
+    {% include "views/admin/left.twig" %}
+{% endblock %}
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
         <li role="presentation" class="active"><a href="#">Заявки {{ translateGroup }}</a></li>
     </ul>
     <div class="form-tabs">
-        {% for CurrentEmployee in Employee %}
-            {% if this.getRequestsCountByEmployee(CurrentEmployee.id) %}
-                <div style="margin-bottom: 30px;">
-                    <div class="form-tabs-title">
-
-                        {% if CurrentEmployee.EmployeeGroup.name is not defined %}
-                            {{ CurrentEmployee.username }} (<span style="color: red;">Отдел сотрудников не задан</span>)
-                        {% else %}
-                            {{ CurrentEmployee.username }} ({{ CurrentEmployee.EmployeeGroup.name }})
-                        {% endif %}
-                    </div>
-
-                    {{ this.getRequestsByEmployee(CurrentEmployee.id)|raw }}
+        {% for CurrentGroup in Groups %}
+            <div>
+                <div class="form-tabs-title">
+                    {{ getTranslate(CurrentGroup) }}
                 </div>
-            {% endif %}
+
+                {{ this.getRequestsByEmployeeAndGroup(employeeId, CurrentGroup)|raw }}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

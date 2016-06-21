@@ -8266,7 +8266,7 @@ body #header .navbar-default .navbar-nav .active {
   font-weight: bold;
 }
 body #header .navbar-default .navbar-nav .active a {
-  background-color: #DEDEDC;
+  background-color: #fff;
 }
 body #header .navbar-default .navbar-nav > li > a:hover {
   color: black;
@@ -8582,6 +8582,9 @@ a.editable.editable-empty,
 }
 #request-agreement-file-block {
   padding-top: 4px;
+}
+.caret {
+  display: none;
 }
 .sr-only {
   position: absolute;

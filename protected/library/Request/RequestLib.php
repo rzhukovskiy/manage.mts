@@ -33,6 +33,16 @@ class RequestLib
         $this->id = $id;
     }
 
+    public function getAllGroups()
+    {
+        return [
+            'wash',
+            'service',
+            'tires',
+            'company',
+        ];
+    }
+
     /**
      * @param $id
      * @return bool|CDbCriteria false if not found

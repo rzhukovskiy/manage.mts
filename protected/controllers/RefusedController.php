@@ -67,7 +67,7 @@ class RefusedController extends Controller
             ) + $this->requestGeneralParams + $requestCount);
     }
 
-    public function getRequestsByCity($group, $city, $count = 1)
+    public function getRequestsByCity($group, $city)
     {
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';
@@ -90,7 +90,22 @@ class RefusedController extends Controller
 
         $grid = $this->renderPartial('_gridArchive', array(
             'DataProvider' => $DataProvider,
-            'filter' => !$count,
+        ), true);
+
+        return $grid;
+    }
+
+    public function getSearchForm()
+    {
+        $CDbCriteria = new CDbCriteria();
+        $CDbCriteria->compare('id', 0);
+
+        $DataProvider = new CActiveDataProvider(Request::model(), array(
+            'criteria' => $CDbCriteria,
+        ));
+
+        $grid = $this->renderPartial('_filterArchive', array(
+            'DataProvider' => $DataProvider,
         ), true);
 
         return $grid;

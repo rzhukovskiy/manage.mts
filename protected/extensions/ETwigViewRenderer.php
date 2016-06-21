@@ -37,7 +37,7 @@ class ETwigViewRenderer extends CApplicationComponent implements IViewRenderer
      * Example: array('rot13'=>'str_rot13', 'link'=>'CHtml::link')
      * Than in template: {{ rot13('test') }} or {{ link('Login', 'site/login') }}
      */
-    public $functions = array();
+    public $functions = array('getTranslate' => 'Request::getTranslate');
     /**
      * @var array Custom filters
      * Keys of array are names to call in template, values - names of functions or static methods of some class

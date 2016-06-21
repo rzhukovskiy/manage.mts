@@ -2,7 +2,6 @@
 $this->widget('booster.widgets.TbGridView', array(
     'type' => 'bordered condensed',
     'dataProvider' => $DataProvider,
-    'filter' => $filter ? $DataProvider->model : null,
     'summaryText' => '',
     'ajaxUpdate' => false,
     'columns' => array(

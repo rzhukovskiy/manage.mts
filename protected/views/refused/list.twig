@@ -31,17 +31,23 @@
 
         <br /><br />
 
+        <div>
+            <div class="form-tabs-title">
+                Поиск по городам и организациям
+            </div>
+            {{ this.getSearchForm()|raw }}
+        </div>
+
         {% if Cities is empty %}
-            <div style="margin-bottom: 30px;">
+            <div>
                 <div class="form-tabs-title">
                     Город не указан
                 </div>
 
-                {{ this.getRequestsByCity(group, "", 0)|raw }}
+                {{ this.getRequestsByCity(group, "")|raw }}
             </div>
         {% endif %}
 
-        {% set count = 0 %}
         {% for CurrentCity in Cities %}
             <div>
                 <div class="form-tabs-title">
@@ -53,12 +59,11 @@
                 </div>
 
                 {% if CurrentCity.isAddressCity() %}
-                    {{ this.getRequestsByCity(group, CurrentCity.address_city, count)|raw }}
+                    {{ this.getRequestsByCity(group, CurrentCity.address_city)|raw }}
                 {% else %}
-                    {{ this.getRequestsByCity(group, "", count)|raw }}
+                    {{ this.getRequestsByCity(group, "")|raw }}
                 {% endif %}
             </div>
-            {% set count = count + 1 %}
         {% endfor %}
     </div>
 {% endblock %}

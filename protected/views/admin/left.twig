@@ -1,0 +1,13 @@
+<ul class="nav nav-pills nav-stacked">
+    {% for CurrentEmployee in Employee %}
+        {% if CurrentEmployee.role != "admin" %}
+            {% if this.getRequestsCountByEmployee(CurrentEmployee.id) %}
+                <li {% if CurrentEmployee.id == employeeId %}class="active"{% endif %}>
+                    <a href="{{ '/admin/drafts?employee=' }}{{ CurrentEmployee.id }}">
+                        {{ CurrentEmployee.username }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>
