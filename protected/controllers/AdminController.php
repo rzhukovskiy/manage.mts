@@ -34,7 +34,15 @@ class AdminController extends Controller
         $Employee = Employee::model()->findAll();
         $this->part = 'drafts';
 
-        $employeeId = Yii::app()->request->getQuery('employee', Employee::model()->find()->id);
+        $employeeId = Yii::app()->request->getQuery('employee', false);
+        if (!$employeeId) {
+            foreach($Employee as $CurrentEmployee) {
+                if ($this->getRequestsCountByEmployee($CurrentEmployee->id)) {
+                    $employeeId = $CurrentEmployee->id;
+                    break;
+                }
+            }
+        }
 
         $RequestLib = new RequestLib($this->Employee);
         $Groups = $RequestLib->getAllGroups();

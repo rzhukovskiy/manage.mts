@@ -8262,11 +8262,12 @@ body #header .navbar-default .navbar-nav {
   text-transform: uppercase;
 }
 body #header .navbar-default .navbar-nav .active {
-  color: #5cb85c;
   font-weight: bold;
 }
 body #header .navbar-default .navbar-nav .active a {
   background-color: #fff;
+  padding: 9px;
+  border-radius: 4px;
 }
 body #header .navbar-default .navbar-nav > li > a:hover {
   color: black;
@@ -8457,6 +8458,9 @@ body #content h3 {
 .grid-view table.items th:hover a.sort-link:after {
   content: "";
 }
+.grid-view .summary {
+  margin: 0;
+}
 .form-pills {
   margin: -5px -10px 0 -10px;
   background-color: #428bca;
@@ -8518,6 +8522,7 @@ body #content h3 {
   padding: 6px 10px;
   color: #FFFFFF;
   text-shadow: 1px 1px #222;
+  margin-top: 20px;
 }
 .form-tabs label {
   color: #069;

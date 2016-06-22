@@ -158,7 +158,6 @@ class RequestActiveLib extends RequestLib
         return $CDbCriteria;
     }
 
-
     public static function getRequestsByEmployee($employee_id)
     {
         $Employee = Employee::model()->findByPk($employee_id);

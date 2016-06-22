@@ -92,12 +92,12 @@ class RequestCompanyInstance extends Instance
 
     public function deleteFromArchive()
     {
-        $RequestCompanyAutopark = RequestCompanyAutopark::model()->find(
+        $RequestCompanyListAuto = RequestCompanyListAuto::model()->find(
             "request_ptr_id = :request_ptr_id",
             array("request_ptr_id" => $this->Model->request_ptr_id)
         );
-        if ($RequestCompanyAutopark !== null) {
-            $RequestCompanyAutopark->delete();
+        if ($RequestCompanyListAuto !== null) {
+            $RequestCompanyListAuto->delete();
         }
 
         $RequestCompanyDriver = RequestCompanyDriver::model()->find(

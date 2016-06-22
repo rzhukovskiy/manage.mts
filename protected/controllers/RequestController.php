@@ -184,14 +184,14 @@ class RequestController extends Controller
     {
         $requestId = Yii::app()->request->getQuery('id');
 
-        if ($this->Employee->role != 'admin') {
-            try {
-                $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
-            } catch(\Exception $e) {
-                Yii::app()->user->setFlash('error', $e->getMessage());
-                $this->redirect(Yii::app()->request->urlReferrer);
-            }
+        try {
+            $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
+        } catch(\Exception $e) {
+            Yii::app()->user->setFlash('error', $e->getMessage());
+            $this->redirect(Yii::app()->request->urlReferrer);
+        }
 
+        if ($this->Employee->role != 'admin') {
             $Request = $RequestLib->getRequest();
         } else {
             $Request = Request::model()->findByPk($requestId);

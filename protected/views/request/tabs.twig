@@ -15,12 +15,12 @@
         <div style="margin-bottom: 10px;">
             {% if RequestLib.getType() == 'active' %}
                 <button type="button" class="btn btn-primary request-index-finish" data-id="{{ Request.id }}">Переместить в архив</button>
-                <button type="button" class="btn btn-primary request-index-finish" data-id="{{ Request.id }}">Переместить в архив 2</button>
                 <!--<button type="button" class="btn btn-primary request-index-next" data-id="{{ Request.id }}">Передать в другой отдел</button>-->
                 {% if this.Employee.EmployeeGroup.manage %}
                 {% endif %}
             {% endif %}
             {% if App.user.role == "admin" %}
+                <button type="button" class="btn btn-primary request-index-finish" data-id="{{ Request.id }}">Переместить в архив 2</button>
                 <button type="button" class="btn btn-danger request-index-delete" data-id="{{ Request.id }}">Удалить</button>
             {% endif %}
         </div>

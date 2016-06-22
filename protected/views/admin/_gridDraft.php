@@ -27,6 +27,7 @@ $this->widget('booster.widgets.TbGridView', array(
             'header' => 'Связь',
             'value' => '$data->getNextCommunicationDate()',
             'type' => 'html',
+            'htmlOptions' => array('style' => 'width: 110px;'),
         ),
 //        array(
 //            'header' => 'Пояс',

@@ -14,14 +14,17 @@ $this->widget('booster.widgets.TbGridView', array(
         array(
             'header' => '',
             'value' => '++$row',
+            'htmlOptions' => array('style' => 'width: 40px;')
         ),
         array(
             'header' => 'Город',
             'name' => 'address_city',
+            'htmlOptions' => array('style' => 'width: 240px;')
         ),
         array(
             'header' => 'Организация',
             'name' => 'name',
+            'htmlOptions' => array('style' => 'width: 240px;')
         ),
         array(
             'header' => 'Адрес',
