@@ -478,11 +478,6 @@ class RequestController extends Controller
         }
     }
 
-
-
-
-
-
     public function actionSendMail()
     {
         if (Yii::app()->request->isAjaxRequest) {
@@ -492,27 +487,14 @@ class RequestController extends Controller
             $toName = Yii::app()->request->getPost('name');
 
             /** @var SwiftMailer $SwiftMailer */
-            $SwiftMailer = Yii::app()->swiftMailer;
+            $headers  = 'From: info@mtransservice.ru' . "\r\n";
+            $headers .= 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+            $headers .= "To: $toName <$toEmail>" . "\r\n";
 
-            $mailHost = Yii::app()->params['mail']['host'];
-            $mailPort = Yii::app()->params['mail']['port'];
+            $res = mail($toEmail, $subject, $plainTextContent, $headers);
 
-            $Transport = $SwiftMailer
-                ->smtpTransport($mailHost, $mailPort)
-                ->setUsername(Yii::app()->params['mail']['username'])
-                ->setPassword(Yii::app()->params['mail']['password']);
-
-            $Mailer = $SwiftMailer->mailer($Transport);
-
-            $Message = $SwiftMailer
-                ->newMessage($subject)
-                ->setFrom(array(Yii::app()->params['mail']['fromMail'] => Yii::app()->user->username))
-                ->setTo(array($toEmail => $toName))
-                ->setBody($plainTextContent);
-
-            $result = $Mailer->send($Message);
-
-            $this->outJson(['result' => $result]);
+            $this->outJson(['result' => $res]);
         }
     }
 }
