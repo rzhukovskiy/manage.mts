@@ -179,6 +179,22 @@ class RequestController extends Controller
         }
     }
 
+    public function actionRefuseWork()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $requestId = Yii::app()->request->getQuery('id');
+
+            try {
+                $RequestActiveLib = new RequestActiveLib($this->Employee);
+                $RequestActiveLib->refuseWork($requestId);
+            } catch(Exception $e) {
+                $this->outJson(["result" => false, "comment" => $e->getMessage()]);
+            }
+
+            $this->outJson(["result" => true]);
+        }
+    }
+
 
     public function actionDetails()
     {

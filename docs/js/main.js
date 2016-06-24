@@ -52,6 +52,21 @@ $(document).ready(function() {
             });
     });
 
+    $(".request-index-refuse").click(function(){
+        var requestId = $(this).data("id");
+
+        var data = {
+            id: requestId
+        };
+
+        $.ajax({url: "/request/refuseWork", type: "GET", dataType: "JSON", data: data})
+            .done(function(response) {
+                if (response.result) {
+                    location.reload();
+                }
+            });
+    });
+
 
 
 

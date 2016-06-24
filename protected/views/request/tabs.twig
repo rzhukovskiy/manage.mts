@@ -20,7 +20,7 @@
                 {% endif %}
             {% endif %}
             {% if App.user.role == "admin" %}
-                <button type="button" class="btn btn-primary request-index-finish" data-id="{{ Request.id }}">Переместить в архив 2</button>
+                <button type="button" class="btn btn-primary request-index-refuse" data-id="{{ Request.id }}">Переместить в архив 2</button>
                 <button type="button" class="btn btn-danger request-index-delete" data-id="{{ Request.id }}">Удалить</button>
             {% endif %}
         </div>

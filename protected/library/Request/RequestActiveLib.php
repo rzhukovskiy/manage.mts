@@ -111,6 +111,38 @@ class RequestActiveLib extends RequestLib
     }
 
     /**
+     * Mark request as done
+     *
+     * @param $requestId
+     * @return bool true
+     * @throws Exception
+     */
+    public function refuseWork($requestId)
+    {
+        /** @var $RequestProcess RequestProcess */
+        $RequestProcess = RequestProcess::model()->find(
+            "request_id = :requestId",
+            array(
+                //"employee_group_id" => $this->EmployeeGroup->id,
+                "requestId" => $requestId
+            )
+        );
+        if ($RequestProcess == null) {
+            throw new Exception("request not found");
+        }
+
+        $RequestProcess->delete();
+
+        $RequestRefused = new RequestRefused();
+        $RequestRefused->request_id = $requestId;
+        if (!$RequestRefused->save()) {
+            throw new Exception(CHtml::errorSummary($RequestRefused));
+        }
+
+        return true;
+    }
+
+    /**
      * Show allow request types for current employee
      *
      * @param CDbCriteria $CDbCriteria
