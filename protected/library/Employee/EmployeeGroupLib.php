@@ -169,16 +169,16 @@ class EmployeeGroupLib
             throw new \Exception('Отдел не найден');
         }
 
-        if ($EmployeeGroup->EmployeeGroupRequestType->wash or $EmployeeGroup->manage) {
+        if ($EmployeeGroup->EmployeeGroupRequestType->wash) {
             return RequestWash::REQUEST_TYPE;
         }
-        if ($EmployeeGroup->EmployeeGroupRequestType->service or $EmployeeGroup->manage) {
+        if ($EmployeeGroup->EmployeeGroupRequestType->service) {
             return RequestService::REQUEST_TYPE;
         }
-        if ($EmployeeGroup->EmployeeGroupRequestType->tires or $EmployeeGroup->manage) {
+        if ($EmployeeGroup->EmployeeGroupRequestType->tires) {
             return RequestTires::REQUEST_TYPE;
         }
-        if ($EmployeeGroup->EmployeeGroupRequestType->company or $EmployeeGroup->manage) {
+        if ($EmployeeGroup->EmployeeGroupRequestType->company) {
             return RequestCompany::REQUEST_TYPE;
         }
     }
