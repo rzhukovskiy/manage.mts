@@ -169,8 +169,8 @@ class EmployeeGroupLib
             throw new \Exception('Отдел не найден');
         }
 
-        if ($EmployeeGroup->EmployeeGroupRequestType->company or $EmployeeGroup->manage) {
-            return RequestCompany::REQUEST_TYPE;
+        if ($EmployeeGroup->EmployeeGroupRequestType->wash or $EmployeeGroup->manage) {
+            return RequestWash::REQUEST_TYPE;
         }
         if ($EmployeeGroup->EmployeeGroupRequestType->service or $EmployeeGroup->manage) {
             return RequestService::REQUEST_TYPE;
@@ -178,8 +178,8 @@ class EmployeeGroupLib
         if ($EmployeeGroup->EmployeeGroupRequestType->tires or $EmployeeGroup->manage) {
             return RequestTires::REQUEST_TYPE;
         }
-        if ($EmployeeGroup->EmployeeGroupRequestType->wash or $EmployeeGroup->manage) {
-            return RequestWash::REQUEST_TYPE;
+        if ($EmployeeGroup->EmployeeGroupRequestType->company or $EmployeeGroup->manage) {
+            return RequestCompany::REQUEST_TYPE;
         }
     }
 
@@ -190,8 +190,8 @@ class EmployeeGroupLib
             throw new \Exception('Отдел не найден');
         }
 
-        if ($EmployeeGroup->EmployeeGroupArchiveRequestType->company or $EmployeeGroup->manage) {
-            return RequestCompany::REQUEST_TYPE;
+        if ($EmployeeGroup->EmployeeGroupArchiveRequestType->wash or $EmployeeGroup->manage) {
+            return RequestWash::REQUEST_TYPE;
         }
         if ($EmployeeGroup->EmployeeGroupArchiveRequestType->service or $EmployeeGroup->manage) {
             return RequestService::REQUEST_TYPE;
@@ -199,8 +199,8 @@ class EmployeeGroupLib
         if ($EmployeeGroup->EmployeeGroupArchiveRequestType->tires or $EmployeeGroup->manage) {
             return RequestTires::REQUEST_TYPE;
         }
-        if ($EmployeeGroup->EmployeeGroupArchiveRequestType->wash or $EmployeeGroup->manage) {
-            return RequestWash::REQUEST_TYPE;
+        if ($EmployeeGroup->EmployeeGroupArchiveRequestType->company or $EmployeeGroup->manage) {
+            return RequestCompany::REQUEST_TYPE;
         }
     }
 }

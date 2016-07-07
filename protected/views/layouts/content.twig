@@ -9,7 +9,7 @@
                                 Отделы и сотрудники
                             </a>
                         </li>
-                        <li {% if this.part == "drafts" %}class="active"{% endif %}>
+                        <li {% if this.part == "drafts" or this.part == "request" %}class="active"{% endif %}>
                             <a href="/admin/drafts">
                                 Заявки
                             </a>

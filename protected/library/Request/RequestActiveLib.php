@@ -33,7 +33,7 @@ class RequestActiveLib extends RequestLib
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
 
         $arrayEmployeeGroups = array($this->EmployeeGroup->id);
-        $CDbCriteria->addCondition('RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+        $CDbCriteria->addCondition('RequestRefused.id IS NULL AND RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
 
         return $CDbCriteria;
     }
@@ -127,11 +127,9 @@ class RequestActiveLib extends RequestLib
                 "requestId" => $requestId
             )
         );
-        if ($RequestProcess == null) {
-            throw new Exception("request not found");
+        if ($RequestProcess != null) {
+            $RequestProcess->delete();
         }
-
-        $RequestProcess->delete();
 
         $RequestRefused = new RequestRefused();
         $RequestRefused->request_id = $requestId;

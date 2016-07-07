@@ -6,6 +6,7 @@
         <td>
             {{ this.widget('booster.widgets.TbEditableField', {
                 'type': 'text',
+                'title': 'ФИО',
                 'model': Request,
                 'attribute': 'director_name',
                 'url': this.createUrl('request/updateDetails'),
@@ -20,6 +21,7 @@
         <td>
             {{ this.widget('booster.widgets.TbEditableField', {
                 'type': 'text',
+                'title': 'Телефон',
                 'model': Request,
                 'attribute': 'director_phone',
                 'url': this.createUrl('request/updateDetails')
@@ -31,6 +33,7 @@
         <td>
             {{ this.widget('booster.widgets.TbEditableField', {
                 'type': 'text',
+                'title': 'Имейл',
                 'model': Request,
                 'attribute': 'director_email',
                 'url': this.createUrl('request/updateDetails'),

@@ -54,6 +54,22 @@ class AdminController extends Controller
         ));
     }
 
+    public function getSearchForm()
+    {
+        $CDbCriteria = new CDbCriteria();
+        $CDbCriteria->compare('id', 0);
+
+        $DataProvider = new CActiveDataProvider(Request::model(), array(
+            'criteria' => $CDbCriteria,
+        ));
+
+        $grid = $this->renderPartial('_filterDraft', array(
+            'DataProvider' => $DataProvider,
+        ), true);
+
+        return $grid;
+    }
+
     public function getRequestsByEmployee($employee_id)
     {
         $Employee = Employee::model()->findByPk($employee_id);
@@ -81,6 +97,12 @@ class AdminController extends Controller
         $Employee = Employee::model()->findByPk($employee_id);
         $RequestLib = new RequestActiveLib($Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria($group);
+
+        if (isset($_GET['Request'])) {
+            foreach($_GET['Request'] as $key => $value) {
+                $CDbCriteria->compare($key, $value, true);
+            }
+        }
 
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';

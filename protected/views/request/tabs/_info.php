@@ -10,7 +10,8 @@
                     'model' => $model,
                     'attribute' => 'email',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "эл. почта"
+                    'emptytext' => "эл. почта",
+                    'title' => "эл. почта",
                 )
             );
             ?>
@@ -27,7 +28,8 @@
                     'model' => $model,
                     'attribute' => 'address_mail',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Адрес"
+                    'emptytext' => "Адрес",
+                    'title' => "Адрес"
                 )
             );
             ?>
@@ -44,7 +46,8 @@
                     'model' => $model,
                     'attribute' => 'payment_day',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Дни оплаты"
+                    'emptytext' => "Дни оплаты",
+                    'title' => "Дни оплаты"
                 )
             );
             ?>
@@ -61,7 +64,8 @@
                     'model' => $model,
                     'attribute' => 'agreement_number',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "№ договора"
+                    'emptytext' => "№ договора",
+                    'title' => "№ договора"
                 )
             );
             ?>

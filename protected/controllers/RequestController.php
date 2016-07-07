@@ -31,6 +31,10 @@ class RequestController extends Controller
                 $requestCount = RequestCount::init($this->Employee)->countArchive();
                 $this->part = 'archive';
             }
+            if ($RequestLib->getType() == 'refused') {
+                $requestCount = RequestCount::init($this->Employee)->countRefused();
+                $this->part = 'refused';
+            }
         }
 
         /** @var EmployeeGroupRequestType $EmployeeGroupRequestType */

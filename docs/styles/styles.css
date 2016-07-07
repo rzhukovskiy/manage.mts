@@ -8259,6 +8259,7 @@ body #header {
   right: 0;
 }
 body #header .navbar-default .navbar-nav {
+  padding: 5px;
   text-transform: uppercase;
 }
 body #header .navbar-default .navbar-nav .active {
@@ -8266,7 +8267,7 @@ body #header .navbar-default .navbar-nav .active {
 }
 body #header .navbar-default .navbar-nav .active a {
   background-color: #fff;
-  padding: 9px;
+  padding: 5px;
   border-radius: 4px;
 }
 body #header .navbar-default .navbar-nav > li > a:hover {
@@ -8286,8 +8287,7 @@ body #header .navbar li > a {
   cursor: pointer;
 }
 body #header .navbar div > ul > li > a {
-  padding-top: 11px;
-  padding-bottom: 10px;
+  padding: 5px;
   color: white;
 }
 body #header .navbar div > ul > li.active > a {

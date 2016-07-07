@@ -4,6 +4,7 @@
 
     {{ this.widget('booster.widgets.TbEditableField', {
         'type': 'textarea',
+        'title': 'Официальные марки',
         'model': Request.RequestService,
         'attribute': 'official_dealer',
         'url': this.createUrl('requestDetails/updateServiceDealer')
@@ -13,6 +14,7 @@
     <strong>Неофициально:</strong>
     {{ this.widget('booster.widgets.TbEditableField', {
         'type': 'textarea',
+        'title': 'Неофициальные марки',
         'model': Request.RequestService,
         'attribute': 'nonofficial_dealer',
         'url': this.createUrl('requestDetails/updateServiceDealer')

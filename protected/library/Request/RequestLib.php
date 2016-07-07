@@ -116,14 +116,20 @@ class RequestLib
             $RequestArchiveLib->setRequestId($requestId);
 
             return $RequestArchiveLib;
-        } else {
-            $RequestActiveLib = new RequestActiveLib($Employee);
-            $RequestActiveLib->setRequestId($requestId);
-
-            return $RequestActiveLib;
         }
 
-        throw new \Exception('Заявка не найдена');
+        $RequestRefused = RequestRefused::model()->find($CDbCriteria);
+        if ($RequestRefused !== null) {
+            $RequestRefusedLib = new RequestRefusedLib($Employee);
+            $RequestRefusedLib->setRequestId($requestId);
+
+            return $RequestRefusedLib;
+        }
+
+        $RequestActiveLib = new RequestActiveLib($Employee);
+        $RequestActiveLib->setRequestId($requestId);
+
+        return $RequestActiveLib;
     }
 
     /**

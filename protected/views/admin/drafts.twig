@@ -7,7 +7,15 @@
     <ul class="nav nav-tabs nav-tabs-employee">
         <li role="presentation" class="active"><a href="#">Заявки {{ translateGroup }}</a></li>
     </ul>
+
     <div class="form-tabs">
+        <div>
+            <div class="form-tabs-title">
+                Поиск по городам и организациям
+            </div>
+            {{ this.getSearchForm()|raw }}
+        </div>
+
         {% for CurrentGroup in Groups %}
             {% if this.getRequestsCountByEmployeeAndGroup(employeeId, CurrentGroup) %}
                 <div>

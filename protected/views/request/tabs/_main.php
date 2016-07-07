@@ -12,7 +12,8 @@
                     'model' => $model,
                     'attribute' => 'name',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Название"
+                    'emptytext' => "Название",
+                    'title' => 'Название',
                 )
             );
             ?>
@@ -28,6 +29,7 @@
                     'type' => 'text',
                     'model' => $model,
                     'attribute' => 'address_city',
+                    'title' => 'Город',
                     'url' => $this->createUrl('request/updateDetails'),
                     'emptytext' => "Город"
                 )
@@ -43,7 +45,8 @@
                     'model' => $model,
                     'attribute' => 'address_street',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Улица"
+                    'emptytext' => "Улица",
+                    'title' => 'Улица',
                 )
             );
 
@@ -56,7 +59,8 @@
                     'model' => $model,
                     'attribute' => 'address_house',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Дом"
+                    'emptytext' => "Дом",
+                    'title' => 'Дом',
                 )
             );
 
@@ -69,7 +73,8 @@
                     'model' => $model,
                     'attribute' => 'address_index',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Индекс"
+                    'emptytext' => "Индекс",
+                    'title' => 'Индекс',
                 )
             );
             ?>
@@ -90,7 +95,8 @@
                     'model' => $model,
                     'attribute' => 'address_phone',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Телефон"
+                    'emptytext' => "Телефон",
+                    'title' => 'Телефон',
                 )
             );
             ?>
@@ -107,7 +113,8 @@
                     'model' => $model,
                     'attribute' => 'time_from',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "От"
+                    'emptytext' => "От",
+                    'title' => 'От',
                 )
             );
 
@@ -120,7 +127,8 @@
                     'model' => $model,
                     'attribute' => 'time_to',
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "До"
+                    'emptytext' => "До",
+                    'title' => 'До',
                 )
             );
             ?>
@@ -138,7 +146,8 @@
                     'attribute' => 'address_timezone',
                     'source' => Timezone::getTimeZones(),
                     'url' => $this->createUrl('request/updateDetails'),
-                    'emptytext' => "Временная зона"
+                    'emptytext' => "Временная зона",
+                    'title' => 'Временная зона',
                 )
             );
             ?>
@@ -156,7 +165,8 @@
                         'model' => $model,
                         'attribute' => 'status',
                         'url' => $this->createUrl('request/updateDetails'),
-                        'emptytext' => "Статус клиента"
+                        'emptytext' => "Статус клиента",
+                        'title' => 'Статус клиента',
                     )
                 );
                 ?>
@@ -173,7 +183,8 @@
                         'model' => $model,
                         'attribute' => 'mail_number',
                         'url' => $this->createUrl('request/updateDetails'),
-                        'emptytext' => "Номер отправления"
+                        'emptytext' => "Номер отправления",
+                        'title' => 'Номер отправления',
                     )
                 );
                 ?>
@@ -188,7 +199,7 @@
                     array(
                         'model' => $model,
                         'name' => 'next_communication_date',
-                        'value' => date('d.m.Y', strtotime($model->next_communication_date)),
+                        'value' => $model->next_communication_date ? date('d.m.Y', strtotime($model->next_communication_date)) : '',
                         'options' => array(
                             'language' => 'ru',
                             'showClear' => false,

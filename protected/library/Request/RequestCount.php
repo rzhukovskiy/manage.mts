@@ -38,7 +38,7 @@ class RequestCount
         }
 
         $arrayEmployeeGroups = array($this->EmployeeGroup->id);
-        $CDbCriteria->addCondition('RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+        $CDbCriteria->addCondition('RequestRefused.id IS NULL AND RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
 
         return [
             "countAll" => $this->getAll($CDbCriteria),

@@ -191,6 +191,7 @@ class RequestArchiveLib extends RequestLib
         }
 
         $CDbCriteria->group = 'address_city';
+        $CDbCriteria->order = 'address_city';
 
         $Request = Request::model()->findAll($CDbCriteria);
 
