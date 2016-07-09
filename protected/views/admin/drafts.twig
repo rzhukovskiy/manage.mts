@@ -5,27 +5,22 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation" class="active"><a href="#">Заявки {{ translateGroup }}</a></li>
+        {% for index, CurrentGroup in Groups %}
+            {% if this.getRequestsCountByEmployeeAndGroup(employeeId, CurrentGroup) %}
+                <li role="presentation" {% if CurrentGroup == group %}class="active"{% endif %}">
+                    <a href="/admin/drafts?employee={{ employeeId }}&group={{ CurrentGroup }}">{{ getTranslate(CurrentGroup) }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
     </ul>
 
     <div class="form-tabs">
         <div>
             <div class="form-tabs-title">
-                Поиск по городам и организациям
+                {{ getTranslate(group) }}
             </div>
-            {{ this.getSearchForm()|raw }}
+
+            {{ this.getRequestsByEmployeeAndGroup(employeeId, group)|raw }}
         </div>
-
-        {% for CurrentGroup in Groups %}
-            {% if this.getRequestsCountByEmployeeAndGroup(employeeId, CurrentGroup) %}
-                <div>
-                    <div class="form-tabs-title">
-                        {{ getTranslate(CurrentGroup) }}
-                    </div>
-
-                    {{ this.getRequestsByEmployeeAndGroup(employeeId, CurrentGroup)|raw }}
-                </div>
-            {% endif %}
-        {% endfor %}
     </div>
 {% endblock %}

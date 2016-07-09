@@ -2,6 +2,7 @@
 $this->widget('booster.widgets.TbGridView', array(
     'type' => 'bordered condensed',
     'dataProvider' => $DataProvider,
+    'filter' => $DataProvider->model,
     'summaryText' => '',
     'columns' => array(
         array(
@@ -11,12 +12,12 @@ $this->widget('booster.widgets.TbGridView', array(
         ),
         array(
             'header' => 'Город',
-            'value' => '$data->address_city',
+            'name' => 'address_city',
             'htmlOptions' => array('style' => 'width: 240px;')
         ),
         array(
             'header' => 'Организация',
-            'value' => '$data->name',
+            'name' => 'name',
             'htmlOptions' => array('style' => 'width: 240px;')
         ),
         array(

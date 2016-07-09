@@ -80,7 +80,7 @@
                 array(
                     'model' => $model,
                     'name' => 'agreement_date',
-                    'value' => date('d.m.Y', strtotime($model->agreement_date)),
+                    'value' => $model->agreement_date ? date('d.m.Y', strtotime($model->agreement_date)) : '',
                     'options' => array(
                         'language' => 'ru',
                         'showClear' => false,

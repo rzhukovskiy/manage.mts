@@ -43,6 +43,11 @@ class AdminController extends Controller
                 }
             }
         }
+        $EmployeeGroupLib = new EmployeeGroupLib(Employee::model()->findByPk($employeeId));
+        $group = $EmployeeGroupLib->getFirstRequestType();
+        if (isset($_GET['group'])) {
+            $group = Yii::app()->request->getQuery('group');
+        }
 
         $RequestLib = new RequestLib($this->Employee);
         $Groups = $RequestLib->getAllGroups();
@@ -51,23 +56,8 @@ class AdminController extends Controller
             "Employee" => $Employee,
             "employeeId" => $employeeId,
             "Groups" => $Groups,
+            "group" => $group,
         ));
-    }
-
-    public function getSearchForm()
-    {
-        $CDbCriteria = new CDbCriteria();
-        $CDbCriteria->compare('id', 0);
-
-        $DataProvider = new CActiveDataProvider(Request::model(), array(
-            'criteria' => $CDbCriteria,
-        ));
-
-        $grid = $this->renderPartial('_filterDraft', array(
-            'DataProvider' => $DataProvider,
-        ), true);
-
-        return $grid;
     }
 
     public function getRequestsByEmployee($employee_id)

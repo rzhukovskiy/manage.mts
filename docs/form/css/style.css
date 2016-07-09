@@ -1546,6 +1546,10 @@ a.bg-danger:hover {
 		margin: 0 auto;
         width: 60%;
     }
+    .page-header img.small {
+		margin: 0 auto;
+        width: 30%;
+    }
 
 ul,
 ol {

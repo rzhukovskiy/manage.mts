@@ -2,22 +2,19 @@
 
     <div class="page-header">
         <h1 class="text-center hidden">ЗАЯВКА НА МОЙКУ</h1>
-        <img src="./img/mts_zayavka_shapka.png" alt="заявка на мойку"/>
+        <img class="small" src="./img/mts_zayavka_shapka.png" alt="заявка на мойку"/>
     </div>
 
     <form accept-charset="UTF-8" class="wash-form" method="post" role="form">
-
-
         <div class="row">
             <div class="col-md-offset-1 col-md-5">
-
                 <div class="form-group">
-                    <label>Название организации</label><span class="error">Заполните поле название</span>
+                    <label>ФИО</label><span class="error">Заполните поле ФИО</span>
                     <input class="form-control" name="name">
                 </div>
                 <div class="form-group">
-                    <label>ФИО</label><span class="error">Заполните поле ФИО</span>
-                    <input class="form-control" name="contact_name">
+                    <label>Компания</label><span class="error">Заполните поле Компамния</span>
+                    <input class="form-control" name="firm">
                 </div>
                 <div class="form-group">
                     <label>E-mail</label><span class="error">Заполните поле E-mail</span>
@@ -27,123 +24,16 @@
                     <label>Телефон</label><span class="error">Заполните поле Телефон</span>
                     <input class="form-control" name="phone">
                 </div>
-
                 <div class="form-group">
                     <label>Города</label><span class="error">Заполните поле Города</span>
                     <input class="form-control" name="city">
                 </div>
 
-                <div class="form-group">
-                    <label>Индекс</label><span class="error">Заполните поле индекс</span>
-                    <input class="form-control" name="index">
-                </div>
-                <div class="form-group">
-                    <label>Город</label><span class="error">Заполните поле город</span>
-                    <input class="form-control" name="city">
-                </div>
-                <div class="form-group">
-                    <label>Улица</label><span class="error">Заполните поле улица</span>
-                    <input class="form-control" name="street">
-                </div>
-                <div class="form-group">
-                    <label>Номер строения</label><span class="error">Заполните поле номер строения</span>
-                    <input class="form-control" name="house">
-                </div>
-
-                <div class="form-group">
-                    <label>Часы работы</label><span class="error">Заполните поле часы работы</span>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>От</label>
-                            <input type="text" class="form-control input-one" name="time-from">
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>До</label>
-                            <input type="text" class="form-control input-one" name="time-to">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-5" style="font-size: 16px">
-                <p class=""><strong>Прочтите внимательно инструкцию!</strong></p>
-
-                <p class="">Для того, чтобы мы могли сделать вам наиболее выгодное предложение, просим предоставить максимально полную и точную информацию:</p>
-
-                <p class="">ФИО – укажите данные сотрудника, отвечающего за направление транспорта</p>
-
-                <p class="">Компания – укажите название вашей компании</p>
-
-                <p class="">E-mail – укажите адрес электронной почты для постоянной связи</p>
-
-                <p class="">Телефон – укажите контактный телефон</p>
-
-                <p class="">Города – укажите через запятую названия городов, в которых вам было бы интересно получить услуги мойки для вашего грузового транспорта</p>
-
-                <p class="">Марка, Вид, Количество ТС – укажите состав вашего парка грузового транспорта</p>
-
-                <p class="">Стоимость мойки 1 единицы – укажите стоимость текущих затрат на мойку каждого типа машины.</p>
-
-                <p class="">Также просим обратить внимание на видео-материал, в котором подробно показана система нашей работы.</p>
-
-                <p class="">Отправьте заполненную анкету, и мы свяжемся с вами в ближайшее время.</p>
-
-                <br />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-offset-1 col-md-5">
-                <div class="form-group clearfix">
-                    <label><strong>Директор</strong></label>
-                </div>
-                <div class="form-group">
-                    <label>ФИО</label><span class="error">Заполните поле ФИО  директора</span>
-                    <input class="form-control" name="director-name">
-                    <input type="hidden" name="director-position" value="Директор" />
-                </div>
-                <div class="form-group">
-                    <label>Телефон</label><span class="error">Заполните поле Телефон директора</span>
-                    <input class="form-control" name="director-phone">
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label><span class="error">Заполните поле E-mail директора</span>
-                    <input class="form-control" name="director-email">
-                </div>
-            </div>
-
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label><strong>Ответственный за договорную работу</strong></label>
-                </div>
-                <div class="form-group">
-                    <label>ФИО</label><span class="error">Заполните поле ФИОа</span>
-                    <input class="form-control" name="doc-name">
-                    <input type="hidden" name="doc-position" value="Ответственный за договор" />
-                </div>
-                <div class="form-group">
-                    <label>Телефон</label><span class="error">Заполните поле Телефон</span>
-                    <input class="form-control" name="doc-phone">
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label><span class="error">Заполните поле E-mail</span>
-                    <input class="form-control" name="doc-email">
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-offset-1 col-md-5">
                 <div class="">
                     <!-- Start EasyHtml5Video.com BODY section -->
                     <style type="text/css">.easyhtml5video .eh5v_script{display:none}</style>
                     <div class="easyhtml5video" style="position:relative;max-width:1280px;">
-                        <video controls="controls" poster="./img/video1.jpg" style="width:100%" title="video">
+                        <video controls="controls"  poster="img/video1.jpg" style="width:100%" title="video">
                             <source src="files/video1.m4v" type="video/mp4" />
                             <source src="files/video1.webm" type="video/webm" />
                             <source src="files/video1.ogv" type="video/ogg" />
@@ -156,25 +46,62 @@
                                 <img alt="video" src="files/video1.jpg" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" />
                             </object>
                         </video>
-                        <script src="./js/html5ext.js" type="text/javascript"></script>
+                        <script src="js/html5ext.js" type="text/javascript"></script>
                         <!-- End EasyHtml5Video.com BODY section -->
                     </div>
                 </div>
             </div>
 
+            <div class="col-md-5" style="font-size: 16px">
+                <p class=""><strong>Прочтите внимательно инструкцию!</strong></p>
+
+                <p class="">Для того, чтобы мы могли сделать вам наиболее выгодное предложение, просим предоставить максимально полную и точную информацию:</p>
+
+                <p class="">ФИО – укажите данные сотрудника, отвечающего за
+
+                    направление транспорта</p>
+
+                <p class="">Компания – укажите название вашей компании</p>
+
+                <p class="">E-mail – укажите адрес электронной почты для постоянной
+
+                    связи</p>
+
+                <p class="">Телефон – укажите контактный телефон</p>
+
+                <p class="">Города – укажите через запятую названия городов, в которых
+
+                    Вам было бы интересно получить сервис для вашего
+
+                    грузового транспорта</p>
+
+                <p class="">Марка, Вид, Количество ТС – укажите состав вашего парка
+
+                    грузового транспорта</p>
+
+                <p class="">Также просим обратить внимание на видео-материал, в
+
+                    котором подробно показана система нашей работы на
+
+                    примере услуги “Грузовая Автомойка”.</p>
+
+                <p class="">Отправьте заполненную заявку, и мы свяжемся с вами в ближайшее время.</p>
+
+                <br />
+            </div>
         </div>
 
         <br/>
         <div class="col-md-offset-1 row">
             <div class="col-md-11 items">
                 <div class="form-group multiple-form-group row example" style="display: none;">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Марка ТС</label>
                             <input type="text" class="form-control input-one" name="Request[model][]">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label>Вид ТС</label>
 
@@ -212,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <div class="form-group">
                             <label>Стоимость 1 единицы</label>
 
@@ -227,17 +154,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>!-->
                 </div>
 
                 <div class="form-group multiple-form-group row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Марка ТС</label>
                             <input type="text" class="form-control input-one" name="Request[model][]">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label>Вид ТС</label>
 
@@ -275,7 +202,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <div class="form-group">
                             <label>Стоимость 1 единицы</label>
 
@@ -290,7 +217,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -300,6 +227,7 @@
                 <button type="button" class="btn btn-primary btn-add" title="Добавить автомобиль">+</button>
             </div>
         </div>
+        <br>
         <br>
 
         <div class="row">
