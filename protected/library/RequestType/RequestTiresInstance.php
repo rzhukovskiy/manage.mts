@@ -72,22 +72,6 @@ class RequestTiresInstance extends Instance
             $RequestTiresServeOrganisation->delete();
         }
 
-        $Request = RequestDone::model()->find(
-            "request_id = :request_id",
-            array("request_id" => $this->Model->request_ptr_id)
-        );
-        if ($Request !== null) {
-            $Request->delete();
-        }
-
-        $Request = RequestProcess::model()->find(
-            "request_id = :request_id",
-            array("request_id" => $this->Model->request_ptr_id)
-        );
-        if ($Request !== null) {
-            $Request->delete();
-        }
-
         $this->Model->delete();
 
         Request::model()->deleteByPk($this->Model->request_ptr_id);

@@ -30,6 +30,8 @@
  * @property string agreement_file
  * @property string mail_number
  * @property string status
+ * @property string state
+ * @property string employee_group_id
  *
  * The followings are the available model relations:
  * @property RequestService[] $requestServices
@@ -38,6 +40,11 @@
  */
 class Request extends CActiveRecord
 {
+	const STATE_NEW = 0;
+	const STATE_DONE = 1;
+	const STATE_REFUSED = 2;
+	const STATE_PROCESS = 3;
+
 	public static $request_russian = [
 		RequestWash::REQUEST_TYPE => 'Мойки',
 		RequestService::REQUEST_TYPE => 'Сервис',
@@ -98,9 +105,7 @@ class Request extends CActiveRecord
 			'RequestEmployee' => array(self::HAS_MANY, 'RequestEmployee', array('request_id'=>'id')),
 			'RequestComments' => array(self::HAS_MANY, 'RequestComments', array('request_id'=>'id')),
 
-			'RequestProcess' => array(self::HAS_ONE, 'RequestProcess', 'request_id'),
-			'RequestDone' => array(self::HAS_ONE, 'RequestDone', 'request_id'),
-			'RequestRefused' => array(self::HAS_ONE, 'RequestRefused', 'request_id'),
+			'RequestProcessEmployee' => array(self::HAS_ONE, 'RequestProcessEmployee', 'request_id'),
 		);
 	}
 

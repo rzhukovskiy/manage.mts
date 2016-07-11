@@ -37,8 +37,7 @@ class RequestCount
             return false;
         }
 
-        $arrayEmployeeGroups = array($this->EmployeeGroup->id);
-        $CDbCriteria->addCondition('RequestRefused.id IS NULL AND RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+        $CDbCriteria->addCondition('state = ' . Request::STATE_PROCESS . ' OR state = ' . Request::STATE_NEW);
 
         return [
             "countAll" => $this->getAll($CDbCriteria),
@@ -62,10 +61,10 @@ class RequestCount
         $arrayEmployeeGroups = array($this->EmployeeGroup->id);
         if ($this->Employee->role == 'admin') {
             $CDbCriteria = new CDbCriteria();
-            $CDbCriteria->with = array('RequestProcess', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
-            $CDbCriteria->addCondition('RequestDone.id IS NOT NULL');
+            $CDbCriteria->with = array('RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
+            $CDbCriteria->compare('state', Request::STATE_DONE);
         } else {
-            $CDbCriteria->addCondition('RequestDone.id IS NOT NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+            $CDbCriteria->compare('state', Request::STATE_DONE);
         }
 
         return [
@@ -87,13 +86,12 @@ class RequestCount
             return false;
         }
 
-        $arrayEmployeeGroups = array($this->EmployeeGroup->id);
         if ($this->Employee->role == 'admin') {
             $CDbCriteria = new CDbCriteria();
-            $CDbCriteria->with = array('RequestProcess', 'RequestRefused', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
-            $CDbCriteria->addCondition('RequestRefused.id IS NOT NULL');
+            $CDbCriteria->with = array('RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
+            $CDbCriteria->compare('state', Request::STATE_REFUSED);
         } else {
-            $CDbCriteria->addCondition('RequestRefused.id IS NOT NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+            $CDbCriteria->compare('state', Request::STATE_REFUSED);
         }
 
         return [

@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{request_process_employee}}':
  * @property string $id
  * @property string $employee_id
- * @property string $request_process_id
+ * @property string $request_id
  * @property string $created
  * @property string $finished
  */

@@ -153,7 +153,7 @@
             ?>
         </td>
     </tr>-->
-    <?php if (!isset($model->RequestDone->id)) { ?>
+    <?php if ($model->state == Request::STATE_PROCESS) { ?>
         <tr>
             <th>Статус клиента</th>
             <td>

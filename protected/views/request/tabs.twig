@@ -1,15 +1,15 @@
 {% extends "views/layouts/content.twig" %}
 
 {% block leftmenu %}
-    {% if RequestLib.getType() == 'active' %}
+    {% if Request.state == 0 or Request.state == 3 %}
         {% include "views/request/_left.twig" %}
     {% endif %}
 
-    {% if RequestLib.getType() == 'archive' %}
+    {% if Request.state == 1 %}
         {% include "views/archive/left.twig" %}
     {% endif %}
 
-    {% if RequestLib.getType() == 'refused' %}
+    {% if Request.state == 2 %}
         {% include "views/refused/left.twig" %}
     {% endif %}
 {% endblock %}

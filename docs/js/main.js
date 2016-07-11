@@ -47,7 +47,7 @@ $(document).ready(function() {
         $.ajax({url: "/request/finishWork", type: "GET", dataType: "JSON", data: data})
             .done(function(response) {
                 if (response.result) {
-                    window.history.back();
+                    location.href = document.referrer;
                 }
             });
     });
@@ -62,7 +62,7 @@ $(document).ready(function() {
         $.ajax({url: "/request/refuseWork", type: "GET", dataType: "JSON", data: data})
             .done(function(response) {
                 if (response.result) {
-                    window.history.back();
+                    location.href = document.referrer;
                 }
             });
     });

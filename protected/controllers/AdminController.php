@@ -86,7 +86,7 @@ class AdminController extends Controller
     {
         $Employee = Employee::model()->findByPk($employee_id);
         $RequestLib = new RequestActiveLib($Employee);
-        $CDbCriteria = $RequestLib->getRequestsCriteria($group);
+        $CDbCriteria = $RequestLib->getRequestsCriteria($group, $employee_id);
 
         if (isset($_GET['Request'])) {
             foreach($_GET['Request'] as $key => $value) {

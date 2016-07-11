@@ -60,6 +60,7 @@ class RequestLib
         $CDbCriteria = new CDbCriteria;
 
         $CDbCriteria = $this->getTypes($CDbCriteria);
+
         if (!$CDbCriteria) {
             return false;
         }
@@ -75,6 +76,7 @@ class RequestLib
      *
      * @param $CDbCriteria
      * @param $group
+     * @return CDbCriteria
      */
     protected function getGroupRequests($CDbCriteria, $group)
     {
@@ -105,35 +107,30 @@ class RequestLib
 
     public static function setRequest($Employee, $requestId)
     {
-        /** @var CDbCriteria $CDbCriteria */
-        $CDbCriteria = new CDbCriteria;
-        $CDbCriteria->addCondition("request_id = :requestId");
-        $CDbCriteria->params = array("requestId" => $requestId);
+        $Request = Request::model()->findByPk($requestId);
+        $RequestLib = null;
+        if ($Request !== null) {
+            switch($Request->state) {
+                case Request::STATE_DONE:
+                    $RequestLib = new RequestArchiveLib($Employee);
+                    break;
 
-        $RequestDone = RequestDone::model()->find($CDbCriteria);
-        if ($RequestDone !== null) {
-            $RequestArchiveLib = new RequestArchiveLib($Employee);
-            $RequestArchiveLib->setRequestId($requestId);
+                case Request::STATE_REFUSED:
+                    $RequestLib = new RequestRefusedLib($Employee);
+                    break;
 
-            return $RequestArchiveLib;
+                default:
+                    $RequestLib = new RequestActiveLib($Employee);
+            }
         }
 
-        $RequestRefused = RequestRefused::model()->find($CDbCriteria);
-        if ($RequestRefused !== null) {
-            $RequestRefusedLib = new RequestRefusedLib($Employee);
-            $RequestRefusedLib->setRequestId($requestId);
+        $RequestLib->setRequestId($requestId);
 
-            return $RequestRefusedLib;
-        }
-
-        $RequestActiveLib = new RequestActiveLib($Employee);
-        $RequestActiveLib->setRequestId($requestId);
-
-        return $RequestActiveLib;
+        return $RequestLib;
     }
 
     /**
-     * @return bool|RequestProcess false if not found
+     * @return bool|Request false if not found
      */
     public function getRequest()
     {

@@ -18,9 +18,10 @@ class RequestActiveLib extends RequestLib
      * Get all requests
      *
      * @param string $group
+     * @param int $employee_id
      * @return CDbCriteria
      */
-    public function getRequestsCriteria($group = '')
+    public function getRequestsCriteria($group = '', $employee_id = 0)
     {
         /** @var CDbCriteria $CDbCriteria */
         $CDbCriteria = new CDbCriteria;
@@ -32,8 +33,11 @@ class RequestActiveLib extends RequestLib
 
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
 
-        $arrayEmployeeGroups = array($this->EmployeeGroup->id);
-        $CDbCriteria->addCondition('RequestRefused.id IS NULL AND RequestDone.id IS NULL AND (RequestProcess.id IS NULL OR RequestProcess.employee_group_id IN (' . implode(",", $arrayEmployeeGroups) . '))');
+        if($employee_id) {
+            $CDbCriteria->addCondition('RequestProcessEmployee.employee_id = ' . $employee_id);
+        }
+
+        $CDbCriteria->addCondition('state = ' . Request::STATE_PROCESS . ' OR state = ' . Request::STATE_NEW);
 
         return $CDbCriteria;
     }
@@ -48,29 +52,35 @@ class RequestActiveLib extends RequestLib
      */
     public function nextWork($requestId, $employeeGroupId)
     {
-        /** @var $RequestProcess RequestProcess */
-        $RequestProcess = RequestProcess::model()->find(
-            "request_id = :requestId",
+        $Request = Request::model()->findByPk($requestId);
+        if ($Request == null) {
+            throw new Exception("request not found");
+        }
+        /** @var $RequestProcessEmployee RequestProcessEmployee */
+        $RequestProcessEmployee = RequestProcessEmployee::model()->find(
+            "request_id = :requestId AND finished is NULL",
             array(
-                //"employee_group_id" => $this->EmployeeGroup->id,
                 "requestId" => $requestId
             )
         );
-        if ($RequestProcess == null) {
+        if ($RequestProcessEmployee == null) {
             throw new Exception("request not found");
         }
+        $RequestProcessEmployee->finished = date('Y-m-d H:i:s');
+        if (!$RequestProcessEmployee->save()) {
+            throw new Exception(CHtml::errorSummary($RequestProcessEmployee));
+        }
 
-        $updated = $RequestProcess->updated;
+        $updated = $RequestProcessEmployee->created;
 
-        $RequestProcess->employee_group_id = $employeeGroupId;
-        $RequestProcess->save();
+        $Request->employee_group_id = $employeeGroupId;
+        $Request->save();
 
         /** @var $RequestProcessEmployee RequestProcessEmployee */
         $RequestProcessEmployee = new RequestProcessEmployee();
         $RequestProcessEmployee->employee_id = $this->Employee->id;
-        $RequestProcessEmployee->request_process_id = $requestId;
+        $RequestProcessEmployee->request_id = $requestId;
         $RequestProcessEmployee->created = $updated;
-        $RequestProcessEmployee->finished = date('Y-m-d H:i:s');
         if (!$RequestProcessEmployee->save()) {
             throw new Exception(CHtml::errorSummary($RequestProcessEmployee));
         }
@@ -87,31 +97,20 @@ class RequestActiveLib extends RequestLib
      */
     public function finishWork($requestId)
     {
-        /** @var $RequestProcess RequestProcess */
-        $RequestProcess = RequestProcess::model()->find(
-            "request_id = :requestId",
-            array(
-                //"employee_group_id" => $this->EmployeeGroup->id,
-                "requestId" => $requestId
-            )
-        );
-        if ($RequestProcess == null) {
-            throw new Exception("request not found");
-        }
+        $Request = Request::model()->findByPk($requestId);
+        if ($Request) {
+            $Request->state = Request::STATE_DONE;
 
-        $RequestProcess->delete();
-
-        $RequestDone = new RequestDone();
-        $RequestDone->request_id = $requestId;
-        if (!$RequestDone->save()) {
-            throw new Exception(CHtml::errorSummary($RequestDone));
+            if (!$Request->save()) {
+                throw new Exception(CHtml::errorSummary($Request));
+            }
         }
 
         return true;
     }
 
     /**
-     * Mark request as done
+     * Mark request as refused
      *
      * @param $requestId
      * @return bool true
@@ -119,22 +118,13 @@ class RequestActiveLib extends RequestLib
      */
     public function refuseWork($requestId)
     {
-        /** @var $RequestProcess RequestProcess */
-        $RequestProcess = RequestProcess::model()->find(
-            "request_id = :requestId",
-            array(
-                //"employee_group_id" => $this->EmployeeGroup->id,
-                "requestId" => $requestId
-            )
-        );
-        if ($RequestProcess != null) {
-            $RequestProcess->delete();
-        }
+        $Request = Request::model()->findByPk($requestId);
+        if ($Request) {
+            $Request->state = Request::STATE_REFUSED;
 
-        $RequestRefused = new RequestRefused();
-        $RequestRefused->request_id = $requestId;
-        if (!$RequestRefused->save()) {
-            throw new Exception(CHtml::errorSummary($RequestRefused));
+            if (!$Request->save()) {
+                throw new Exception(CHtml::errorSummary($Request));
+            }
         }
 
         return true;
@@ -154,13 +144,13 @@ class RequestActiveLib extends RequestLib
 
         /** @var EmployeeGroupRequestType $EmployeeGroupRequestType */
         $EmployeeGroupRequestType = $this->EmployeeGroup->EmployeeGroupRequestType;
-        if ($EmployeeGroupRequestType === null) {
+        if ($EmployeeGroupRequestType === null && $this->Employee->role != 'admin') {
             return false;
         }
 
-        $CDbCriteria->with = array('RequestProcess', 'RequestRefused', 'RequestDone', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
+        $CDbCriteria->with = array('RequestProcessEmployee', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
 
-        if ($this->EmployeeGroup->manage) {
+        if ($this->EmployeeGroup->manage || $this->Employee->role == 'admin') {
             return $CDbCriteria;
         }
 
@@ -200,7 +190,7 @@ class RequestActiveLib extends RequestLib
             return [];
         }
 
-        $CDbCriteria->with = array_merge($CDbCriteria->with, array('RequestProcess.RequestProcessEmployee'));
+        $CDbCriteria->with = array_merge($CDbCriteria->with, array('RequestProcessEmployee'));
         $CDbCriteria->addCondition('employee_id = :employee_id');
         $CDbCriteria->params = array("employee_id" => $Employee->id);
 

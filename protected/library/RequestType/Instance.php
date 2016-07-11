@@ -19,6 +19,7 @@ abstract class Instance
     {
         /** @var Request $Request */
         $Request = new Request();
+        $Request->state = Request::STATE_DONE;
         if (!$Request->save()) {
             throw new \Exception(CHtml::errorSummary($Request));
         }
@@ -26,15 +27,6 @@ abstract class Instance
         $this->Model->request_ptr_id = $Request->id;
         if (!$this->Model->save()) {
             $Request->delete();
-
-            throw new \Exception(CHtml::errorSummary($this->Model));
-        }
-
-        $RequestDone = new RequestDone();
-        $RequestDone->request_id = $Request->id;
-        if (!$RequestDone->save()) {
-            $Request->delete();
-            $this->Model->delete();
 
             throw new \Exception(CHtml::errorSummary($this->Model));
         }
@@ -51,6 +43,7 @@ abstract class Instance
     {
         /** @var Request $Request */
         $Request = new Request();
+        $Request->state = Request::STATE_REFUSED;
         if (!$Request->save()) {
             throw new \Exception(CHtml::errorSummary($Request));
         }
@@ -58,15 +51,6 @@ abstract class Instance
         $this->Model->request_ptr_id = $Request->id;
         if (!$this->Model->save()) {
             $Request->delete();
-
-            throw new \Exception(CHtml::errorSummary($this->Model));
-        }
-
-        $RequestRefused = new RequestRefused();
-        $RequestRefused->request_id = $Request->id;
-        if (!$RequestRefused->save()) {
-            $Request->delete();
-            $this->Model->delete();
 
             throw new \Exception(CHtml::errorSummary($this->Model));
         }
@@ -84,6 +68,7 @@ abstract class Instance
     {
         /** @var Request $Request */
         $Request = new Request();
+        $Request->state = Request::STATE_PROCESS;
         if (!$Request->save()) {
             throw new \Exception(CHtml::errorSummary($Request));
         }
@@ -95,26 +80,13 @@ abstract class Instance
             throw new \Exception(CHtml::errorSummary($this->Model));
         }
 
-        $RequestProcess = new RequestProcess();
-        $RequestProcess->request_id = $Request->id;
-        $RequestProcess->updated = date('Y-m-d');
-        $RequestProcess->employee_group_id = $Employee->employee_group_id;
-
-        if (!$RequestProcess->save()) {
-            $Request->delete();
-            $this->Model->delete();
-
-            throw new \Exception(CHtml::errorSummary($this->Model));
-        }
-
         $RequestProcessEmployee = new RequestProcessEmployee();
-        $RequestProcessEmployee->request_process_id = $RequestProcess->id;
+        $RequestProcessEmployee->request_id = $Request->id;
         $RequestProcessEmployee->created = date('Y-m-d');
         $RequestProcessEmployee->employee_id = $Employee->id;
 
         if (!$RequestProcessEmployee->save()) {
             $Request->delete();
-            $RequestProcess->delete();
             $this->Model->delete();
 
             throw new \Exception(CHtml::errorSummary($this->Model));

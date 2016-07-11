@@ -1,87 +1,75 @@
+<table id="request-general-params" class='table table-bordered table-hover'>
+    <tr>
+        <th colspan="6">Услуги, которые оказывает компания:</th>
+    </tr>
+    <tr>
+        <th>Шиномонтаж</th>
+        <td>
+            <input name="RequestTires[service_mounting]" type="checkbox" id="tires-car" {% if Request.RequestTires.service_mounting %}checked{% endif %} value="1" />
+        </td>
+        <th>Продажа шин</th>
+        <td>
+            <input name="RequestTires[service_tires_sale]" type="checkbox" id="tires-car" {% if Request.RequestTires.service_tires_sale %}checked{% endif %} value="1" />
+        </td>
+        <th>Продажа дисков</th>
+        <td>
+            <input name="RequestTires[service_disk_sale]" type="checkbox" id="tires-car" {% if Request.RequestTires.service_disk_sale %}checked{% endif %} value="1" />
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="6">Для какого вида ТС компания производит шиномонтаж:</th>
+    </tr>
+    <tr>
+        <th>Легковой</th>
+        <td>
+            <input name="RequestTires[serve_car]" type="checkbox" id="tires-car" {% if Request.RequestTires.serve_car %}checked{% endif %} value="1" />
+        </td>
+        <th>Грузовой</th>
+        <td>
+            <input name="RequestTires[serve_truck]" type="checkbox" id="tires-car" {% if Request.RequestTires.serve_truck %}checked{% endif %} value="1" />
+        </td>
+        <th>Спецтехника</th>
+        <td>
+            <input name="RequestTires[serve_tech]" type="checkbox" id="tires-car" {% if Request.RequestTires.serve_tech %}checked{% endif %} value="1" />
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="6">Для какого вида ТС у Вас имеются шины и диски:</th>
+    </tr>
+    <tr>
+        <th>Легковой</th>
+        <td>
+            <input name="RequestTires[sale_for_car]" type="checkbox" id="tires-car" {% if Request.RequestTires.sale_for_car %}checked{% endif %} value="1" />
+        </td>
+        <th>Грузовой</th>
+        <td>
+            <input name="RequestTires[sale_for_truck]" type="checkbox" id="tires-car" {% if Request.RequestTires.sale_for_truck %}checked{% endif %} value="1" />
+        </td>
+        <th>Спецтехника</th>
+        <td>
+            <input name="RequestTires[sale_for_tech]" type="checkbox" id="tires-car" {% if Request.RequestTires.sale_for_tech %}checked{% endif %} value="1" />
+        </td>
+    </tr>
+</table>
+
 <div class="row">
     <div class="col-md-12">
         <div class="items">
-            <div class="form-group">
-                <h3>Услуги, которые оказывает компания:</h3>
-            </div>
-            <div>
-                <div class="checkbox size2">
-                    <label for="tire" class="checkbox-inline">
-                        <input name="RequestTires[service_mounting]" type="checkbox" id="tire" {% if Request.RequestTires.service_mounting %}checked{% endif %} value="1" />
-                        Шиномонтаж
-                    </label>
-                    <label for="sell-tires" class="checkbox-inline">
-                        <input name="RequestTires[service_tires_sale]" type="checkbox" id="sell-tires" {% if Request.RequestTires.service_tires_sale %}checked{% endif %} value="1" />
-                        Продажа шин
-                    </label>
-                    <label for="sell-discs" class="checkbox-inline">
-                        <input name="RequestTires[service_disk_sale]" type="checkbox" id="sell-discs" {% if Request.RequestTires.service_disk_sale %}checked{% endif %} value="1" />
-                        Продажа дисков
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="items">
-            <div class="form-group">
-                <h3>Для какого вида ТС компания производит шиномонтаж:</h3>
-            </div>
-            <div>
-                <div class="checkbox size2">
-                    <label for="tires-car" class="checkbox-inline">
-                        <input name="RequestTires[serve_car]" type="checkbox" id="tires-car" {% if Request.RequestTires.serve_car %}checked{% endif %} value="1" />
-                        Легковой
-                    </label>
-                    <label for="tires-truck" class="checkbox-inline">
-                        <input name="RequestTires[serve_truck]" type="checkbox" id="tires-truck" {% if Request.RequestTires.serve_truck %}checked{% endif %} value="1" />
-                        Грузовой
-                    </label>
-                    <label for="tires-tech" class="checkbox-inline">
-                        <input name="RequestTires[serve_tech]" type="checkbox" id="tires-tech" {% if Request.RequestTires.serve_tech %}checked{% endif %} value="1" />
-                        Спецтехника
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="items">
-            <div class="form-group">
-                <h3>Для какого вида ТС у Вас имеются шины и диски:</h3>
-            </div>
-            <div>
-                <div class="checkbox size2">
-                    <label for="disc-car" class="checkbox-inline">
-                        <input name="RequestTires[sale_for_car]" type="checkbox" id="disc-car" {% if Request.RequestTires.sale_for_car %}checked{% endif %} value="1" />
-                        Легковой
-                    </label>
-                    <label for="disc-truck" class="checkbox-inline">
-                        <input name="RequestTires[sale_for_truck]" type="checkbox" id="disc-truck" {% if Request.RequestTires.sale_for_truck %}checked{% endif %} value="1" />
-                        Грузовой
-                    </label>
-                    <label for="disc-tech" class="checkbox-inline">
-                        <input name="RequestTires[sale_for_tech]" type="checkbox" id="disc-tech" {% if Request.RequestTires.sale_for_tech %}checked{% endif %} value="1" />
-                        Спецтехника
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="items">
-            <div class="form-group">
-                <h3>Организации, транспорт которых обслуживается компанией:</h3>
-            </div>
-
-            <div class="advancedDetailBlock">
+            <table id="request-general-params" class='advancedDetailBlock table table-bordered table-hover'>
+                <tr>
+                    <th colspan="3">Организации, транспорт которых обслуживается компанией:</th>
+                </tr>
+                <tr>
+                    <th>Название</th>
+                    <th>Телефон</th>
+                    <th>Удалить</th>
+                </tr>
                 {% for Organisation in Request.RequestTires.RequestTiresServeOrganisation %}
                     {% include "views/requestDetails/tires.twig" %}
                 {% endfor %}
-            </div>
+            </table>
 
             <div class="row">
                 <div class="col-md-11">

@@ -1,20 +1,11 @@
-<div class="form-group multiple-form-group row example">
-    <div class="col-md-5">
-        <div class="form-group">
-            <label>Название</label>
-            <input type="text" class="form-control input-one" name="RequestTiresServeOrganisation[name][]" value="{{ Organisation.name }}" />
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label>Телефон</label>
-            <input type="text" class="form-control input-one" name="RequestTiresServeOrganisation[phone][]" value="{{ Organisation.phone }}" />
-        </div>
-    </div>
-    <div class="col-md-1">
-        <label>Удалить</label>
-        <div class="">
-            <button type="button" class="btn btn-primary btn-removeAdvancedDetail">-</button>
-        </div>
-    </div>
-</div>
+<tr class="example">
+    <td>
+        <input type="text" class="form-control input-one" name="RequestTiresServeOrganisation[name][]" value="{{ Organisation.name }}" />
+    </td>
+    <td>
+        <input type="text" class="form-control input-one" name="RequestTiresServeOrganisation[phone][]" value="{{ Organisation.phone }}" />
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary btn-removeAdvancedDetail">-</button>
+    </td>
+</tr>

@@ -25,13 +25,12 @@ class RequestController extends Controller
         $requestCount = RequestCount::init($this->Employee)->count();
 
         $requestId = Yii::app()->request->getQuery('id', false);
-        if ($requestId) {
-            $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
-            if ($RequestLib->getType() == 'archive') {
+        $Request = Request::model()->findByPk($requestId);
+        if ($Request) {
+            if ($Request->state == Request::STATE_DONE) {
                 $requestCount = RequestCount::init($this->Employee)->countArchive();
                 $this->part = 'archive';
-            }
-            if ($RequestLib->getType() == 'refused') {
+            } elseif ($Request->state == Request::STATE_REFUSED) {
                 $requestCount = RequestCount::init($this->Employee)->countRefused();
                 $this->part = 'refused';
             }
@@ -208,7 +207,7 @@ class RequestController extends Controller
             $RequestLib = RequestLib::setRequest($this->Employee, $requestId);
         } catch(\Exception $e) {
             Yii::app()->user->setFlash('error', $e->getMessage());
-            $this->redirect(Yii::app()->request->urlReferrer);
+            return $this->redirect(Yii::app()->request->urlReferrer);
         }
 
         if ($this->Employee->role != 'admin') {
@@ -226,7 +225,7 @@ class RequestController extends Controller
         $this->render('tabs/main', array(
             'Request' => $Request,
             'RequestLib' => $RequestLib,
-            'group' => $Model::REQUEST_TYPE
+            'group' => $Model ? $Model::REQUEST_TYPE : 'company',
             ) + $this->requestGeneralParams);
     }
 
@@ -241,6 +240,7 @@ class RequestController extends Controller
 
             $this->redirect(Yii::app()->request->urlReferrer);
         }
+
         $Request = $RequestLib->getRequest();
 
         if ($Request === false) {

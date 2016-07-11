@@ -22,7 +22,7 @@ class RequestRefusedLib extends RequestLib
      * Get all requests
      *
      * @param string $group
-     * @return array|RequestProcess empty array or RequestProcess
+     * @return CDbCriteria
      */
     public function getRequestsCriteria($group = '')
     {
@@ -30,11 +30,11 @@ class RequestRefusedLib extends RequestLib
 
         $CDbCriteria = $this->getTypes($CDbCriteria);
         if (!$CDbCriteria) {
-            return [];
+            return false;
         }
 
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
-        $CDbCriteria->addCondition('RequestRefused.id IS NOT NULL');
+        $CDbCriteria->compare('state', Request::STATE_REFUSED);
 
         return $CDbCriteria;
     }
@@ -53,7 +53,7 @@ class RequestRefusedLib extends RequestLib
             return false;
         }
 
-        $CDbCriteria->with = array('RequestRefused', 'RequestProcess', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
+        $CDbCriteria->with = array('RequestProcessEmployee', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
 
         if ($this->EmployeeGroup->manage || $this->Employee->role == 'admin') {
             return $CDbCriteria;
@@ -183,7 +183,7 @@ class RequestRefusedLib extends RequestLib
         }
 
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
-        $CDbCriteria->addCondition('RequestRefused.id IS NOT NULL');
+        $CDbCriteria->compare('state', Request::STATE_REFUSED);
         if (isset($get['Request'])) {
             foreach($get['Request'] as $key => $value) {
                 $CDbCriteria->compare($key, $value, true);
@@ -208,11 +208,11 @@ class RequestRefusedLib extends RequestLib
         }
 
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
-        $CDbCriteria->addCondition('RequestRefused.id IS NOT NULL');
+        $CDbCriteria->compare('state', Request::STATE_REFUSED);
 
         if ($city !== '') {
             $CDbCriteria->addCondition('address_city = :city');
-            $CDbCriteria->params = array('city' => $city);
+            $CDbCriteria->params['city'] = $city;
         } else {
             $CDbCriteria->addCondition('address_city IS NULL');
         }

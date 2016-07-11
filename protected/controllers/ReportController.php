@@ -12,13 +12,13 @@ class ReportController extends Controller
 
     public function actionRequests()
     {
-        $RequestProcess=new RequestProcess('search');
-        $RequestProcess->unsetAttributes();
+        $RequestProcessEmployee = new RequestProcessEmployee('search');
+        $RequestProcessEmployee->unsetAttributes();
         if(isset($_GET['RequestProcess']))
-            $RequestProcess->attributes=$_GET['RequestProcess'];
+            $RequestProcessEmployee->attributes=$_GET['RequestProcess'];
 
         $grid = $this->renderPartial('_grid', array(
-            'model' => $RequestProcess,
+            'model' => $RequestProcessEmployee,
         ), true);
 
         $this->render('requests', array(
