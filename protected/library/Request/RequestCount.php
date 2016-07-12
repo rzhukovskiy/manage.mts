@@ -52,13 +52,12 @@ class RequestCount
     {
         $CDbCriteria = new CDbCriteria;
 
-        $RequestLib = new RequestActiveLib($this->Employee);
+        $RequestLib = new RequestArchiveLib($this->Employee);
         $CDbCriteria = $RequestLib->getTypes($CDbCriteria);
         if (!$CDbCriteria) {
             return false;
         }
 
-        $arrayEmployeeGroups = array($this->EmployeeGroup->id);
         if ($this->Employee->role == 'admin') {
             $CDbCriteria = new CDbCriteria();
             $CDbCriteria->with = array('RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
