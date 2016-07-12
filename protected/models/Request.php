@@ -76,7 +76,7 @@ class Request extends CActiveRecord
 			array('director_name, doc_name', 'length', 'max'=>256),
 			array('address_timezone', 'length', 'max'=>32),
 			array('time_from, time_to', 'length', 'max'=>32),
-			array('next_communication_date', 'length', 'max'=>10),
+			array('next_communication_date', 'length', 'max'=>25),
 			array('payment_day', 'length', 'max'=>'64'),
 			array('email', 'length', 'max'=>128),
 			array('agreement_number', 'length', 'max'=>255),
@@ -213,7 +213,7 @@ class Request extends CActiveRecord
 
 	public function getNextCommunicationDate()
 	{
-		$formatDate = date("d.m.y", strtotime($this->next_communication_date));
+		$formatDate = date("d.m.y H:i", strtotime($this->next_communication_date));
 
 		if ($this->next_communication_date === null) {
 			$nextCommunicationDate = "<div>не указана</div>";

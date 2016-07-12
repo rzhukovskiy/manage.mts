@@ -134,7 +134,7 @@
             ?>
         </td>
     </tr>
-    <!--<tr>
+    <tr>
         <th>Временная зона</th>
         <td>
             <?php
@@ -152,7 +152,7 @@
             );
             ?>
         </td>
-    </tr>-->
+    </tr>
     <?php if ($model->state == Request::STATE_PROCESS) { ?>
         <tr>
             <th>Статус клиента</th>
@@ -195,22 +195,26 @@
             <td>
                 <?php
                 $this->widget(
-                    'booster.widgets.TbDatePicker',
+                    'booster.widgets.TbDateTimePicker',
                     array(
                         'model' => $model,
                         'name' => 'next_communication_date',
-                        'value' => $model->next_communication_date ? date('d.m.Y', strtotime($model->next_communication_date)) : '',
+                        'value' => $model->next_communication_date ? date('d.m.Y h:i', strtotime($model->next_communication_date)) : '',
                         'options' => array(
                             'language' => 'ru',
                             'showClear' => false,
                             'autoclose' => true,
-                            'format' => 'dd.mm.yyyy',
+                            'format' => 'dd.mm.yyyy hh:ii',
                             'todayHighlight' => true,
                         ),
                         'events' => [
                             'changeDate' => 'js: function(event, reason) {
-                                    var dateAsObject = $(this).datepicker("getDate");
-                                    var formatted = dateAsObject.getFullYear() + "-" + (dateAsObject.getMonth() + 1) + "-" + dateAsObject.getDate();
+                                    var dateAsObject = $(this).data("datetimepicker").getDate();
+                                    var formatted = dateAsObject.getFullYear() + "-"
+                                        + (dateAsObject.getMonth() + 1) + "-"
+                                        + dateAsObject.getDate() + " "
+                                        + dateAsObject.getHours() + ":"
+                                        + dateAsObject.getMinutes() + ":00";
                                     $.post("' . $this->createUrl('request/updateDetails') . '", {
                                         name: "next_communication_date",
                                         value: formatted,

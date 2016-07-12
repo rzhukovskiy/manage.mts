@@ -10,11 +10,11 @@
             <div class="col-md-offset-1 col-md-5">
                 <div class="form-group">
                     <label>ФИО</label><span class="error">Заполните поле ФИО</span>
-                    <input class="form-control" name="name">
+                    <input class="form-control" name="doc-name">
                 </div>
                 <div class="form-group">
                     <label>Компания</label><span class="error">Заполните поле Компамния</span>
-                    <input class="form-control" name="firm">
+                    <input class="form-control" name="name">
                 </div>
                 <div class="form-group">
                     <label>E-mail</label><span class="error">Заполните поле E-mail</span>

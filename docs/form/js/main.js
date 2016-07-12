@@ -133,19 +133,9 @@
             //event.preventDefault();
 
             if ( $("input[name=name]").val()
-                && $("input[name=index]").val()
                 && $("input[name=city]").val()
-                && $("input[name=street]").val()
-                && $("input[name=house]").val()
-                && $("input[name=phone]").val()
-                && $("input[name=time-from]").val()
-                && $("input[name=time-to]").val()
-                && $("input[name=director-name]").val()
-                && $("input[name=director-email]").val()
-                && $("input[name=director-phone]").val()
-                && $("input[name=doc-name]").val()
-                && $("input[name=doc-email]").val()
-                && $("input[name=doc-phone]").val() ) {
+                && $("input[name=email]").val()
+                && $("input[name=phone]").val() ) {
                 return true;
             } else {
                 if ( !$("input[name=name]").val() ) {
