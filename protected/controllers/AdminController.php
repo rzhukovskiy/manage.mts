@@ -130,7 +130,13 @@ class AdminController extends Controller
     {
         $Employee = Employee::model()->findByPk($employee_id);
         $RequestLib = new RequestActiveLib($Employee);
-        $CDbCriteria = $RequestLib->getRequestsCriteria($group);
+        $CDbCriteria = $RequestLib->getRequestsCriteria($group, $employee_id);
+
+        if (isset($_GET['Request'])) {
+            foreach($_GET['Request'] as $key => $value) {
+                $CDbCriteria->compare($key, $value, true);
+            }
+        }
 
         $sort = new CSort();
         $sort->defaultOrder = 'next_communication_date';
@@ -141,7 +147,7 @@ class AdminController extends Controller
             'pagination' => false,
         ));
 
-        return $DataProvider->getData();
+        return count($DataProvider->getData());
     }
 
     public function actionDeleteFromArchive()
