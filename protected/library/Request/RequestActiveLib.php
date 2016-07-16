@@ -150,7 +150,7 @@ class RequestActiveLib extends RequestLib
 
         $CDbCriteria->with = array('RequestProcessEmployee', 'RequestCompany', 'RequestService', 'RequestTires', 'RequestWash');
 
-        if ($this->EmployeeGroup->manage || $this->Employee->role == 'admin') {
+        if ($this->Employee->role == 'admin') {
             return $CDbCriteria;
         }
 
