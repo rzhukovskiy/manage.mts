@@ -34,7 +34,7 @@ class RequestActiveLib extends RequestLib
         $CDbCriteria = $this->getGroupRequests($CDbCriteria, $group);
 
         if($employee_id) {
-            $CDbCriteria->addCondition('RequestProcessEmployee.employee_id = ' . $employee_id);
+            $CDbCriteria->addCondition('RequestProcessEmployee.employee_id = ' . $employee_id . ' OR RequestProcessEmployee.employee_id IS NULL');
         }
 
         $CDbCriteria->addCondition('state = ' . Request::STATE_PROCESS . ' OR state = ' . Request::STATE_NEW);
