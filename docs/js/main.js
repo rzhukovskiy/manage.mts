@@ -194,7 +194,7 @@ $(document).ready(function() {
             });
     });
 
-    CheckContactTime();
+    setTimeout(CheckContactTime, 1 * 10000);
 });
 
 var PageTitleNotification = {
@@ -221,10 +221,11 @@ function CheckContactTime() {
         .done(function(response) {
             if(response.length > 0) {
                 response.forEach(function(value, num) {
+                    console.log(value);
                     noty({
-                        text: 'Срочно звони в ' + value.name +
-                            '!<br/> Дата следующей связи в <br/>' + value.next_communication_date +
-                            '<br/>Статус: ' + value.status,
+                        text: '<strong>Срочно звони в ' + value.name +
+                            '!</strong><br/> Дата следующей связи в <br/>' + value.next_communication_date +
+                            '<br/>Статус: ' + value.status.replace(/(?:\r\n|\r|\n)/g, '<br />'),
                         layout: 'center',
                         theme: 'defaultTheme', // or 'relax'
                         type: 'warning',
@@ -246,5 +247,5 @@ function CheckContactTime() {
                 PageTitleNotification.On('Срочно! Надо звонить!');
             }
         });
-    setTimeout(CheckContactTime, 10 * 60000);
+    setTimeout(CheckContactTime, 3 * 60000);
 }
