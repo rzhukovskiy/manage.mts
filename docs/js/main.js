@@ -110,9 +110,6 @@ $(document).ready(function() {
         $('.close').click();
     });
 
-
-
-
     $("#agreement_file").change(function(){
         var file = this.files;
         var requestId = $(this).data("id");
@@ -196,4 +193,58 @@ $(document).ready(function() {
                 $("#request-employee-mail-modal").modal("hide");
             });
     });
+
+    CheckContactTime();
 });
+
+var PageTitleNotification = {
+    Vars:{
+        OriginalTitle: document.title,
+        Interval: null
+    },
+    On: function(notification, intervalSpeed){
+        var _this = this;
+        _this.Vars.Interval = setInterval(function(){
+            document.title = (_this.Vars.OriginalTitle == document.title)
+                ? notification
+                : _this.Vars.OriginalTitle;
+        }, (intervalSpeed) ? intervalSpeed : 1000);
+    },
+    Off: function(){
+        clearInterval(this.Vars.Interval);
+        document.title = this.Vars.OriginalTitle;
+    }
+}
+
+function CheckContactTime() {
+    $.ajax({url: "/request/checkContactTime"})
+        .done(function(response) {
+            if(response.length > 0) {
+                response.forEach(function(value, num) {
+                    noty({
+                        text: 'Срочно звони в ' + value.name +
+                            '!<br/> Дата следующей связи в <br/>' + value.next_communication_date +
+                            '<br/>Статус: ' + value.status,
+                        layout: 'center',
+                        theme: 'defaultTheme', // or 'relax'
+                        type: 'warning',
+                        buttons: [
+                            {
+                                addClass: 'btn btn-primary', text: 'Перейти', onClick: function($noty) {
+                                    document.location.href = "/request/details?id=" + value.id;
+                                }
+                            },
+                            {
+                                addClass: 'btn btn-primary', text: 'Закрыть', onClick: function($noty) {
+                                    $noty.close();
+                                    PageTitleNotification.Off();
+                                }
+                            },
+                        ]
+                    });
+                });
+                PageTitleNotification.On('Срочно! Надо звонить!');
+            }
+        });
+    setTimeout(CheckContactTime, 10 * 60000);
+}
