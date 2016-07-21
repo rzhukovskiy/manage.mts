@@ -134,7 +134,6 @@
 
             if ( $("input[name=name]").val()
                 && $("input[name=city]").val()
-                && $("input[name=email]").val()
                 && $("input[name=phone]").val() ) {
                 return true;
             } else {

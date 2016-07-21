@@ -40,12 +40,12 @@ class RequestProcessEmployee extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('employee_id, request_process_id', 'required'),
-			array('employee_id, request_process_id', 'length', 'max'=>10),
+			array('employee_id, request_id', 'required'),
+			array('employee_id, request_id', 'length', 'max'=>10),
 			array('created, finished', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, employee_id, request_process_id, created, finished', 'safe', 'on'=>'search'),
+			array('id, employee_id, request_id, created, finished', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class RequestProcessEmployee extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'employee_id' => 'Employee',
-			'request_process_id' => 'Request Process',
+			'request_id' => 'Request Process',
 			'created' => 'Created',
 			'finished' => 'Finished',
 		);
@@ -95,7 +95,7 @@ class RequestProcessEmployee extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('employee_id',$this->employee_id,true);
-		$criteria->compare('request_process_id',$this->request_process_id,true);
+		$criteria->compare('request_id',$this->request_id,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('finished',$this->finished,true);
 

@@ -194,7 +194,7 @@ $(document).ready(function() {
             });
     });
 
-    setTimeout(CheckContactTime, 1 * 10000);
+    setTimeout(CheckContactTime, 3 * 10000);
 });
 
 var PageTitleNotification = {
@@ -219,33 +219,35 @@ var PageTitleNotification = {
 function CheckContactTime() {
     $.ajax({url: "/request/checkContactTime"})
         .done(function(response) {
-            if(response.length > 0) {
-                response.forEach(function(value, num) {
-                    console.log(value);
-                    noty({
-                        text: '<strong>Срочно звони в ' + value.name +
-                            '!</strong><br/> Дата следующей связи в <br/>' + value.next_communication_date +
-                            '<br/>Статус: ' + value.status.replace(/(?:\r\n|\r|\n)/g, '<br />'),
-                        layout: 'center',
-                        theme: 'defaultTheme', // or 'relax'
-                        type: 'warning',
-                        buttons: [
-                            {
-                                addClass: 'btn btn-primary', text: 'Перейти', onClick: function($noty) {
-                                    document.location.href = "/request/details?id=" + value.id;
-                                }
-                            },
-                            {
-                                addClass: 'btn btn-primary', text: 'Закрыть', onClick: function($noty) {
-                                    $noty.close();
-                                    PageTitleNotification.Off();
-                                }
-                            },
-                        ]
-                    });
+            if(response.request) {
+                $.noty.closeAll();
+                PageTitleNotification.Off();
+
+                var request = response.request;
+                var employee = response.employee;
+                noty({
+                    text: '<strong>Срочно звони в ' + request.name +
+                    '!</strong><br/><br/> Дата следующей связи в <br/>' + request.next_communication_date,
+                    layout: 'center',
+                    theme: 'defaultTheme', // or 'relax'
+                    type: 'warning',
+                    buttons: [
+                        {
+                                addClass: 'btn btn-success', text: 'Перейти', onClick: function($noty) {
+                                document.location.href = "/request/details?id=" + request.id;
+                            }
+                        },
+                        {
+                            addClass: 'btn btn-danger', text: 'Отложить на 5 минут', onClick: function($noty) {
+                                $.ajax({url: "/request/delayContact?id=" + request.id});
+                                $noty.close();
+                                PageTitleNotification.Off();
+                            }
+                        },
+                    ]
                 });
                 PageTitleNotification.On('Срочно! Надо звонить!');
             }
         });
-    setTimeout(CheckContactTime, 3 * 60000);
+    setTimeout(CheckContactTime, 5 * 60000);
 }

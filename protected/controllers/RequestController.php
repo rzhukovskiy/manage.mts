@@ -504,14 +504,14 @@ class RequestController extends Controller
 
     public function actionCheckContactTime()
     {
-        if ($this->Employee->role != 'admin' || strpos(Yii::app()->request->urlReferrer, 'request') !== false) {
+        if ($this->Employee->role == 'admin' || strpos(Yii::app()->request->urlReferrer, 'request/details') !== false) {
             $this->outJson([]);
         }
         $RequestLib = new RequestActiveLib($this->Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria();
-        $CDbCriteria->addCondition('(state = 1 OR state = 3) AND next_communication_date <= "' . date('Y-m-d H:i:s', time() + 3 * 60) . '"');
+        $CDbCriteria->addCondition('(state = 1 OR state = 3) AND next_communication_date <= "' . date('Y-m-d H:i:s', time() + 5 * 60) . '"');
         $CDbCriteria->order = 'next_communication_date DESC';
-        $CDbCriteria->with = 'RequestEmployee';
+        $CDbCriteria->with = array_merge(['RequestEmployee'], $CDbCriteria->with);
         $CDbCriteria->together = true;
 
         $DataProvider = new CActiveDataProvider(Request::model(), array(
@@ -522,6 +522,21 @@ class RequestController extends Controller
         ));
 
         $listRequest = $DataProvider->getData();
-        $this->outJson((array) $listRequest);
+        if(count($listRequest)) {
+            $this->outJson([
+                'request' => (array) $listRequest[0]->attributes,
+                'employee' => isset($listRequest[0]->RequestEmployee[0]) ? $listRequest[0]->RequestEmployee[0]->attributes : '',
+            ]);
+        } else {
+            $this->outJson([]);
+        }
+    }
+
+    public function actionDelayContact($id) {
+        $Request = Request::model()->findByPk($id);
+        if ($Request) {
+            $Request->next_communication_date = date('Y-m-d H:i:s', time() + 300);
+            return $Request->save();
+        }
     }
 }

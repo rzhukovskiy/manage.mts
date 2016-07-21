@@ -199,7 +199,7 @@
                     array(
                         'model' => $model,
                         'name' => 'next_communication_date',
-                        'value' => $model->next_communication_date ? date('d.m.Y h:i', strtotime($model->next_communication_date)) : '',
+                        'value' => $model->next_communication_date ? date('d.m.Y H:i', strtotime($model->next_communication_date)) : '',
                         'options' => array(
                             'language' => 'ru',
                             'showClear' => false,
