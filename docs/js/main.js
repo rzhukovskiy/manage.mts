@@ -194,7 +194,7 @@ $(document).ready(function() {
             });
     });
 
-    setTimeout(CheckContactTime, 3 * 10000);
+    setTimeout(CheckContactTime, 10000);
 });
 
 var PageTitleNotification = {
@@ -227,14 +227,23 @@ function CheckContactTime() {
                 var employee = response.employee;
                 noty({
                     text: '<strong>Срочно звони в ' + request.name +
-                    '!</strong><br/><br/> Дата следующей связи в <br/>' + request.next_communication_date,
+                    '!</strong><br/><br/> Дата следующей связи:<br/><form id="request">' +
+                    '<input class="form-control" type="text" value="' + request.next_communication_date + '" name="Request[next_communication_date]" id="next_communication_date" />' +
+                    '<br/><textarea class="form-control input-large" name="Request[status]" id="status" style="width: 100%; height: 200px">Статус: ' + request.status + '</textarea></form>' +
+                    '<br/>Сотрудник: ' +
+                    '<br/>Имя: ' + employee.name +
+                    '<br/>Должность: ' + employee.position +
+                    '<br/>Email: ' + employee.email +
+                    '<br/>Тел.: ' + employee.phone,
                     layout: 'center',
-                    theme: 'defaultTheme', // or 'relax'
                     type: 'warning',
+                    textAlign: 'center',
                     buttons: [
                         {
-                                addClass: 'btn btn-success', text: 'Перейти', onClick: function($noty) {
-                                document.location.href = "/request/details?id=" + request.id;
+                            addClass: 'btn btn-success', text: 'Сохранить', onClick: function($noty) {
+                                $.ajax({url: "/request/update?id=" + request.id, type: "POST", data: $("#request").serialize()});
+                                $noty.close();
+                                PageTitleNotification.Off();
                             }
                         },
                         {
@@ -246,6 +255,8 @@ function CheckContactTime() {
                         },
                     ]
                 });
+
+                $('#next_communication_date').datetimepicker({'language':'ru','showClear':false,'autoclose':true,'format':'dd.mm.yyyy hh:ii','todayHighlight':true});
                 PageTitleNotification.On('Срочно! Надо звонить!');
             }
         });

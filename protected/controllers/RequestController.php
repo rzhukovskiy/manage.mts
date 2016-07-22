@@ -416,7 +416,7 @@ class RequestController extends Controller
 
     public function actionUpdateDetails($id = 0)
     {
-        if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isAjaxRequest && Yii::app()->request->getPost('name', false)) {
             $name = Yii::app()->request->getPost('name');
             $id = Yii::app()->request->getPost('pk');
             $value = Yii::app()->request->getPost('value');
@@ -440,6 +440,27 @@ class RequestController extends Controller
             }
 
             $this->redirect(Yii::app()->request->urlReferrer);
+        }
+    }
+
+    public function actionUpdate($id = 0)
+    {
+        if (Yii::app()->request->isPostRequest) {
+            $Request = Request::model()->findByPk($id);
+
+            if($Request) {
+                if (isset($_POST['Request']['next_communication_date'])) {
+                    $date = DateTime::createFromFormat('d.m.Y H:i', $_POST['Request']['next_communication_date']);
+                    $_POST['Request']['next_communication_date'] = $date->format('Y-m-d H:i:s');
+                }
+                $Request->attributes = $_POST['Request'];
+
+                try {
+                    $Request->save();
+                } catch(\Exception $e) {
+                    $this->outJson(['result' => false, 'comment' => $e->getMessage()]);
+                }
+            }
         }
     }
 
@@ -510,7 +531,7 @@ class RequestController extends Controller
         $RequestLib = new RequestActiveLib($this->Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria();
         $CDbCriteria->addCondition('(state = 1 OR state = 3) AND next_communication_date <= "' . date('Y-m-d H:i:s', time() + 5 * 60) . '"');
-        $CDbCriteria->order = 'next_communication_date DESC';
+        $CDbCriteria->order = 'next_communication_date ASC';
         $CDbCriteria->with = array_merge(['RequestEmployee'], $CDbCriteria->with);
         $CDbCriteria->together = true;
 
@@ -523,9 +544,11 @@ class RequestController extends Controller
 
         $listRequest = $DataProvider->getData();
         if(count($listRequest)) {
+            $firstRequest = $listRequest[0];
+            $firstRequest->next_communication_date = date('d.m.Y H:i', strtotime($firstRequest->next_communication_date));
             $this->outJson([
-                'request' => (array) $listRequest[0]->attributes,
-                'employee' => isset($listRequest[0]->RequestEmployee[0]) ? $listRequest[0]->RequestEmployee[0]->attributes : '',
+                'request' => (array) $firstRequest->attributes,
+                'employee' => isset($firstRequest->RequestEmployee[0]) ? $listRequest[0]->RequestEmployee[0]->attributes : '',
             ]);
         } else {
             $this->outJson([]);

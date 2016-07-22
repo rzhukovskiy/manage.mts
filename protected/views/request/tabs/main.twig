@@ -2,41 +2,4 @@
 
 {% block form %}
     {{ this.renderPartial('tabs/_main', {'model': Request}, true)|raw }}
-
-    <h3>Сотрудники:</h3>
-    <div id="request-employees">
-        {% for CurrentRequestEmployee in Request.RequestEmployee %}
-            {% include "views/requestEmployees/employee.twig" %}
-        {% endfor %}
-    </div>
-
-    <div class="row" style="padding-top: 30px;">
-        <div class="col-md-12">
-            <button type="button" id="request-employee-add" class="btn btn-primary" data-id="{{ Request.id }}">Добавить</button>
-        </div>
-    </div>
-
-    <div class="modal" id="request-employee-mail-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" id="request-employee-mail-subject" class="form-control" placeholder="Тема сообщения" />
-                        </div>
-                        <div class="form-group">
-                            <textarea rows="11" id="request-employee-mail-text" class="form-control" placeholder="Текст сообщения"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <input id="request-employee-mail-name" type="hidden" value="" />
-                    <input id="request-employee-mail-email" type="hidden" value="" />
-
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary request-employee-mail-confirm">Отправить</button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
