@@ -226,29 +226,37 @@ function CheckContactTime() {
                 var request = response.request;
                 var employee = response.employee;
                 noty({
-                    text: '<strong>Срочно звони в ' + request.name +
-                    '!</strong><br/><br/> Дата следующей связи:<br/><form id="request">' +
-                    '<input class="form-control" type="text" value="' + request.next_communication_date + '" name="Request[next_communication_date]" id="next_communication_date" />' +
-                    '<br/><textarea class="form-control input-large" name="Request[status]" id="status" style="width: 100%; height: 200px">Статус: ' + request.status + '</textarea></form>' +
-                    '<br/>Сотрудник: ' +
-                    '<br/>Имя: ' + employee.name +
-                    '<br/>Должность: ' + employee.position +
-                    '<br/>Email: ' + employee.email +
-                    '<br/>Тел.: ' + employee.phone,
+                    text: '<h4 style="text-align: center">Запланированный звонок в <br/>' + request.name +
+                    '!</h4><strong>Город:</strong> ' + request.address_city +
+                    '<div style="color: #069;margin: 10px 0 5px 0; font-weight: bold;">Дата следующей связи:</div>' +
+                    '<form id="request">' +
+                    '<input class="form-control datetime" type="text" value="' + request.next_communication_date + '" name="Request[next_communication_date]" id="next_communication_date" />' +
+                    '<div style="color: #069;margin: 10px 0 5px 0; font-weight: bold;">Статус клиента:</div>' +
+                    '<textarea class="form-control input-large" name="Request[status]" id="status" style="width: 100%; height: 200px">' + request.status + '</textarea>' +
+                    '</form>' +
+                    '<div style="color: #069;margin: 10px 0 5px 0; font-weight: bold;">Сотрудник:</div> ' +
+                    '<div style="background: #fff; color: #000; padding: 5px;"><strong>Имя:</strong> ' + employee.name +
+                    '<br/><strong>Должность:</strong> ' + employee.position +
+                    '<br/><strong>Email:</strong> ' + employee.email +
+                    '<br/><strong>Тел.:</strong> ' + employee.phone + '</div>',
                     layout: 'center',
                     type: 'warning',
-                    textAlign: 'center',
+                    textAlign: 'left',
                     buttons: [
                         {
                             addClass: 'btn btn-success', text: 'Сохранить', onClick: function($noty) {
-                                $.ajax({url: "/request/update?id=" + request.id, type: "POST", data: $("#request").serialize()});
+                                $.ajax({url: "/request/update?id=" + request.id, type: "POST", data: $("#request").serialize()}).done(function(response) {
+                                        location.reload();
+                                    });
                                 $noty.close();
                                 PageTitleNotification.Off();
                             }
                         },
                         {
                             addClass: 'btn btn-danger', text: 'Отложить на 5 минут', onClick: function($noty) {
-                                $.ajax({url: "/request/delayContact?id=" + request.id});
+                                $.ajax({url: "/request/delayContact?id=" + request.id}).done(function(response) {
+                                        location.reload();
+                                    });
                                 $noty.close();
                                 PageTitleNotification.Off();
                             }
@@ -256,9 +264,8 @@ function CheckContactTime() {
                     ]
                 });
 
-                $('#next_communication_date').datetimepicker({'language':'ru','showClear':false,'autoclose':true,'format':'dd.mm.yyyy hh:ii','todayHighlight':true});
+                $('.datetime').datetimepicker({'language':'ru','showClear':false,'autoclose':true,'format':'dd.mm.yyyy hh:ii','todayHighlight':true});
                 PageTitleNotification.On('Срочно! Надо звонить!');
             }
         });
-    setTimeout(CheckContactTime, 5 * 60000);
 }
