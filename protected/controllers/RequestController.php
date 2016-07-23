@@ -558,7 +558,7 @@ class RequestController extends Controller
     public function actionDelayContact($id) {
         $Request = Request::model()->findByPk($id);
         if ($Request) {
-            $Request->next_communication_date = date('Y-m-d H:i:s', time() + 300);
+            $Request->next_communication_date = date('Y-m-d H:i:s', time() + 540);
             return $Request->save();
         }
     }

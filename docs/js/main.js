@@ -266,6 +266,8 @@ function CheckContactTime() {
 
                 $('.datetime').datetimepicker({'language':'ru','showClear':false,'autoclose':true,'format':'dd.mm.yyyy hh:ii','todayHighlight':true});
                 PageTitleNotification.On('Срочно! Надо звонить!');
+            } else {
+                setTimeout(CheckContactTime, 10000);
             }
         });
 }
