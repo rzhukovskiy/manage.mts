@@ -1,4 +1,5 @@
-<?php /** @var $model Request */ ?>
+<?php /** @var $model Request */
+?>
 
 <table id="request-general-params" class='table table-bordered table-hover'>
     <tr>
@@ -153,7 +154,7 @@
             ?>
         </td>
     </tr>
-    <?php if ($model->state == Request::STATE_PROCESS) { ?>
+    <?php if ($model->state == Request::STATE_PROCESS || $model->state == Request::STATE_NEW) { ?>
         <tr>
             <th>Статус клиента</th>
             <td>
