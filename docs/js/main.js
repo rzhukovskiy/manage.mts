@@ -246,8 +246,10 @@ function CheckContactTime() {
                         {
                             addClass: 'btn btn-success', text: 'Сохранить', onClick: function($noty) {
                                 $.ajax({url: "/request/update?id=" + request.id, type: "POST", data: $("#request").serialize()}).done(function(response) {
+                                    if (location.href.search('request') >= 0) {
                                         location.reload();
-                                    });
+                                    }
+                                });
                                 $noty.close();
                                 PageTitleNotification.Off();
                             }
@@ -255,8 +257,10 @@ function CheckContactTime() {
                         {
                             addClass: 'btn btn-danger', text: 'Отложить на 5 минут', onClick: function($noty) {
                                 $.ajax({url: "/request/delayContact?id=" + request.id}).done(function(response) {
+                                    if (location.href.search('request') >= 0) {
                                         location.reload();
-                                    });
+                                    }
+                                });
                                 $noty.close();
                                 PageTitleNotification.Off();
                             }

@@ -6,10 +6,11 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation" class="active"><a href="#">Сообщения</a></li>
+        <li role="presentation"><a href="/message/list?id={{ currentId }}">Сообщения</a></li>
+        <li role="presentation" class="active"><a href="#">Сообщения от {{ Message.author }}</a></li>
     </ul>
 
-    {% include "views/message/form.twig" %}
+    {% include "views/message/answer.twig" %}
 
     <div class="form-tabs">
         {{ grid|raw }}

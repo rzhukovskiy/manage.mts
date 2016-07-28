@@ -83,8 +83,11 @@ class EmployeeGroup extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function getNewMessages()
+	public function getNewMessages($employeeId)
 	{
-		return count(Message::model()->findAll('`to` = :to AND is_read = 0', [':to' => $this->id]));
+		return count(Message::model()->with('Author')->findAll('`to` = :to AND employee_group_id = :employee_group_id AND is_read = 0', [
+			':employee_group_id' => $this->id,
+			':to' => $employeeId,
+		]));
 	}
 }

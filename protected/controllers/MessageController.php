@@ -8,7 +8,7 @@
 class MessageController extends Controller
 {
     /** @var $Employee Employee */
-    private $Employee;
+    public $Employee;
 
     public $part = 'message';
 
@@ -21,17 +21,27 @@ class MessageController extends Controller
 
     public function actionList()
     {
-        $EmployeeGroups = EmployeeGroup::model()->findAll(array("order" => "id"));
-
+        $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
         if (Yii::app()->request->getQuery('id', false)) {
             $employeeGroupId = Yii::app()->request->getQuery('id');
         } else {
             $employeeGroupId = $EmployeeGroups[0]->id;
         }
 
+        $Employees = Employee::model()->findAll([
+            "condition" => "employee_group_id = :employee_group_id",
+            "order" => "id",
+            "params" => [
+                ':employee_group_id' => $employeeGroupId,
+            ]
+        ]);
+
         $CDbCriteria = new CDbCriteria;
-        $CDbCriteria->compare('`to`', $employeeGroupId);
-        $CDbCriteria->compare('is_read', 0);
+        $CDbCriteria->with = 'Author';
+        $CDbCriteria->compare('employee_group_id', $employeeGroupId);
+        if ($this->Employee->role != 'admin') {
+            $CDbCriteria->compare('`to`', $this->Employee->id);
+        }
 
         $sort = new CSort();
         $sort->defaultOrder = 't.create_date DESC';
@@ -42,13 +52,15 @@ class MessageController extends Controller
         ));
 
         $grid = $this->renderPartial('_grid', array(
-            'DataProvider' => $DataProvider
+            'DataProvider' => $DataProvider,
+            'buttons' => true,
         ), true);
 
         $this->render('list',array(
             'currentId' => $employeeGroupId,
             'EmployeeGroups' => $EmployeeGroups,
-            'grid' => $grid
+            'Employees' => $Employees,
+            'grid' => $grid,
         ));
     }
 
@@ -83,9 +95,44 @@ class MessageController extends Controller
         if ($Message) {
             $Message->is_read = 1;
             $Message->save();
+        } else {
+            $this->redirect(Yii::app()->request->urlReferrer);
         }
 
-        $this->redirect(Yii::app()->request->urlReferrer);
+        $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
+        $employeeGroupId = $Message->Author->employee_group_id;
+
+        $Employees = Employee::model()->findAll([
+            "condition" => "employee_group_id = :employee_group_id",
+            "order" => "id",
+            "params" => [
+                ':employee_group_id' => $employeeGroupId,
+            ]
+        ]);
+
+        $CDbCriteria = new CDbCriteria;
+        $CDbCriteria->addCondition("(`to` = {$this->Employee->id} AND `from` = {$Message->from}) OR (`from` = {$this->Employee->id} AND `to` = {$Message->from})");
+
+        $sort = new CSort();
+        $sort->defaultOrder = 't.create_date DESC';
+
+        $DataProvider = new CActiveDataProvider(Message::model(), array(
+            'criteria' => $CDbCriteria,
+            'sort' => $sort
+        ));
+
+        $grid = $this->renderPartial('_grid', array(
+            'DataProvider' => $DataProvider,
+            'buttons' => false,
+        ), true);
+
+        $this->render('update',array(
+            'currentId' => $employeeGroupId,
+            'EmployeeGroups' => $EmployeeGroups,
+            'Employees' => $Employees,
+            'Message' => $Message,
+            'grid' => $grid,
+        ));
     }
 
     /**

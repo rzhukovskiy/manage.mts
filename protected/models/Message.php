@@ -12,8 +12,8 @@
  * @property int $is_read
  *
  * The followings are the available model relations:
- * @property Employee $Employee
- * @property EmployeeGroup $EmployeeGroup
+ * @property Employee $Author
+ * @property Employee $Target
  */
 class Message extends CActiveRecord
 {
@@ -65,8 +65,8 @@ class Message extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'Employee' => [self::BELONGS_TO, 'Employee', 'from'],
-            'EmployeeGroup' => [self::BELONGS_TO, 'EmployeeGroup', 'to'],
+            'Author' => [self::BELONGS_TO, 'Employee', 'from'],
+            'Target' => [self::BELONGS_TO, 'Employee', 'to'],
         ];
     }
 
@@ -81,7 +81,7 @@ class Message extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('from', $this->from);
+        $criteria->compare('`from`', $this->from);
         $criteria->compare('`to`', $this->to);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('is_read', $this->is_read);
@@ -107,7 +107,7 @@ class Message extends CActiveRecord
     public function getAuthor()
     {
         return $this->from ? (
-            $this->Employee->role == 'admin' ? 'ADMIN' : $this->Employee->username
+            $this->Author->role == 'admin' ? 'ADMIN' : $this->Author->username
         ) : "SYSTEM";
     }
 }

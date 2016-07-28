@@ -2,7 +2,7 @@
     {% for index, CurrentEmployeeGroup in EmployeeGroups %}
         <li {% if CurrentEmployeeGroup.id == currentId %}class="active"{% endif %}>
             <a href="/message/list?id={{ CurrentEmployeeGroup.id }}">
-                {{ CurrentEmployeeGroup.name }}  {% if CurrentEmployeeGroup.newMessages %}<span class="label label-success">{{ CurrentEmployeeGroup.newMessages }}</span>{% endif %}
+                {{ CurrentEmployeeGroup.name }}  {% if CurrentEmployeeGroup.getNewMessages(this.Employee.id) %}<span class="label label-success">{{ CurrentEmployeeGroup.getNewMessages(this.Employee.id) }}</span>{% endif %}
             </a>
         </li>
     {% endfor %}
