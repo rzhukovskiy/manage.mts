@@ -1,0 +1,9 @@
+<ul class="nav nav-pills nav-stacked">
+    {% for index, CurrentEmployeeGroup in EmployeeGroups %}
+        <li {% if CurrentEmployeeGroup.id == currentId %}class="active"{% endif %}>
+            <a href="/message/list?id={{ CurrentEmployeeGroup.id }}">
+                CurrentEmployeeGroup.name  <span class="label label-success">5</span>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

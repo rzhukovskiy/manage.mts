@@ -1,0 +1,50 @@
+{% extends "views/layouts/content.twig" %}
+
+{% block leftmenu %}
+    {% include "left.twig" %}
+{% endblock %}
+
+{% block content %}%}
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active"><a href="#">Отправка сообщения</a></li>
+    </ul>
+    <div class="form-tabs">
+        <form id="message-form" class="form-horizontal" method="post" action="/message/create">
+            <div class="form-group">
+                <label for="Message_to" class="col-sm-2 control-label">Кому</label>
+                <div class="col-sm-10">
+                    <select name="Message[to]" class="form-control" id="Message_to">
+                        {% for CurrentEmployeeGroup in EmployeeGroup %}
+                            <option
+                                    {% if CurrentEmployeeGroup.id == currentId %}selected="selected"{% endif %}
+                                    value="{{ CurrentEmployeeGroup.id }}">{{ CurrentEmployeeGroup.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Message_text" class="col-sm-2 control-label">Текст</label>
+                <div class="col-sm-10">
+                    <textarea name="Message[text]" id="Message_text"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <input type="submit" class="btn btn-primary" name="yt0" value="Отправить" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ul class="nav nav-tabs nav-tabs-employee">
+        <li role="presentation" class="active">
+            <a href="#">Сообщения</a>
+        </li>
+    </ul>
+    <div class="form-tabs">
+        {{ grid|raw }}
+    </div>
+{% endblock %}

@@ -20,7 +20,7 @@ class Controller extends CController
 			),
 			array(
 				'allow',
-				'controllers' => array('request', 'refused', 'requestEmployees', 'requestComments', 'requestDetails', 'archive'),
+				'controllers' => array('message', 'request', 'refused', 'requestEmployees', 'requestComments', 'requestDetails', 'archive'),
 				'roles' => array(Employee::EMPLOYEE_ROLE),
 			),
 			array(

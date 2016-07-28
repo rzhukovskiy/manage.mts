@@ -46,6 +46,11 @@
                             </a>
                         </li>
                     {% endif %}
+                    <li {% if this.part == "message" %}class="active"{% endif %}>
+                        <a href="/message/list">
+                            Сообщения
+                        </a>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
