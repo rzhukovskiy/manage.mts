@@ -43,6 +43,7 @@ class EmployeeGroup extends CActiveRecord
 		return array(
 			'EmployeeGroupRequestType' => array(self::HAS_ONE, 'EmployeeGroupRequestType', 'employee_group_id'),
 			'EmployeeGroupArchiveRequestType' => array(self::HAS_ONE, 'EmployeeGroupArchiveRequestType', 'employee_group_id'),
+			'Message' => array(self::HAS_MANY, 'Message', 'to'),
 		);
 	}
 
@@ -80,5 +81,10 @@ class EmployeeGroup extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getNewMessages()
+	{
+		return count(Message::model()->findAll('`to` = :to AND is_read = 0', [':to' => $this->id]));
 	}
 }

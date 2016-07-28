@@ -8,18 +8,14 @@ $this->widget('booster.widgets.TbGridView', [
     'columns' => [
         [
             'name' => 'create_date',
-            'value' => 'date("d.m.Y H:i", $data->create_date)',
+            'value' => 'date("d.m.Y H:i", strtotime($data->create_date))',
         ],
         [
             'name' => 'text',
         ],
         [
             'name' => 'from',
-            'value' => '$data->from ? $data->Employee->name : "SYSTEM"',
-        ],
-        [
-            'name' => 'to',
-            'value' => '$data->to ? $data->EmployeeGroup->name : "UNKNOWN"',
+            'value' => '$data->author',
         ],
         [
             'class' => 'CButtonColumn',

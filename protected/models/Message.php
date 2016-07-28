@@ -53,6 +53,7 @@ class Message extends CActiveRecord
             'text' => 'Текст',
             'from' => 'Автор',
             'to' => 'Кому',
+            'create_date' => 'Дата',
         ];
     }
 
@@ -64,8 +65,8 @@ class Message extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return [
-            'Employee' => [self::HAS_ONE, 'Employee', 'from'],
-            'EmployeeGroup' => [self::HAS_ONE, 'EmployeeGroup', 'to'],
+            'Employee' => [self::BELONGS_TO, 'Employee', 'from'],
+            'EmployeeGroup' => [self::BELONGS_TO, 'EmployeeGroup', 'to'],
         ];
     }
 
@@ -81,7 +82,7 @@ class Message extends CActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('from', $this->from);
-        $criteria->compare('to', $this->to);
+        $criteria->compare('`to`', $this->to);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('is_read', $this->is_read);
 
@@ -98,5 +99,15 @@ class Message extends CActiveRecord
                 'pageSize' => 100,
             ],
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->from ? (
+            $this->Employee->role == 'admin' ? 'ADMIN' : $this->Employee->username
+        ) : "SYSTEM";
     }
 }

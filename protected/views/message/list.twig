@@ -1,12 +1,12 @@
 {% extends "views/layouts/content.twig" %}
 
 {% block leftmenu %}
-    {% include "left.twig" %}
+    {% include "views/message/left.twig" %}
 {% endblock %}
 
-{% block content %}%}
+{% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation" class="active"><a href="#">Отправка сообщения</a></li>
+        <li role="presentation" class="active"><a href="#">Сообщения</a></li>
     </ul>
     <div class="form-tabs">
         <form id="message-form" class="form-horizontal" method="post" action="/message/create">
@@ -14,7 +14,7 @@
                 <label for="Message_to" class="col-sm-2 control-label">Кому</label>
                 <div class="col-sm-10">
                     <select name="Message[to]" class="form-control" id="Message_to">
-                        {% for CurrentEmployeeGroup in EmployeeGroup %}
+                        {% for CurrentEmployeeGroup in EmployeeGroups %}
                             <option
                                     {% if CurrentEmployeeGroup.id == currentId %}selected="selected"{% endif %}
                                     value="{{ CurrentEmployeeGroup.id }}">{{ CurrentEmployeeGroup.name }}
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="Message_text" class="col-sm-2 control-label">Текст</label>
                 <div class="col-sm-10">
-                    <textarea name="Message[text]" id="Message_text"></textarea>
+                    <textarea class="form-control input-large" style="height: 50px" name="Message[text]" id="Message_text"></textarea>
                 </div>
             </div>
 
@@ -39,11 +39,6 @@
         </form>
     </div>
 
-    <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation" class="active">
-            <a href="#">Сообщения</a>
-        </li>
-    </ul>
     <div class="form-tabs">
         {{ grid|raw }}
     </div>

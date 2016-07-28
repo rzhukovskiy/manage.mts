@@ -30,14 +30,13 @@ class MessageController extends Controller
         }
 
         $CDbCriteria = new CDbCriteria;
-        $CDbCriteria->with = ['Employee.EmployeeGroup'];
-        $CDbCriteria->compare('Employee.EmployeeGroup.id', $employeeGroupId);
+        $CDbCriteria->compare('`to`', $employeeGroupId);
         $CDbCriteria->compare('is_read', 0);
 
         $sort = new CSort();
-        $sort->defaultOrder = 'create_date DESC';
+        $sort->defaultOrder = 't.create_date DESC';
 
-        $DataProvider = new CActiveDataProvider(Employee::model(), array(
+        $DataProvider = new CActiveDataProvider(Message::model(), array(
             'criteria' => $CDbCriteria,
             'sort' => $sort
         ));
@@ -46,7 +45,7 @@ class MessageController extends Controller
             'DataProvider' => $DataProvider
         ), true);
 
-        $this->render('index',array(
+        $this->render('list',array(
             'currentId' => $employeeGroupId,
             'EmployeeGroups' => $EmployeeGroups,
             'grid' => $grid
@@ -62,7 +61,6 @@ class MessageController extends Controller
             $Message = new Message();
             $Message->attributes = $_POST['Message'];
             $Message->from = $this->Employee->id;
-            $Message->create_date = time();
 
             try {
                 $Message->save();
