@@ -29,6 +29,11 @@ $this->widget('booster.widgets.TbGridView', [
             'value' => '$data->author',
         ],
         [
+            'name' => 'to',
+            'value' => '$data->target',
+            'visible' => $this->Employee->role == 'admin',
+        ],
+        [
             'class' => 'CButtonColumn',
             'htmlOptions' => array('style' => 'text-align: center; width: 90px;'),
             'template' => $this->Employee->role == 'admin' ? '{delete}{update}' : '{update}',

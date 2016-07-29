@@ -110,4 +110,14 @@ class Message extends CActiveRecord
             $this->Author->role == 'admin' ? 'ADMIN' : $this->Author->username
         ) : "SYSTEM";
     }
+
+    /**
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->from ? (
+        $this->Target->role == 'admin' ? 'ADMIN' : $this->Target->username
+        ) : "SYSTEM";
+    }
 }
