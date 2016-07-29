@@ -8,7 +8,7 @@
 class ArchiveController extends Controller
 {
     /** @var $Employee Employee */
-    private $Employee;
+    public $Employee;
 
     /** @var array */
     private $requestGeneralParams;

@@ -8,7 +8,7 @@
 class AdminController extends Controller
 {
     /** @var $Employee Employee */
-    private $Employee;
+    public $Employee;
 
     public $part = 'drafts';
 
