@@ -107,4 +107,11 @@ class Employee extends CActiveRecord
 
 		return $PasswordLib->hashPassword() === $this->password;
 	}
+
+	public function getNewMessages()
+	{
+		return count(Message::model()->with('Author')->findAll('`to` = :to AND is_read = 0', [
+			':to' => $this->id,
+		]));
+	}
 }

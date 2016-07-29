@@ -92,7 +92,7 @@ class MessageController extends Controller
     public function actionUpdate($id)
     {
         $Message = Message::model()->findByPk($id);
-        if ($Message) {
+        if ($Message && $Message->to == $this->Employee->id) {
             $Message->is_read = 1;
             $Message->save();
         } else {
