@@ -21,7 +21,7 @@ class MessageController extends Controller
 
     public function actionList()
     {
-        $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
+        $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
         if (Yii::app()->request->getQuery('id', false)) {
             $employeeGroupId = Yii::app()->request->getQuery('id');
         } else {
@@ -37,21 +37,21 @@ class MessageController extends Controller
         ]);
 
         $CDbCriteria = new CDbCriteria;
-        $CDbCriteria->with = 'Author';
+        $CDbCriteria->with =['Author'];
         $CDbCriteria->compare('employee_group_id', $employeeGroupId);
         if ($this->Employee->role != 'admin') {
             $CDbCriteria->compare('`to`', $this->Employee->id);
         }
+        $CDbCriteria->addCondition("t.create_date IN (SELECT MAX(create_date) as create_date FROM " . Message::model()->tableName() . " GROUP BY `from`, `to`)");
 
         $sort = new CSort();
-        $sort->defaultOrder = 't.create_date DESC';
 
         $DataProvider = new CActiveDataProvider(Message::model(), array(
             'criteria' => $CDbCriteria,
             'sort' => $sort
         ));
 
-        $grid = $this->renderPartial('_grid', array(
+        $grid = $this->renderPartial('_list', array(
             'DataProvider' => $DataProvider,
             'buttons' => true,
         ), true);
@@ -93,10 +93,7 @@ class MessageController extends Controller
     {
         $Message = Message::model()->findByPk($id);
         if ($Message && $Message->to == $this->Employee->id) {
-            $Message->is_read = 1;
-            $Message->save();
-        } else {
-            $this->redirect(Yii::app()->request->urlReferrer);
+            Message::model()->updateAll(['is_read' => 1], "`from` = $Message->from AND `to` = $Message->to");
         }
 
         $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
@@ -121,7 +118,7 @@ class MessageController extends Controller
             'sort' => $sort
         ));
 
-        $grid = $this->renderPartial('_grid', array(
+        $grid = $this->renderPartial('_conversation', array(
             'DataProvider' => $DataProvider,
             'buttons' => false,
         ), true);

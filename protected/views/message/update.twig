@@ -6,8 +6,8 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation"><a href="/message/list?id={{ currentId }}">Сообщения</a></li>
-        <li role="presentation" class="active"><a href="#">Сообщения от {{ Message.author }}</a></li>
+        <li role="presentation"><a href="/message/list?id={{ currentId }}">Входящие сообщения</a></li>
+        <li role="presentation" class="active"><a href="#">Переписка с {{ Message.author }}</a></li>
     </ul>
 
     {% include "views/message/answer.twig" %}

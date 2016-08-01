@@ -23,6 +23,7 @@ $this->widget('booster.widgets.TbGridView', [
         ],
         [
             'name' => 'text',
+            'value' => '$data->short',
         ],
         [
             'name' => 'from',
@@ -53,7 +54,6 @@ $this->widget('booster.widgets.TbGridView', [
                     )
                 ),
             ),
-            'visible' => $buttons,
         ],
     ]
 ]);

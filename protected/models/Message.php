@@ -51,8 +51,8 @@ class Message extends CActiveRecord
         return [
             'id' => 'ID',
             'text' => 'Текст',
-            'from' => 'Автор',
-            'to' => 'Кому',
+            'from' => 'Отправитель',
+            'to' => 'Получатель',
             'create_date' => 'Дата',
         ];
     }
@@ -119,5 +119,13 @@ class Message extends CActiveRecord
         return $this->from ? (
         $this->Target->role == 'admin' ? 'ADMIN' : $this->Target->username
         ) : "SYSTEM";
+    }
+
+    /**
+     * @return string
+     */
+    public function getShort()
+    {
+        return mb_strlen($this->text) > 100 ? mb_strcut($this->text, 0, 100) . '...' : $this->text;
     }
 }
