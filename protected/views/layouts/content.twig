@@ -47,7 +47,7 @@
                         </li>
                     {% endif %}
                     <li {% if this.part == "message" %}class="active"{% endif %}>
-                        <a href="/message/list">
+                        <a href="/message/inbox">
                             Входящие сообщения  {% if this.Employee.newMessages > 0 %}<span class="label label-success">{{ this.Employee.newMessages }}</span>{% endif %}
                         </a>
                     </li>

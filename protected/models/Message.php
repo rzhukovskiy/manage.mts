@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table '{{message}}':
  * @property int $id
+ * @property int $parent_id
  * @property string $text
  * @property string $create_date
  * @property int $from
@@ -14,6 +15,7 @@
  * The followings are the available model relations:
  * @property Employee $Author
  * @property Employee $Target
+ * @property Message $Topic
  */
 class Message extends CActiveRecord
 {
@@ -67,6 +69,7 @@ class Message extends CActiveRecord
         return [
             'Author' => [self::BELONGS_TO, 'Employee', 'from'],
             'Target' => [self::BELONGS_TO, 'Employee', 'to'],
+            'Topic' => [self::BELONGS_TO, 'Message', 'parent_id'],
         ];
     }
 

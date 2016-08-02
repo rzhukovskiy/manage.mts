@@ -6,7 +6,8 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation"><a href="/message/list?id={{ currentId }}">Входящие сообщения</a></li>
+        <li role="presentation"><a href="/message/inbox?id={{ currentId }}">Входящие</a></li>
+        <li role="presentation"><a href="/message/outbox?id={{ currentId }}">Исходящие</a></li>
         <li role="presentation" class="active"><a href="#">Переписка с {{ Message.author }}</a></li>
     </ul>
 

@@ -19,7 +19,7 @@ class MessageController extends Controller
         $this->Employee = Employee::model()->findByPk($userId);
     }
 
-    public function actionList()
+    public function actionInbox()
     {
         $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
         if (Yii::app()->request->getQuery('id', false)) {
@@ -42,7 +42,7 @@ class MessageController extends Controller
         if ($this->Employee->role != 'admin') {
             $CDbCriteria->compare('`to`', $this->Employee->id);
         }
-        $CDbCriteria->addCondition("t.create_date IN (SELECT MAX(create_date) as create_date FROM " . Message::model()->tableName() . " GROUP BY `from`, `to`)");
+        $CDbCriteria->addCondition("parent_id IS NULL");
 
         $sort = new CSort();
 
@@ -61,27 +61,54 @@ class MessageController extends Controller
             'EmployeeGroups' => $EmployeeGroups,
             'Employees' => $Employees,
             'grid' => $grid,
+            'inbox' => true,
         ));
     }
 
-    /**
-     * Creates a new model.
-     */
-    public function actionCreate()
+    public function actionOutbox()
     {
-        if(isset($_POST['Message'])) {
-            $Message = new Message();
-            $Message->attributes = $_POST['Message'];
-            $Message->from = $this->Employee->id;
-
-            try {
-                $Message->save();
-            } catch(\Exception $e) {
-                Yii::app()->user->setFlash('error', $e->getMessage());
-            }
+        $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
+        if (Yii::app()->request->getQuery('id', false)) {
+            $employeeGroupId = Yii::app()->request->getQuery('id');
+        } else {
+            $employeeGroupId = $EmployeeGroups[0]->id;
         }
 
-        $this->redirect(Yii::app()->request->urlReferrer);
+        $Employees = Employee::model()->findAll([
+            "condition" => "employee_group_id = :employee_group_id",
+            "order" => "id",
+            "params" => [
+                ':employee_group_id' => $employeeGroupId,
+            ]
+        ]);
+
+        $CDbCriteria = new CDbCriteria;
+        $CDbCriteria->with =['Target'];
+        $CDbCriteria->compare('employee_group_id', $employeeGroupId);
+        if ($this->Employee->role != 'admin') {
+            $CDbCriteria->compare('`from`', $this->Employee->id);
+        }
+        $CDbCriteria->addCondition("parent_id IS NULL");
+
+        $sort = new CSort();
+
+        $DataProvider = new CActiveDataProvider(Message::model(), array(
+            'criteria' => $CDbCriteria,
+            'sort' => $sort
+        ));
+
+        $grid = $this->renderPartial('_list', array(
+            'DataProvider' => $DataProvider,
+            'buttons' => true,
+        ), true);
+
+        $this->render('list',array(
+            'currentId' => $employeeGroupId,
+            'EmployeeGroups' => $EmployeeGroups,
+            'Employees' => $Employees,
+            'grid' => $grid,
+            'inbox' => false,
+        ));
     }
 
     /**
@@ -89,11 +116,13 @@ class MessageController extends Controller
      *
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id)
+    public function actionRead($id)
     {
         $Message = Message::model()->findByPk($id);
         if ($Message && $Message->to == $this->Employee->id) {
-            Message::model()->updateAll(['is_read' => 1], "`from` = $Message->from AND `to` = $Message->to");
+            Message::model()->updateAll(['is_read' => 1], "parent_id = :parent_id", [":parent_id" => $id]);
+            $Message->is_read = 1;
+            $Message->save();
         }
 
         $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
@@ -108,7 +137,8 @@ class MessageController extends Controller
         ]);
 
         $CDbCriteria = new CDbCriteria;
-        $CDbCriteria->addCondition("(`to` = {$this->Employee->id} AND `from` = {$Message->from}) OR (`from` = {$this->Employee->id} AND `to` = {$Message->from})");
+        $CDbCriteria->addCondition('parent_id = :id OR id = :id');
+        $CDbCriteria->params = [':id' => $id];
 
         $sort = new CSort();
         $sort->defaultOrder = 't.create_date DESC';
@@ -141,7 +171,36 @@ class MessageController extends Controller
     {
         $Message = Message::model()->findByPk($id);
         if ($Message) {
+            Message::model()->deleteAll('parent_id = :parent_id', [':parent_id' => $Message->id]);
             $Message->delete();
+        }
+
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
+
+    /**
+     * Creates a new model.
+     */
+    public function actionCreate()
+    {
+        if(isset($_POST['Message'])) {
+            $Message = new Message();
+            $Message->attributes = $_POST['Message'];
+            $Message->from = $this->Employee->id;
+            if(isset($_POST['Topic'])) {
+                $Topic = Message::model()->findByPk($_POST['Topic']);
+                if ($Topic) {
+                    $Topic->is_read = 0;
+                    $Topic->save();
+                    $Message->parent_id = $Topic->id;
+                }
+            }
+
+            try {
+                $Message->save();
+            } catch(\Exception $e) {
+                Yii::app()->user->setFlash('error', $e->getMessage());
+            }
         }
 
         $this->redirect(Yii::app()->request->urlReferrer);

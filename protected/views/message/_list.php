@@ -37,13 +37,14 @@ $this->widget('booster.widgets.TbGridView', [
         [
             'class' => 'CButtonColumn',
             'htmlOptions' => array('style' => 'text-align: center; width: 90px;'),
-            'template' => $this->Employee->role == 'admin' ? '{delete}{update}' : '{update}',
+            'template' => $this->Employee->role == 'admin' ? '{delete}{view}' : '{view}',
             'buttons' => array(
-                'update' => array(
+                'view' => array(
                     'label' => '',
                     'imageUrl' => false,
+                    'url' => 'Yii::app()->createUrl("message/read", array("id" => $data->id))',
                     'options' => array(
-                        'class' => 'fa fa-edit admin-grid-edit'
+                        'class' => 'fa fa-search admin-grid-search'
                     )
                 ),
                 'delete' => array(
