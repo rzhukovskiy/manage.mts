@@ -16,6 +16,7 @@
  * @property Employee $Author
  * @property Employee $Target
  * @property Message $Topic
+ * @property Message[] $Children
  */
 class Message extends CActiveRecord
 {
@@ -70,6 +71,7 @@ class Message extends CActiveRecord
             'Author' => [self::BELONGS_TO, 'Employee', 'from'],
             'Target' => [self::BELONGS_TO, 'Employee', 'to'],
             'Topic' => [self::BELONGS_TO, 'Message', 'parent_id'],
+            'Children' => [self::HAS_MANY, 'Message', 'parent_id'],
         ];
     }
 
@@ -130,5 +132,16 @@ class Message extends CActiveRecord
     public function getShort()
     {
         return mb_strlen($this->text) > 100 ? mb_strcut($this->text, 0, 100) . '...' : $this->text;
+    }
+
+    /**
+     * @return string
+     */
+    public function isReadByEmployee($employeeId)
+    {
+        return $this->is_read && count(Message::model()->findAll('parent_id = :parent_id AND `to` = :to AND is_read = 0', [
+            ':parent_id' => $this->id,
+            ':to' => $employeeId
+        ])) == 0;
     }
 }

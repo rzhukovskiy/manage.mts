@@ -6,9 +6,13 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation"><a href="/message/inbox?id={{ currentId }}">Входящие</a></li>
-        <li role="presentation"><a href="/message/outbox?id={{ currentId }}">Исходящие</a></li>
-        <li role="presentation" class="active"><a href="#">Переписка с {{ Message.author }}</a></li>
+        <li role="presentation">
+            <a href="/message/inbox?employeeGroupId={{ employeeGroupId }}&employeeId={{ employeeId }}">Входящие</a>
+        </li>
+        <li role="presentation">
+            <a href="/message/outbox?employeeGroupId={{ employeeGroupId }}&employeeId={{ employeeId }}">Исходящие</a>
+        </li>
+        <li role="presentation" class="active"><a href="#">Переписка</a></li>
     </ul>
 
     {% include "views/message/answer.twig" %}

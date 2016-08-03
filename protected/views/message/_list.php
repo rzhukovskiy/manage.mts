@@ -6,7 +6,7 @@ $this->widget('booster.widgets.TbGridView', [
     'dataProvider' => $DataProvider,
     'summaryText' => '',
     'rowCssClassExpression' => function($row, $data) {
-        if (!$data->is_read) {
+        if (!$data->isReadByEmployee($this->Employee->id)) {
             return 'request__new';
         }
     },

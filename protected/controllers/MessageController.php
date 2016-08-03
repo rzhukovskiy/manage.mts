@@ -22,29 +22,41 @@ class MessageController extends Controller
     public function actionInbox()
     {
         $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
-        if (Yii::app()->request->getQuery('id', false)) {
-            $employeeGroupId = Yii::app()->request->getQuery('id');
+        if (Yii::app()->request->getQuery('employeeGroupId', false)) {
+            $employeeGroupId = Yii::app()->request->getQuery('employeeGroupId');
         } else {
             $employeeGroupId = $EmployeeGroups[0]->id;
         }
 
-        $Employees = Employee::model()->findAll([
-            "condition" => "employee_group_id = :employee_group_id",
-            "order" => "id",
-            "params" => [
-                ':employee_group_id' => $employeeGroupId,
-            ]
-        ]);
+        if ($this->Employee->role == 'admin') {
+            $Employees = Employee::model()->findAll('id != ' . $this->Employee->id);
+        } else {
+            $Employees = Employee::model()->findAll([
+                "condition" => "employee_group_id = :employee_group_id",
+                "order" => "id",
+                "params" => [
+                    ':employee_group_id' => $employeeGroupId,
+                ]
+            ]);
+        }
+        if (Yii::app()->request->getQuery('employeeId', false)) {
+            $employeeId = Yii::app()->request->getQuery('employeeId');
+        } else {
+            $employeeId = $Employees[0]->id;
+        }
 
         $CDbCriteria = new CDbCriteria;
         $CDbCriteria->with =['Author'];
-        $CDbCriteria->compare('employee_group_id', $employeeGroupId);
         if ($this->Employee->role != 'admin') {
+            $CDbCriteria->compare('employee_group_id', $employeeGroupId);
             $CDbCriteria->compare('`to`', $this->Employee->id);
+        } else {
+            $CDbCriteria->compare('`to`', $employeeId);
         }
         $CDbCriteria->addCondition("parent_id IS NULL");
 
         $sort = new CSort();
+        $sort->defaultOrder = 't.create_date DESC';
 
         $DataProvider = new CActiveDataProvider(Message::model(), array(
             'criteria' => $CDbCriteria,
@@ -57,7 +69,8 @@ class MessageController extends Controller
         ), true);
 
         $this->render('list',array(
-            'currentId' => $employeeGroupId,
+            'employeeGroupId' => $employeeGroupId,
+            'employeeId' => $employeeId,
             'EmployeeGroups' => $EmployeeGroups,
             'Employees' => $Employees,
             'grid' => $grid,
@@ -68,29 +81,41 @@ class MessageController extends Controller
     public function actionOutbox()
     {
         $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
-        if (Yii::app()->request->getQuery('id', false)) {
-            $employeeGroupId = Yii::app()->request->getQuery('id');
+        if (Yii::app()->request->getQuery('employeeGroupId', false)) {
+            $employeeGroupId = Yii::app()->request->getQuery('employeeGroupId');
         } else {
             $employeeGroupId = $EmployeeGroups[0]->id;
         }
 
-        $Employees = Employee::model()->findAll([
-            "condition" => "employee_group_id = :employee_group_id",
-            "order" => "id",
-            "params" => [
-                ':employee_group_id' => $employeeGroupId,
-            ]
-        ]);
+        if ($this->Employee->role == 'admin') {
+            $Employees = Employee::model()->findAll('id != ' . $this->Employee->id);
+        } else {
+            $Employees = Employee::model()->findAll([
+                "condition" => "employee_group_id = :employee_group_id",
+                "order" => "id",
+                "params" => [
+                    ':employee_group_id' => $employeeGroupId,
+                ]
+            ]);
+        }
+        if (Yii::app()->request->getQuery('employeeId', false)) {
+            $employeeId = Yii::app()->request->getQuery('employeeId');
+        } else {
+            $employeeId = $Employees[0]->id;
+        }
 
         $CDbCriteria = new CDbCriteria;
         $CDbCriteria->with =['Target'];
-        $CDbCriteria->compare('employee_group_id', $employeeGroupId);
         if ($this->Employee->role != 'admin') {
+            $CDbCriteria->compare('employee_group_id', $employeeGroupId);
             $CDbCriteria->compare('`from`', $this->Employee->id);
+        } else {
+            $CDbCriteria->compare('`from`', $employeeId);
         }
         $CDbCriteria->addCondition("parent_id IS NULL");
 
         $sort = new CSort();
+        $sort->defaultOrder = 't.create_date DESC';
 
         $DataProvider = new CActiveDataProvider(Message::model(), array(
             'criteria' => $CDbCriteria,
@@ -103,7 +128,8 @@ class MessageController extends Controller
         ), true);
 
         $this->render('list',array(
-            'currentId' => $employeeGroupId,
+            'employeeGroupId' => $employeeGroupId,
+            'employeeId' => $employeeId,
             'EmployeeGroups' => $EmployeeGroups,
             'Employees' => $Employees,
             'grid' => $grid,
@@ -119,22 +145,28 @@ class MessageController extends Controller
     public function actionRead($id)
     {
         $Message = Message::model()->findByPk($id);
-        if ($Message && $Message->to == $this->Employee->id) {
-            Message::model()->updateAll(['is_read' => 1], "parent_id = :parent_id", [":parent_id" => $id]);
-            $Message->is_read = 1;
-            $Message->save();
+        Message::model()->updateAll(['is_read' => 1], "`to` = :to AND parent_id = :parent_id", [":parent_id" => $id, ':to' => $this->Employee->id]);
+        $Message->is_read = 1;
+        $Message->save();
+
+        $EmployeeGroups = EmployeeGroup::model()->findAll('id != ' . $this->Employee->employee_group_id);
+        if ($Message->to == $this->Employee->id) {
+            $employeeGroupId = $Message->Author->employee_group_id;
+        } else {
+            $employeeGroupId = $Message->Target->employee_group_id;
         }
 
-        $EmployeeGroups = EmployeeGroup::model()->findAll(["order" => "id"]);
-        $employeeGroupId = $Message->Author->employee_group_id;
-
-        $Employees = Employee::model()->findAll([
-            "condition" => "employee_group_id = :employee_group_id",
-            "order" => "id",
-            "params" => [
-                ':employee_group_id' => $employeeGroupId,
-            ]
-        ]);
+        if ($this->Employee->role == 'admin') {
+            $Employees = Employee::model()->findAll('id != ' . $this->Employee->id);
+        } else {
+            $Employees = Employee::model()->findAll([
+                "condition" => "employee_group_id = :employee_group_id",
+                "order" => "id",
+                "params" => [
+                    ':employee_group_id' => $employeeGroupId,
+                ]
+            ]);
+        }
 
         $CDbCriteria = new CDbCriteria;
         $CDbCriteria->addCondition('parent_id = :id OR id = :id');
@@ -154,7 +186,7 @@ class MessageController extends Controller
         ), true);
 
         $this->render('update',array(
-            'currentId' => $employeeGroupId,
+            'employeeGroupId' => $employeeGroupId,
             'EmployeeGroups' => $EmployeeGroups,
             'Employees' => $Employees,
             'Message' => $Message,
@@ -186,13 +218,16 @@ class MessageController extends Controller
         if(isset($_POST['Message'])) {
             $Message = new Message();
             $Message->attributes = $_POST['Message'];
-            $Message->from = $this->Employee->id;
             if(isset($_POST['Topic'])) {
                 $Topic = Message::model()->findByPk($_POST['Topic']);
+                $Message->from = $this->Employee->id;
                 if ($Topic) {
-                    $Topic->is_read = 0;
-                    $Topic->save();
                     $Message->parent_id = $Topic->id;
+                    if ($Topic->from == $this->Employee->id) {
+                        $Message->to = $Topic->to;
+                    } else {
+                        $Message->to = $Topic->from;
+                    }
                 }
             }
 

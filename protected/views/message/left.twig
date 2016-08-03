@@ -1,9 +1,19 @@
 <ul class="nav nav-pills nav-stacked">
-    {% for index, CurrentEmployeeGroup in EmployeeGroups %}
-        <li {% if CurrentEmployeeGroup.id == currentId %}class="active"{% endif %}>
-            <a href="/message/inbox?id={{ CurrentEmployeeGroup.id }}">
-                {{ CurrentEmployeeGroup.name }}  {% if CurrentEmployeeGroup.getNewMessages(this.Employee.id) %}<span class="label label-success">{{ CurrentEmployeeGroup.getNewMessages(this.Employee.id) }}</span>{% endif %}
-            </a>
-        </li>
-    {% endfor %}
+    {% if App.user.role == "admin" %}
+        {% for index, CurrentEmployee in Employees %}
+            <li {% if CurrentEmployee.id == employeeId %}class="active"{% endif %}>
+                <a href="/message/inbox?employeeId={{ CurrentEmployee.id }}">
+                    {{ CurrentEmployee.username }}
+                </a>
+            </li>
+        {% endfor %}
+    {% else %}
+        {% for index, CurrentEmployeeGroup in EmployeeGroups %}
+            <li {% if CurrentEmployeeGroup.id == employeeGroupId %}class="active"{% endif %}>
+                <a href="/message/inbox?employeeGroupId={{ CurrentEmployeeGroup.id }}">
+                    {{ CurrentEmployeeGroup.name }}  {% if CurrentEmployeeGroup.getNewMessages(this.Employee.id) %}<span class="label label-success">{{ CurrentEmployeeGroup.getNewMessages(this.Employee.id) }}</span>{% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    {% endif %}
 </ul>

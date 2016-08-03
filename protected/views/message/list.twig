@@ -6,8 +6,12 @@
 
 {% block content %}
     <ul class="nav nav-tabs nav-tabs-employee">
-        <li role="presentation" {% if inbox %}class="active"{% endif %}><a href="/message/inbox?id={{ currentId }}">Входящие</a></li>
-        <li role="presentation" {% if inbox == false %}class="active"{% endif %}><a href="/message/outbox?id={{ currentId }}">Исходящие</a></li>
+        <li role="presentation" {% if inbox %}class="active"{% endif %}>
+            <a href="/message/inbox?employeeGroupId={{ employeeGroupId }}&employeeId={{ employeeId }}">Входящие</a>
+        </li>
+        <li role="presentation" {% if inbox == false %}class="active"{% endif %}>
+            <a href="/message/outbox?employeeGroupId={{ employeeGroupId }}&employeeId={{ employeeId }}">Исходящие</a>
+        </li>
     </ul>
 
     {% include "views/message/form.twig" %}
