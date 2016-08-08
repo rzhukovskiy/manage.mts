@@ -45,6 +45,11 @@
                                 Архив 2
                             </a>
                         </li>
+                        <li {% if this.part == "act" %}class="active"{% endif %}>
+                            <a href="/act/list">
+                                Акты и оплата
+                            </a>
+                        </li>
                     {% endif %}
                     <li {% if this.part == "message" %}class="active"{% endif %}>
                         <a href="/message/inbox">
