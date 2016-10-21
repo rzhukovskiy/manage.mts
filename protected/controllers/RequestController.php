@@ -525,7 +525,10 @@ class RequestController extends Controller
 
     public function actionCheckContactTime()
     {
-        if ($this->Employee->role == 'admin' || strpos(Yii::app()->request->urlReferrer, 'request/details') !== false) {
+        if ($this->Employee->role == 'admin' ||
+            strpos(Yii::app()->request->urlReferrer, 'request/details') !== false ||
+            $this->Employee->employee_group_id == 4
+        ) {
             $this->outJson([]);
         }
         $RequestLib = new RequestActiveLib($this->Employee);
