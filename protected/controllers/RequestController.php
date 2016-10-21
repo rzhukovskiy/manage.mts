@@ -526,14 +526,14 @@ class RequestController extends Controller
     public function actionCheckContactTime()
     {
         if ($this->Employee->role == 'admin' ||
-            strpos(Yii::app()->request->urlReferrer, 'request/details') !== false ||
-            $this->Employee->employee_group_id == 4
+            strpos(Yii::app()->request->urlReferrer, 'request/details') !== false
         ) {
             $this->outJson([]);
         }
         $RequestLib = new RequestActiveLib($this->Employee);
         $CDbCriteria = $RequestLib->getRequestsCriteria();
         $CDbCriteria->addCondition('(state = 1 OR state = 3) AND next_communication_date <= "' . date('Y-m-d H:i:s', time() + 3 * 60) . '"');
+        $CDbCriteria->addCondition('RequestService.request_ptr_id IS NULL');
         $CDbCriteria->order = 'next_communication_date ASC';
         $CDbCriteria->with = array_merge(['RequestEmployee'], $CDbCriteria->with);
         $CDbCriteria->together = true;
